@@ -1,8 +1,0 @@
-{
-    "data" : [
-        "\nR version 3.3.2 (2016-10-31) -- \"Sincere Pumpkin Patch\"\nCopyright (C) 2016 The R Foundation for Statistical Computing\nPlatform: x86_64-pc-linux-gnu (64-bit)\n\nR是自由软件，不带任何担保。\n在某些条件下你可以将其自由散布。\n用'license()'或'licence()'来看散布的详细条件。\n\nR是个合作计划，有许多人为之做出了贡献.\n用'contributors()'来看合作者的详细情况\n用'citation()'会告诉你如何在出版物中正确地引用R或R程序包。\n\n用'demo()'来看一些示范程序，用'help()'来阅读在线帮助文件，或\n用'help.start()'通过HTML浏览器来看帮助文件。\n用'q()'退出R.\n\n"
-    ],
-    "type" : [
-        2
-    ]
-}

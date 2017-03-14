@@ -18,12 +18,14 @@ owner:
   facebook:       madlogos
   github:         madlogos
   stackexchange:  madlogos
-  linkedin:       madlogos
+  linkedin:       yiying-wang
   instagram:      
   flickr:         
   tumblr:         
   # google plus id, include the '+', eg +mmistakes
-  google_plus:  +madlogos
+  google_plus:  +汪轶颖madlogos
+  weibo:         madlogos
+  wechat:        madlogos
 
 # Background image to be tiled on all pages
 background: 
@@ -36,6 +38,7 @@ bing_verify:
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 timezone:    Asia/Shanghai
+locale:      zh-CN
 future:      true  # publish future dated posts --  true, false (default) 
 highlighter: rouge
 markdown:    kramdown
