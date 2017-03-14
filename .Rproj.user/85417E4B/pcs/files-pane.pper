@@ -1,6 +1,10 @@
 {
-    "path" : "~/RProj/ghBlog",
+    "path" : "~/RProj/ghBlog/_posts",
     "sortOrder" : [
+        {
+            "ascending" : false,
+            "columnIndex" : 3
+        },
         {
             "ascending" : true,
             "columnIndex" : 2
