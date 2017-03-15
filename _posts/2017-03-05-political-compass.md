@@ -4,8 +4,7 @@ title: 朝左还是朝右？来看一份17万行的小样本数据
 author: madlogos  
 date: 2017/3/5
 tags: [数据]
-image:
-  feature: http://ohghnje4x.bkt.clouddn.com/image/170305/1c06a139efd5c1bee92364b82dbfbef1.jpg
+image: http://ohghnje4x.bkt.clouddn.com/image/170305/1c06a139efd5c1bee92364b82dbfbef1.jpg
 ---
 
 # 回味2016
