@@ -8,3 +8,4 @@ Gemfile.lock
 .sass-cache
 .jekyll-metadata
 .Rproj.user
+_draft_rmd
