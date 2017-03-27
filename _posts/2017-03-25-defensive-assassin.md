@@ -6,7 +6,7 @@ author: madlogos
 modified: 2017-3-25
 tags: [时评]
 image: 
-  feature: http://images.infzm.com/medias/2017/0323/114331.jpeg
+  feature: yuan_da_gong_mao.jpg
 comments: true
 ---
 
@@ -119,3 +119,11 @@ comments: true
 礼法两难是全人类的问题，不单单是中国的。正是因为彭宇案的广泛讨论，才有了“自愿紧急救助导致伤害，救助人不承担民事责任”的“好人法”。此案固然有很大的悲剧性，但也是社会进步的契机。有关部门不要学乾隆，搞404维稳，掩耳盗铃。到当地去，看看基层社会变成了什么样子。想想自己该做点什么。
 
 好的公共议题都是两难议题。**问题摆在桌子上了，谁逃走谁是孙子**。
+
+[完]
+
+----
+
+扫码关注我的的我的公众号
+
+![](http://ohghnje4x.bkt.clouddn.com/QRcode.jpg)
