@@ -3,7 +3,7 @@ layout: post
 title: 一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据
 description: "卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。"
 author: madlogos
-modified: 2017-4-6
+modified: 2017-4-7
 tags: [数据]
 comments: true
 ---
@@ -30,19 +30,19 @@ comments: true
 
 # 搬砖设想
 
-搬砖虽然是贱活儿，但也要讲技巧。好在从技术角度，爬这些页面是再简单不过的事。只需要两步就完了：
+搬砖虽然是个贱活儿，但也要讲技巧。好在从技术角度，爬这些页面是再简单不过的事。只需要两步就完了：
 
 1. 把所有月报页的链接抓到
-2. 顺着这些链接把所有页面都爬下来
+2. 顺着这些链接把所有页面源码都爬下来
 
-更好的消息是所有页面都是静态的。所以只要用`rvest`就够了，整页爬下来，所有信息就包含在html里面（事实上不是）。
+更好的消息是所有页面都是静态的。所以只要用`rvest`就够了，整页爬下来，所有信息就包含在html里面（事实上并不是）。
 
 爬到所有月报页后，解析内容又是两步走：
 
 1. 把正文里的发病/死亡总数抽出来，跑个时序图看看周期性
 2. 把附表里的内容抽出来，分病种跑些分析
 
-Easy as a pie！等我一盏茶的功夫，我去去就来。（结果茶馊了都没回来）
+Easy as a pie！等我一盏茶的功夫，我去去就来。（结果茶馊了都没能回来）
 
 # 爬目录
 
@@ -56,14 +56,14 @@ urls <- paste0(
 
 ## `rvest`
 
-有了URL，就可以爬内容了。当然可以把网页当文本，直接`readLines`，然后拿`XML`包写解析规则。但我们学R图什么？还不就是**免费+有很多包方便偷懒**？对于静态网页，当然毫不犹豫`rvest`。
+有了URL，就可以爬源码了。当然可以把网页当文本，直接`readLines`，然后拿`XML`包写解析规则。但我们学R图什么？还不就是**免费+有很多包方便偷懒**？对于静态网页，当然毫不犹豫`rvest`。
 
 `rvest`的核心函数是`read_html`、`html_nodes`、`html_text`和`html_table`。
 
 - `read_html`很好理解，把页面读进来。这个页面会被封装为一个`xml_nodes`对象。
 - `html_nodes`则负责从`xml_nodes`对象中提取某个节点的内容，封装成`xml_nodeset`对象。
 - 进一步，如果要把里面的内容都当做文本提出来，用`html_text`。
-- 有表格（<table>...</table>）的话，用`html_table`，直接转成梦寐以求的data.frame。
+- 有表格（<table>...</table>）的话，用`html_table`，直接输出梦寐以求的data.frame。
 
 唯一费解的概念也就是“节点”。但只要对html和xml略有了解，就很容易理解。一个html文件的典型结构是
 
@@ -91,7 +91,7 @@ library(rvest)
 # 构造一个提取单个目录页信息的函数
 getTOC <- function(url){
   ## Args
-  ##   url: 网页/网址
+  ##   url: 单个网页/网址
 
     # 读取网页，构成xml_nodes
     html <- read_html(url)
@@ -150,20 +150,13 @@ toc$date <- as.Date(toc$date)
 
 `toc`数据集长这样：
 
-No |                                                                        href | title  | dop | date
----|-----------------------------------------------------------------------------|--------|-----|-----------
-1  | http://www.nhfpc.gov.cn/jkj/s3578/201703/3fed3e04129b49e8a860e47cfe742c63.shtml | 2017年2月全国法定传染病疫情概况 | 2017-02-14 | 2017-01-01
-4  | http://www.nhfpc.gov.cn/jkj/s3578/201702/f1e4cfe184e44f80ae57d0954c3d5fce.shtml | 2017年1月全国法定传染病疫情概况 | 2017-02-14 | 2017-01-01
-5  | http://www.nhfpc.gov.cn/jkj/s3578/201701/5591df54aeca40c8acaedda7eebf6c96.shtml | 2016年12月全国法定传染病疫情概况 | 2017-01-11 | 2016-12-01
-9  | http://www.nhfpc.gov.cn/jkj/s3578/201612/8a84c914186441d9a444e81751f58863.shtml | 2016年11月全国法定传染病疫情概况 | 2016-12-14 | 2016-11-01
-12 | http://www.nhfpc.gov.cn/jkj/s3578/201611/64e48f53447a453fafc53d58f41cc14b.shtml | 2016年10月全国法定传染病疫情概况 | 2016-11-14 | 2016-10-01
-13 | http://www.nhfpc.gov.cn/jkj/s3578/201610/270fc4af82b4419f8fb8eda74d5111e8.shtml | 2016年9月全国法定传染病疫情概况 | 2016-10-11 | 2016-09-01
+![toc表格](http://ohghnje4x.bkt.clouddn.com/image/170404/toc_tbl.png)
 
 万里长征踏出了第一步。
 
 # 爬网页
 
-这一步就比较简单了，干脆就先把网页代码先弄下来。在这里就不多考虑反爬虫问题了（因为试下来卫计委官网好像没有反爬虫机制，再说才爬它一百多个页面，有啥好反的）。为了加点速，充分利用CPU（R默认只用单核）算力，拿`doParallel`包做了点并行计算处理。
+这一步就比较简单了，干脆就先把网页代码先弄下来。在这里就不多考虑反爬虫问题了（因为试下来卫计委官网好像没有反爬虫机制，再说才爬它一百多个页面，有啥好反的）。电脑虽然配置不济，好歹有4个核。为了加点速，充分利用CPU（R默认只用单核）算力，不妨拿`doParallel`包做点并行计算处理。
 
 ```r
 # 构造一个读取网页代码的函数
@@ -181,6 +174,8 @@ pages <- foreach(i=seq_along(toc$href), .combine=c) %dopar%
 names(pages) <- as.character(toc$date)
 ```
 
+pages是一个149个文本元素构成的大向量，用日期作为向量命名。
+
 ```r
 str(pages)
 ```
@@ -194,20 +189,22 @@ str(pages)
 
 第二个大坑正在缓缓靠近：不是所有月报都有发病和死亡总数。
 
-- 2005年以前，不报告丙类传染病
-- 2010年以前，不汇报发病和死亡总数，且甲乙类合并，丙类另报
-- 甲类汇总的文本多样化很强
+- 2005年以前，压根不报告丙类传染病
+- 2010年以前，不汇报发病和死亡总数，且甲乙类合并计数，丙类另报
+- 甲类汇总的文本多样化很强，一般鼠疫和霍乱还分开来报，正则写起来会死。
 
 所以最后决定：
 
 - 抽得到总数的，直接用总数
 - 没有报告总数的，会向后抽到甲乙类合计，或甲类，或乙类。无论哪种情况，乙类+丙类基本等于总数
 
+好机（偷）智（懒）！
+
 ```r
 # 构造函数，从正文直接提取发病和死亡总数
 getKeyNums <- function(page){
     ## Arg
-    ##   page: 网页
+    ##   page: 单个网页
 
     page <- read_html(page)
     txt.node <- html_nodes(page, "div.con")
@@ -265,6 +262,8 @@ genl.stat["2009-04-01", 1:2] <- c(338281, 576)
 
 ```r
 genl.stat <- melt(genl.stat, id="Date")
+library(ggplot2)
+library(ggthemes)
 ggplot(genl.stat) + geom_line(aes(Date, value, color=variable)) + theme_hc() +
     scale_color_hc() + scale_x_date(date_breaks="1 year", date_labels="%Y") +
     facet_grid(variable~., scales="free") + 
@@ -273,7 +272,7 @@ ggplot(genl.stat) + geom_line(aes(Date, value, color=variable)) + theme_hc() +
         subtitle="2005/1-2017/2", caption="source: NHFPC")
 ```
 
-周期性还是很显著。
+年周期性还是很显著的。
 
 ![发病/死亡月度统计](http://ohghnje4x.bkt.clouddn.com/image/170404/inc_mot_infectdis.png)
 
@@ -289,7 +288,7 @@ ggplot(genl.stat) + geom_line(aes(Date, value, color=variable)) + theme_hc() +
 
 竟然还有直接传个截图当公报的，怎么不去爆炸？
 
-本来打算`html_table`跑一遍就愉快地合并数据框了，却不料跑进了一个深坑里。只能改变策略，先把这些附件都下载下来。
+本来打算`html_table`跑一遍就愉快地合并数据框了，却不料跑进了一个马里亚纳深坑里。只能改变策略，先把这些附件都下载下来。
 
 ```r
 # 构造函数，下载附表
@@ -304,7 +303,7 @@ getWebTbl <- function(url, tbl.name){
                c("xls", "csv", "doc", "gif", "jpg", "png"))))){
         return(invisible())
     }
-
+	# 否则就把页面源码读下来
     html <- read_html(url)
     # 尝试抽取网页表格
     cast <- html_nodes(html, "table")
@@ -355,13 +354,16 @@ getWebTbl <- function(url, tbl.name){
             paste0(".+img.+src=\"(.+?\\.)", regex.img, "\".+"), "\\1\\2")
         file.type <- tolower(str_replace(
             doc.link, paste0(".+\\.", regex.img, "$"), "\\1"))
+        # 附件路径补完        
         if (str_detect(doc.link, "^/"))
             doc.link <- paste0(
                 "http://www.nhfpc.gov.cn", doc.link)
+        # 另一种类型的相对路径
         if (str_detect(doc.link, "^[^h/]"))
             doc.link <- paste0(
                 str_replace(url, "^(.+)\\.shtml$", "\\1"),
                 str_replace(doc.link, "^[^/]+(/.+$)", "\\1"))
+        # 重命名并存储
         if (! file.exists(paste0(
             "~/infectdis/", tbl.name, ".", file.type))){
             doc.file <- download.file(
@@ -376,11 +378,11 @@ foreach(i=seq_along(toc$href)) %dopar%
     invisible(getWebTbl(toc$href[i], as.character(toc$date[i])))
 ```
 
-看到这些文件齐齐整整码在硬盘里，宽慰了一点。
+看到这些文件齐齐整整码在硬盘里，心下暂时宽慰了一点。
 
 ![附件下载](http://ohghnje4x.bkt.clouddn.com/image/170404/downfiles.png)
 
-然而让我们回头看看疫情月报附表的多样性吧。
+然而让我们回头看看疫情月报附表们可恨的多样性吧。
 
 ```r
 table(str_replace(
@@ -392,10 +394,7 @@ csv doc gif jpg png xls
  67  51  21   4   1   2
 ```
 
-140多篇文，只有67篇用了网页表格，有53篇是MS office文档，还有26篇直接贴图了事。
+140多篇动态报道，只有67篇用了网页表格附件，有53篇是MS office文档，还有26篇直接贴图了事。
 
-真是一叶落而知天下秋。卫生系统的数据化水准，真是数十年如一日。
-
-
-
+真是一叶落而知天下秋。卫生系统的数据化水准，跟金融系统比起来真是天上地下，一个站着，一个躺着。
 
