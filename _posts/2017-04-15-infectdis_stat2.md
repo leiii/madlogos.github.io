@@ -231,8 +231,9 @@ makeTsPlot <- function(
     if (inherits(df[,xvar], c("POSIXt", "Date"))){
         breaks <- seq(min(df[,xvar]), max(df[,xvar]), unit)
         labels <- format(breaks, "%m\n%y")
-        labels[!str_detect(labels, "^01")] <- format(
-            breaks[!str_detect(labels, "^01")], "%m")
+        min.mon <- sort(format(breaks,"%m"))[1]
+        labels[!str_detect(labels, paste0("^", min.mon))] <- format(
+            breaks[!str_detect(labels, paste0("^", min.mon))], "%m")
         labels <- str_replace(labels, "^0", "")
     }else if (is.numeric(df[,xvar])){
         breaks <- labels <- 
