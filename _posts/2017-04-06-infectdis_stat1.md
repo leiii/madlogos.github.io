@@ -161,16 +161,16 @@ toc$date <- as.Date(toc$date)
 ```r
 # 构造一个读取网页代码的函数
 getWebPage <- function(url){
-    ## Arg
-    ##    url: 网页网址
-    html <- read_lines(url)
-    return(paste(html, collapse="\n"))
+	## Arg
+	##    url: 网页网址
+	html <- read_lines(url)
+	return(paste(html, collapse="\n"))
 }
 # 并行计算
 library(doParallel)
 registerDoParallel(cores=parallel::detectCores())
 pages <- foreach(i=seq_along(toc$href), .combine=c) %dopar% 
-    invisible(getWebPage(toc$href[i]))
+	invisible(getWebPage(toc$href[i]))
 names(pages) <- as.character(toc$date)
 ```
 
@@ -398,3 +398,10 @@ csv doc gif jpg png xls
 
 真是一叶落而知天下秋。卫生系统的数据化水准，跟金融系统比起来真是天上地下，一个站着，一个躺着。
 
+[待续]
+
+----
+
+扫码关注我的的我的公众号
+
+![](http://ohghnje4x.bkt.clouddn.com/QRcode.jpg)
