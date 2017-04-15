@@ -508,7 +508,7 @@ makeTsPlot(dat.flu, "流感每月发病数", xlab="年月", ylab="例数", gvar=
            xvar="日期", yvar="发病数")
 ```
 
-![](http://ohghnje4x.bkt.clouddn.com/image/170415/inc_flu_trend.png）
+![](http://ohghnje4x.bkt.clouddn.com/image/170415/inc_flu_trend.png)
 
 2016年初春有一个高峰。今明两年估计不会有那么高了。
 
