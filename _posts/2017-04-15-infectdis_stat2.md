@@ -29,7 +29,7 @@ comments: true
 
 满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。
 
-> 有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到七牛 http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip。人人都可以免费用。
+> 有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到[七牛云](http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip)。人人都可以免费用。
 
 ## `docxtractr`
 
@@ -63,7 +63,7 @@ readMsoTbl <- function(mso.file, header=TRUE) {
 }
 ```
 
-然后用`lapply`跑个隐式循环，就把所有表格都以data.frame的形式提出来了，存为一个大list。
+然后用`lapply`跑个隐式循环，就把所有表格都以data.frame的形式提出来了，存为一个逼格李斯特(big list)。
 
 ```r
 data <- lapply(list.files("~/infectdis", full.names=TRUE), 
