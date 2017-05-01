@@ -288,4 +288,4 @@ makeTsPlot <- function(
 
 扫码关注我的的我的公众号
 
-![](http://ohghnje4x.bkt.clouddn.com/QRcode.jpg)
+<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%"></img>
