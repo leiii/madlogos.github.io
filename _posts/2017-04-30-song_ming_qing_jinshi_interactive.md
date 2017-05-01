@@ -8,6 +8,8 @@ tags: [可视化]
 comments: true
 ---
 
+> 如果浏览器提示本文加载了不安全的脚本，请点允许。
+
 今次主题比较简单。上个话题留了点冷饭，看起来还没馊，咱敲个鸡蛋炒个蛋炒饭。
 
 炒个什么蛋炒饭呢？——动态图(dynamic charts)。这也是应留言要求额外发的番外。基本和分析关系不大，纯粹是可视化范畴。
@@ -16,9 +18,13 @@ comments: true
 
 通常我们看到的都是静态图，最常见的是.jpg、.png这类位图，逼格高一点的会用到.svg矢量图。但它们都是死图，所有图形元素都不会动。某些情况下，我们不仅要把统计结果映射到特定的视觉通道，还希望表现其历时性，或者允许用户自己进行挖掘。这就需要让图形部件动起来。
 
-一种方法是做成动画(animation)。R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果足够醒目。它的基本思路就是拿出一维来映射时间，基于时间点对数据切片、统计、制图，最后把静态图们合成一个动画。
+- 一种方法是做成动画(animation)。
 
-还有一种方法是交互图(interactive charts)。把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。
+R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果足够醒目。它的基本思路就是拿出一维来映射时间，基于时间点对数据切片、统计、制图，最后把静态图们合成一个动画。
+
+- 还有一种方法是交互图(interactive charts)。
+
+把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。
 
 如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。
 
@@ -157,19 +163,19 @@ make_leaflet <- function(refMap, dyn, bgColor="red", dataset, cutyears){
 make_leaflet(nsong.bou, "北宋", "red", nsong.js, c(960, 1021, 1085, 1127))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html" width="100%" height="640"></iframe>
 
 ```r
 make_leaflet(ming.bou, "明朝", "red", ming.js, c(1368, 1434, 1572, 1644))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html" width="100%" height="640"></iframe>
 
 ```r
 make_leaflet(qing.bou, "清朝", "black", qing.js, c(1644, 1735, 1850, 1911))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html" width="100%" height="640"></iframe>
 
 ## 古今地名一致性
 
@@ -286,7 +292,7 @@ knitr::kable(js.order[order(js.order$`(all)`, decreasing=TRUE),])
 
 给张图，同样是基于leaflet的。注意：**文件非常很大，极费流量**。
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html" width="100%" height="640"></iframe>
 
 然后是省级排名。
 
@@ -339,7 +345,7 @@ echartR(js.order.ec, CN, value, t=variable, type="map_china", subtype="average")
     setTimeline(autoPlay=TRUE) %>% setLegend(FALSE)
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html" width="100%" height="640"></iframe>
 
 图动起来了。感觉棒呆。
 
@@ -351,4 +357,5 @@ echartR(js.order.ec, CN, value, t=variable, type="map_china", subtype="average")
 
 扫码关注我的的我的公众号
 
-<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%"></img>
+<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">
+</img>

@@ -404,4 +404,5 @@ csv doc gif jpg png xls
 
 扫码关注我的的我的公众号
 
-<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%"></img>
+<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">
+</img>
