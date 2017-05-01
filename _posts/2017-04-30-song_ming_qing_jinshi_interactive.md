@@ -163,19 +163,26 @@ make_leaflet <- function(refMap, dyn, bgColor="red", dataset, cutyears){
 make_leaflet(nsong.bou, "北宋", "red", nsong.js, c(960, 1021, 1085, 1127))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html" width="100%" height="640"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html" width="100%" height="500"></iframe>
+
+[点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/song.html)
+
 
 ```r
 make_leaflet(ming.bou, "明朝", "red", ming.js, c(1368, 1434, 1572, 1644))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html" width="100%" height="640"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html" width="100%" height="500"></iframe>
+
+[点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html)
 
 ```r
 make_leaflet(qing.bou, "清朝", "black", qing.js, c(1644, 1735, 1850, 1911))
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html" width="100%" height="640"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html" width="100%" height="500"></iframe>
+
+[点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html)
 
 ## 古今地名一致性
 
@@ -292,7 +299,9 @@ knitr::kable(js.order[order(js.order$`(all)`, decreasing=TRUE),])
 
 给张图，同样是基于leaflet的。注意：**文件非常很大，极费流量**。
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html" width="100%" height="640"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html" width="100%" height="500"></iframe>
+
+[点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/city.html)
 
 然后是省级排名。
 
@@ -345,7 +354,9 @@ echartR(js.order.ec, CN, value, t=variable, type="map_china", subtype="average")
     setTimeline(autoPlay=TRUE) %>% setLegend(FALSE)
 ```
 
-<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html" width="100%" height="640"></iframe>
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html" width="640" height="500"></iframe>
+
+[点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html)
 
 图动起来了。感觉棒呆。
 
@@ -355,7 +366,4 @@ echartR(js.order.ec, CN, value, t=variable, type="map_china", subtype="average")
 
 ----
 
-扫码关注我的的我的公众号
-
-<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">
-</img>
+<img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img>
