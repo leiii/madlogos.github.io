@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据 - Libido Chateau</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="madlogos" /><meta name="description" content="从报病数和死亡数来看，传染病防制的主流已经彻底转向慢性传染病（艾滋病、结核病）和儿童传染病（手足口病）。" />
+<meta name="keywords" content="法定传染病, 疫情报告, 爬虫" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.30.2" />
+
+
+<link rel="canonical" href="http://madlogos.github.io/infectdis_stat3/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<link href="/dist/even.min.css?v=2.6.6" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据" />
+<meta property="og:description" content="从报病数和死亡数来看，传染病防制的主流已经彻底转向慢性传染病（艾滋病、结核病）和儿童传染病（手足口病）。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://madlogos.github.io/infectdis_stat3/" />
+
+
+
+<meta property="article:published_time" content="2017-04-16T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-04-16T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据">
+<meta itemprop="description" content="从报病数和死亡数来看，传染病防制的主流已经彻底转向慢性传染病（艾滋病、结核病）和儿童传染病（手足口病）。">
+
+
+<meta itemprop="datePublished" content="2017-04-16T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-16T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4517">
+
+
+
+<meta itemprop="keywords" content="传染病,疫情报告,rvest," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据"/>
+<meta name="twitter:description" content="从报病数和死亡数来看，传染病防制的主流已经彻底转向慢性传染病（艾滋病、结核病）和儿童传染病（手足口病）。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Libido Chateau</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Libido Chateau</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-16 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE/"> 数据 </a>
+            
+          </div>
+        <span class="more-meta"> 约 4517 字 </span>
+        <span class="more-meta"> 预计阅读 10 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#甲乙丙类每月发病-死亡数">甲乙丙类每月发病、死亡数</a></li>
+<li><a href="#乙类">乙类</a>
+<ul>
+<li><a href="#四大类别">四大类别</a></li>
+<li><a href="#详细病种">详细病种</a></li>
+<li><a href="#肝炎">肝炎</a></li>
+</ul></li>
+<li><a href="#丙类">丙类</a>
+<ul>
+<li><a href="#不同病种的时间趋势">不同病种的时间趋势</a></li>
+<li><a href="#各病种的平均月分布">各病种的平均月分布</a></li>
+<li><a href="#流感">流感</a></li>
+</ul></li>
+<li><a href="#结尾">结尾</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h1 id="甲乙丙类每月发病-死亡数">甲乙丙类每月发病、死亡数</h1>
+
+<pre><code class="language-r">library(data.table)
+</code></pre>
+
+<p>看一下甲乙丙类每个月的发病和死亡例数。</p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&quot;发病数&quot;)
+sta &lt;- melt(sta[,names(sta) != &quot;NA&quot;], id=&quot;日期&quot;, variable.name=&quot;分类&quot;)
+makeTsPlot(sta, &quot;法定传染病每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_trend.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&quot;死亡数&quot;)
+sta &lt;- melt(sta[,names(sta) != &quot;NA&quot;], id=&quot;日期&quot;, variable.name=&quot;分类&quot;)
+makeTsPlot(sta, &quot;法定传染病每月死亡数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_trend.png" alt="" /></p>
+
+<p>甲类数字很少，看不太出。而不论乙类还是丙类，发病高峰都在春夏季。死亡高峰却在冬季。</p>
+
+<p>按月算一下均数，看得更清楚。</p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat, format(日期, &quot;%m&quot;) ~ 分类, mean, value.var=&quot;发病数&quot;)
+names(sta)[1] &lt;- &quot;月份&quot;
+sta &lt;- melt(sta[,1:4], id=&quot;月份&quot;, variable.name=&quot;分类&quot;)
+sta$月份 &lt;- as.integer(sta$月份)
+makeTsPlot(sta, &quot;法定传染病平均月发病数&quot;, unit=1, ylab=&quot;平均例数&quot;, xvar=&quot;月份&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_month.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat, format(日期, &quot;%m&quot;) ~ 分类, mean, value.var=&quot;死亡数&quot;)
+names(sta)[1] &lt;- &quot;月份&quot;
+sta &lt;- melt(sta[,1:4], id=&quot;月份&quot;, variable.name=&quot;分类&quot;)
+sta$月份 &lt;- as.integer(sta$月份)
+makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quot;平均例数&quot;, xvar=&quot;月份&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_month.png" alt="" /></p>
+
+<p></p>
+
+<h1 id="乙类">乙类</h1>
+
+<h2 id="四大类别">四大类别</h2>
+
+<p>把乙类归成肠道、呼吸道、血源/性、虫媒/自然疫源地四大类。</p>
+
+<pre><code class="language-r">dat.b &lt;- subset(dat, 分类==&quot;乙类&quot; | str_detect(病名, &quot;肝炎&quot;))
+dat.b &lt;- dat.b[dat.b$病名 != &quot;病毒性肝炎&quot;,]
+dat.b$类型 &lt;- NA
+dat.b$类型[str_detect(
+    dat.b$病名, &quot;[甲戊]型肝炎|痢疾|伤寒|脊髓灰质炎&quot;)] &lt;- &quot;肠道&quot;
+dat.b$类型[str_detect(
+    dat.b$病名, &quot;结核|麻疹|猩红热|流感|百日咳|脑脊髓膜炎|禽流感|白喉|肺炎&quot;)] &lt;- &quot;呼吸道&quot;
+dat.b$类型[str_detect(
+    dat.b$病名, &quot;布鲁氏|疟疾|出血热|血吸虫|登革|乙型脑炎|狂犬|钩端螺旋体|炭疽&quot;)] &lt;- &quot;虫媒/自然疫源&quot;
+dat.b$类型[str_detect(
+    dat.b$病名, &quot;[乙丙丁]型肝炎|梅毒|淋病|艾滋病|破伤风|肝炎未分型&quot;)] &lt;- &quot;血源/性传&quot;
+</code></pre>
+
+<p>一个明显趋势是血源/性传播疾病占比越来越高。这个趋势在2008-2010年左右已经很明显，至今没有减退，从死亡数占比来看，现在更上了一个台阶。几乎要垄断行情了。</p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.b, 日期 ~ 类型, sum, value.var=&quot;发病数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;类型&quot;)
+makeTsPlot(sta, &quot;乙类传染病每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;类型&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_b_trend.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.b, 日期 ~ 类型, sum, value.var=&quot;死亡数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;类型&quot;)
+makeTsPlot(sta, &quot;乙类传染病每月死亡数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;类型&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_b_trend.png" alt="" /></p>
+
+<h2 id="详细病种">详细病种</h2>
+
+<p>究竟是哪个具体病种发展更快？</p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.b, 病名~., sum, value.var=&quot;发病数&quot;)
+top.b &lt;- sta[order(sta$., decreasing=TRUE), &quot;病名&quot;][1:10]
+sta &lt;- dcast(dat.b, 日期 ~ 病名, sum, value.var=&quot;发病数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;病名&quot;)
+sta$病名 &lt;- as.character(sta$病名)
+sta$病名[! sta$病名 %in% top.b] &lt;- &quot;其它&quot;
+sta &lt;- dcast(sta, 日期 + 病名~., sum, value.var=&quot;value&quot;)
+sta$病名 &lt;- factor(sta$病名, levels=c(top.b, &quot;其它&quot;))
+makeTsPlot(sta, &quot;乙类传染病每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, yvar=&quot;.&quot;,
+           gvar=&quot;病名&quot;, legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_b_det_trend.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.b, 病名~., sum, value.var=&quot;死亡数&quot;)
+top.b &lt;- sta[order(sta$., decreasing=TRUE), &quot;病名&quot;][1:10]
+sta &lt;- dcast(dat.b, 日期 ~ 病名, sum, value.var=&quot;死亡数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;病名&quot;)
+sta$病名 &lt;- as.character(sta$病名)
+sta$病名[! sta$病名 %in% top.b] &lt;- &quot;其它&quot;
+sta &lt;- dcast(sta, 日期 + 病名~., sum, value.var=&quot;value&quot;)
+sta$病名 &lt;- factor(sta$病名, levels=c(top.b, &quot;其它&quot;))
+makeTsPlot(sta, &quot;乙类传染病每月死亡数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, yvar=&quot;.&quot;,
+           gvar=&quot;病名&quot;, legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_b_det_trend.png" alt="" /></p>
+
+<blockquote>
+<p>乙类死亡数分布中，2009年末-2010年初有个醒目的浅蓝色楔子。那就是著名的甲型H1N1流感流行。</p>
+</blockquote>
+
+<p>从发病数看，梅毒越来越多了，夏季高发。丙肝也越来越多了，冬春季高发。</p>
+
+<p>从死亡数看，艾滋病单一病种吃掉了越来越大的份额。</p>
+
+<p>说到底，传染病控制的重心基本上不可逆转地会朝这几个方向移动。</p>
+
+<h2 id="肝炎">肝炎</h2>
+
+<p>肝炎是细分报告的。所以也可以下钻看一眼。</p>
+
+<p>先析出一个分型肝炎子集。</p>
+
+<pre><code class="language-r">dat.hep &lt;- subset(dat, str_detect(病名, &quot;^肝炎|[^性]肝炎&quot;))
+dat.hep$病名 &lt;- str_replace(dat.hep$病名, &quot;([甲乙丙丁戊])型肝炎|^肝炎(未分)型&quot;, &quot;\\1\\2&quot;)
+dat.hep$病名 &lt;- factor(dat.hep$病名, levels=c(&quot;甲&quot;, &quot;乙&quot;, &quot;丙&quot;, &quot;丁&quot;, &quot;戊&quot;, &quot;未分型&quot;))
+</code></pre>
+
+<p>然后分别看发病和死亡。</p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.hep, 日期 ~ 病名, sum, value.var=&quot;发病数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;型别&quot;)
+makeTsPlot(sta, &quot;肝炎每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;型别&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_hep_trend.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.hep, 日期 ~ 病名, sum, value.var=&quot;死亡数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;型别&quot;)
+makeTsPlot(sta, &quot;肝炎每月死亡数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;型别&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_hep_trend.png" alt="" /></p>
+
+<p>感觉都在慢慢下降。</p>
+
+<h1 id="丙类">丙类</h1>
+
+<p>析出一个子集。</p>
+
+<pre><code class="language-r">dat.c &lt;- subset(dat, 分类==&quot;丙类&quot; &amp; 日期 &gt;= as.Date(&quot;2009-1-1&quot;))
+</code></pre>
+
+<h2 id="不同病种的时间趋势">不同病种的时间趋势</h2>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.c, 日期 ~ 病名, sum, value.var=&quot;发病数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;病名&quot;)
+makeTsPlot(sta, &quot;丙类传染病每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;病名&quot;,
+           legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_c_det_trend.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.c, 日期 ~ 病名, sum, value.var=&quot;死亡数&quot;)
+sta &lt;- melt(sta, id=&quot;日期&quot;, variable.name=&quot;病名&quot;)
+makeTsPlot(sta, &quot;丙类传染病每月死亡数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;病名&quot;,
+           legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_c_det_trend.png" alt="" /></p>
+
+<p>其实就两样：手足口、感染性腹泻。落到死亡，基本都是手足口。</p>
+
+<p>丙类传染病占据了基层疾控主要的流调精力，但其实能死人的也就是手足口。</p>
+
+<h2 id="各病种的平均月分布">各病种的平均月分布</h2>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.c, format(日期, &quot;%m&quot;) ~ 病名, mean, value.var=&quot;发病数&quot;)
+names(sta)[1] &lt;- &quot;月份&quot;
+sta &lt;- melt(sta, id=&quot;月份&quot;, variable.name=&quot;病名&quot;)
+sta$月份 &lt;- as.integer(sta$月份)
+makeTsPlot(sta, &quot;丙类传染病平均月发病数&quot;, unit=1, ylab=&quot;平均例数&quot;, xvar=&quot;月份&quot;,
+           gvar=&quot;病名&quot;, legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_c_month.png" alt="" /></p>
+
+<pre><code class="language-r">sta &lt;- dcast(dat.c, format(日期, &quot;%m&quot;) ~ 病名, mean, value.var=&quot;死亡数&quot;)
+names(sta)[1] &lt;- &quot;月份&quot;
+sta &lt;- melt(sta, id=&quot;月份&quot;, variable.name=&quot;病名&quot;)
+sta$月份 &lt;- as.integer(sta$月份)
+makeTsPlot(sta, &quot;丙类传染病平均月死亡数&quot;, unit=1, ylab=&quot;平均例数&quot;, xvar=&quot;月份&quot;,
+           gvar=&quot;病名&quot;, legend.position = &quot;bottom&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/mot_c_month.png" alt="" /></p>
+
+<p>看月份分布，春夏季是大头。</p>
+
+<h2 id="流感">流感</h2>
+
+<p>额外关心了一下流感。</p>
+
+<pre><code class="language-r">dat.flu &lt;- subset(dat, 病名 ==&quot;流行性感冒&quot; &amp; 日期 &gt;= as.Date(&quot;2009-1-1&quot;))
+makeTsPlot(dat.flu, &quot;流感每月发病数&quot;, xlab=&quot;年月&quot;, ylab=&quot;例数&quot;, gvar=&quot;病名&quot;,
+           xvar=&quot;日期&quot;, yvar=&quot;发病数&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170415/inc_flu_trend.png" alt="" /></p>
+
+<p>2016年初春有一个高峰。今明两年估计不会有那么高了。</p>
+
+<h1 id="结尾">结尾</h1>
+
+<p>上面这些是很粗浅的分析。用shiny结合这些数据做一个仪表盘是再合适不过的了。配点时间序列模型和预测，整个仪表盘就很丰富实用了。可惜印象中并没有这类公共的数据产品出来。可能也有，但多半藏在某些衙门的某些电脑上离线运行着。</p>
+
+<p>离开疾控至今，还没有再关注过传染病的动态。当初上课时，老师还提到“死亡数最多的传染病你们或许猜不到，是狂犬病”。后来变成了结核。如今，已完全是艾滋病的天下了。短短几年，这个静默无闻的领域也发生着剧变。</p>
+
+<p>[完]</p>
+
+<hr />
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img></p>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">madlogos</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-04-16</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E4%BC%A0%E6%9F%93%E7%97%85/">传染病</a>
+          
+          <a href="/tags/%E7%96%AB%E6%83%85%E6%8A%A5%E5%91%8A/">疫情报告</a>
+          
+          <a href="/tags/rvest/">rvest</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="song_ming_qing_jinshi">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">北宋、明清进士空间分析</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="infectdis_stat2">
+            <span class="next-text nav-default">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'madlogos-gh';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:madlogos@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/5455754/madlogos?tab=profile" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/madlogos" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/madlogos" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://www.linkedin.com/in/yiying-wang/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://plus.google.com/&#43;%E6%B1%AA%E8%BD%B6%E9%A2%96madlogos" class="iconfont icon-google" title="google"></a>
+      <a href="http://github.com/madlogos" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/madlogos/" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/madlogos/" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.douban.com/people/Jandeaux/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jandeaux.tumblr.com" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.instagram.com/jandeaux/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://madlogos.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">madlogos</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.6"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

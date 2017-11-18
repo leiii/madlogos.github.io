@@ -1,0 +1,1136 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>朝左还是朝右？来看一份17万行的小样本数据 - Libido Chateau</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="madlogos" /><meta name="description" content="来自zuobiao.me 2014年的17万条政治倾向调查数据，给我们提供了一个21世纪初叶中国网民意识形态的切片样本。可惜的是，这个样本不能继续随访下去了。" />
+<meta name="keywords" content="政治坐标, 坐标网" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.30.2" />
+
+
+<link rel="canonical" href="http://madlogos.github.io/political-compass/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<link href="/dist/even.min.css?v=2.6.6" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="朝左还是朝右？来看一份17万行的小样本数据" />
+<meta property="og:description" content="来自zuobiao.me 2014年的17万条政治倾向调查数据，给我们提供了一个21世纪初叶中国网民意识形态的切片样本。可惜的是，这个样本不能继续随访下去了。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://madlogos.github.io/political-compass/" />
+
+
+
+<meta property="article:published_time" content="2017-03-05T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-03-05T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="朝左还是朝右？来看一份17万行的小样本数据">
+<meta itemprop="description" content="来自zuobiao.me 2014年的17万条政治倾向调查数据，给我们提供了一个21世纪初叶中国网民意识形态的切片样本。可惜的是，这个样本不能继续随访下去了。">
+
+
+<meta itemprop="datePublished" content="2017-03-05T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-03-05T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="9704">
+
+
+
+<meta itemprop="keywords" content="政治坐标,坐标网," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="朝左还是朝右？来看一份17万行的小样本数据"/>
+<meta name="twitter:description" content="来自zuobiao.me 2014年的17万条政治倾向调查数据，给我们提供了一个21世纪初叶中国网民意识形态的切片样本。可惜的是，这个样本不能继续随访下去了。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Libido Chateau</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Libido Chateau</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">朝左还是朝右？来看一份17万行的小样本数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-03-05 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE/"> 数据 </a>
+            
+          </div>
+        <span class="more-meta"> 约 9704 字 </span>
+        <span class="more-meta"> 预计阅读 20 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#回味2016">回味2016</a></li>
+<li><a href="#我们的社会共识到底是什么">我们的社会共识到底是什么？</a></li>
+<li><a href="#我们来看一看">我们来看一看</a>
+<ul>
+<li><a href="#人口学代表性">人口学代表性？</a></li>
+<li><a href="#三个维度上的得分分布">三个维度上的得分分布？</a></li>
+<li><a href="#三个维度的关联">三个维度的关联？</a></li>
+<li><a href="#不同人群的意见">不同人群的意见</a></li>
+<li><a href="#so">&hellip; So?</a></li>
+<li><a href="#如果时局剧变-我们准备好了吗">如果时局剧变，我们准备好了吗？</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/left_right_wing_us.jpg" alt="" /></p>
+
+<h1 id="回味2016">回味2016</h1>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/2015113154244635.png" alt="" /></p>
+
+<p>2017年已经热火朝天地过掉两个月。现在回过头去评价2016年，显得反射弧特别长。但我仍禁不住要多回头看两眼，因为直到现在，我还不能完全理解它。</p>
+
+<p>表面看，鹄年一声炮响，送来了英国脱欧和Trump，以及无数脍炙人口的自媒体段子。华尔街全球化秩序的崩裂，给国际政治投下两个巨大的阴影。这源自30年前苏东剧变和中国改开，全球化捡到两个巨大的劳动力要素价值洼地，于是轰鸣运转、财源滚滚。而今红利渐渐吃尽，而劳动生产率其实并没有什么革命性增长，资本回报率一天不如一天，旧模式不免穷途末路。而它带来的副产物（贫富分化、难民危机、恐怖主义、债务危机）却开始反噬全球化主导经济体自身。所以在可以预计的未来，崩裂还将加速，阴影也将进一步扩大。</p>
+
+<p>但崩裂成什么模样，并不好说。布雷顿森林体系崩裂，其实并没有闹出什么大浪来。但凡尔赛体系的崩裂，就直接导致了第二次世界大战。西晋帝国体系的崩溃，带来了长达五百年的大分裂。如果把回望尺度放大一点，2016年可能只是历史进程的左右摇摆周期中的一小部分。19世纪后期西方自由主义大发展，对内损害了平等，对外制造了殖民，结果殖民地红利吃尽后，在20世纪催生了两次世界大战，以及追求平等的共运和反殖民运动。然而平等主义在吃完战后红利就逐渐陷入了极权和经济乏力，于是新自由主义回潮。这波回潮绵延至今（构成了我们这代人迄今人生经历的主体），如今同样碰到了瓶颈，于是向平等转向的声音又高涨起来。每一次左右摇摆，几乎都伴随着战争、动乱和政经格局的洗牌。</p>
+
+<p>每一次摇摆，大输家都是那些共识建设较差的社会。如果社会共识不能应付新的形势，或在形势变化面前发生断裂，都会增加内生动乱的风险。而赢家，则是把自身共识引领到世界的那个社会。</p>
+
+<p>问题来了，</p>
+
+<p></p>
+
+<h1 id="我们的社会共识到底是什么">我们的社会共识到底是什么？</h1>
+
+<p>这个问题不太好回答。在美国社会，核心的议题可能是税收、种族、最低工资、医保、LGBT权利、堕胎、持枪。而中国社会的公开核心议题是就业、房价、环境，不公开的核心问题是如何评价历史遗留问题。在很多问题上，一个复杂社会非但不能形成稳定共识，相反，会有严重的分歧和激烈的交锋。这是有益的：共识的凝聚无不是经过充分的探讨而来。</p>
+
+<p>但中国目前的现实是，人们会自发地绕过很多有价值的议题，或者被限制公开讨论。立法过程中有民意征集环节，但多是不公开结果的。到底全社会怎么看待某个问题，很少得到公开的定量结果。</p>
+
+<p>从整体上把握社会共识，需要集体对一系列核心议题投票，覆盖个人权利、政府权利、经济、文化等各个领域。2007年，北大未名BBS网友借鉴了著名的<a href="http://www.politicalcompass.org">politial compass</a>，推出了一个<a href="http://zuobiao.me">政治倾向调查</a>。这个调查一度很火爆，到2014年累积了近百万条数据。但2015年，它被正式墙了。</p>
+
+<p>在这短短七年，我能明晰地感受到整个社会的风气转向。资本对公共决策的渗透能力越来越强，社会淡是非、跪实利的取向很重。按照<a href="http://qinhui09q.blogchina.com/2344392.html">秦晖的讲法</a>，如今中国连自由主义者都不谈效率，转而改谈平等问题，可见这个社会右成了什么样子。但另一方面，社会治理的技术进步也很显著，带来诸多正面影响。这一切究竟是怎样潜移默化地发生的？真让人好奇。</p>
+
+<p>未名调查的作者把2014年的<a href="http://zuobiao.me/resources/">17万条数据</a>公布了出来，这提供了一个不可多得的有趣样本。</p>
+
+<h1 id="我们来看一看">我们来看一看</h1>
+
+<p>打开R。先载入程序包和数据。</p>
+
+<pre><code class="language-r">sapply(c(&quot;RColorBrewer&quot;, &quot;readr&quot;, &quot;stringr&quot;, &quot;data.table&quot;, &quot;ggplot2&quot;, &quot;ggthemes&quot;,
+         &quot;scatterplot3d&quot;), require, character.only = TRUE, quietly = TRUE)
+data &lt;- read_csv(&quot;http://zuobiao.me/resources/2014data.csv&quot;)
+format(object.size(data), units = &quot;Mb&quot;)
+</code></pre>
+
+<p>data一共171830行、57列（包括50个问题、记录号、人口学信息），占92.2M内存。把它melt成hypercube，会变成一头食内存兽。所以用readr包读入，再转成data.table。</p>
+
+<pre><code class="language-r">dt &lt;- melt(data[, -3], id = c(&quot;X1&quot;,&quot;X2&quot;, &quot;性别&quot;, &quot;出生年份&quot;, &quot;年收入&quot;, &quot;学历&quot;))
+dt &lt;- merge(data.table(dt), data.table(meta), by = &quot;variable&quot;, all.x = TRUE)
+dt$Value &lt;- str_length(dt$value) / 2
+dt$Agree &lt;- str_detect(dt$value, &quot;反对&quot;)
+dt$Value[dt$Agree] &lt;- -1 * dt$Value[dt$Agree]
+dt$Age &lt;- 2014 - dt$`出生年份`
+dt$年龄段 &lt;- cut(dt$Age, c(0, 19.99, 24.99, 29.99, 34.99, 39.99, 44.99, 99))
+format(object.size(dt), units = &quot;Mb&quot;)
+</code></pre>
+
+<p>果然，达到了700多M之巨，直接堆在内存里能把这台恐龙机撑爆。</p>
+
+<p>这套问卷一共50道题，1-20题偏政治，21-40偏经济，41-50偏文化。选项都是“强烈支持”(2)、“支持”(1)、“反对”(-1)、“强烈反对”(-2)，没有中立选项（与Political compass一样）。构建一个meta数据集，论述含义偏向集体主义/威权主义/民族主义记为-1(左)，偏向自由主义/普世主义记为1(右)。两列相乘，-2到2分别对应“左”、“偏左”、“偏右”、“右”。原问题太长，化简成4-5各自的“话题”。</p>
+
+<p>更早的一个版本还有IP地址A、B段，可以用来判断来源地。现存的版本把这个字段去掉了（手动可惜）。</p>
+
+<pre><code class="language-r">meta &lt;- data.frame(variable=names(data)[4:53])
+meta$Class &lt;- c(rep(&quot;政治&quot;, 20), rep(&quot;经济&quot;, 20), rep(&quot;文化&quot;, 10))
+meta$Type &lt;- c(
+    -1, 1, 1, -1, -1, 1, 1, -1, -1, -1,  # 4 - 13
+    -1, 1, 1, 1, -1, -1, 1, 1, -1, -1,   # 14 - 23
+    -1, -1, -1, 1, -1, -1, 1, -1, 1, -1, # 24 - 33
+    1, -1, -1, 1, -1, -1, 1, -1, 1, 1,   # 34 - 43
+    1, -1, -1, -1, 1, -1, -1, -1, -1, 1  # 44 - 53
+    )
+qn &lt;- c(
+    &quot;普选权&quot;, &quot;人权与主权&quot;, &quot;信息公开&quot;, &quot;多党制&quot;, &quot;言论自由&quot;, &quot;自主招生&quot;, 
+    &quot;公开传教&quot;, &quot;统一军训&quot;, &quot;领土完整优先&quot;, &quot;司法程序正义&quot;, &quot;对外援助&quot;, 
+    &quot;丑化领袖&quot;, &quot;人民自决&quot;, &quot;媒体代言&quot;, &quot;国家唯利&quot;, &quot;武统台湾&quot;, &quot;律师辩护&quot;, 
+    &quot;双重国籍&quot;, &quot;西方有敌意&quot;, &quot;运动举国体制&quot;, &quot;最低工资&quot;, &quot;改革成果分配&quot;, 
+    &quot;集体利益优先&quot;, &quot;个人自由&quot;, &quot;价格干预&quot;, &quot;关税保护&quot;, &quot;教育公立&quot;, &quot;国企意义&quot;, 
+    &quot;控制房市价格&quot;, &quot;补贴穷人&quot;, &quot;富人优先服务&quot;, &quot;富人公示财源&quot;, &quot;劳资要素地位&quot;, 
+    &quot;国企私有化&quot;, &quot;命脉国企&quot;, &quot;资本原罪&quot;, &quot;地权民有&quot;, &quot;农业补贴&quot;, &quot;外资待遇&quot;, 
+    &quot;市场垄断&quot;, &quot;性自由&quot;, &quot;为尊者讳&quot;, &quot;重新尊儒&quot;, &quot;艺术评判&quot;, &quot;生育自由&quot;, 
+    &quot;周易八卦&quot;, &quot;中医药&quot;, &quot;汉字简化&quot;, &quot;国学启蒙&quot;, &quot;同性恋&quot;)
+names(qn) &lt;- 1:50
+meta$Qn &lt;- qn
+knitr::kable(meta)
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="left">variable</th>
+<th align="left">Class</th>
+<th align="right">Type</th>
+<th align="left">Qn</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="left">如果人民没有受过民主教育，他们是不应该拥有普选权的。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">普选权</td>
+</tr>
+
+<tr>
+<td align="left">人权高于主权。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">人权与主权</td>
+</tr>
+
+<tr>
+<td align="left">发生重大社会安全事件时，即使认为信息公开会导致骚乱的风险，政府仍应该开放信息传播。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">信息公开</td>
+</tr>
+
+<tr>
+<td align="left">西方的多党制不适合中国国情。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">多党制</td>
+</tr>
+
+<tr>
+<td align="left">在中国照搬西方式的言论自由会导致社会失序。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">言论自由</td>
+</tr>
+
+<tr>
+<td align="left">由高校自主考试招生比全国统一考试招生更好。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">自主招生</td>
+</tr>
+
+<tr>
+<td align="left">应该容许宗教人士在非宗教场所公开传教。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">公开传教</td>
+</tr>
+
+<tr>
+<td align="left">无论中小学生或大学生，都应参加由国家统一安排的军训。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">统一军训</td>
+</tr>
+
+<tr>
+<td align="left">国家的统一和领土完整是社会的最高利益。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">领土完整优先</td>
+</tr>
+
+<tr>
+<td align="left">哪怕经历了违反程序规定的审讯和取证过程，确实有罪的罪犯也应被处刑。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">司法程序正义</td>
+</tr>
+
+<tr>
+<td align="left">国家有义务进行对外援助。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">对外援助</td>
+</tr>
+
+<tr>
+<td align="left">国家领导人及开国领袖的形象可以作为文艺作品的丑化对象。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">丑化领袖</td>
+</tr>
+
+<tr>
+<td align="left">当法律未能充分制止罪恶行为时，人民群众有权自发对罪恶行为进行制裁。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">人民自决</td>
+</tr>
+
+<tr>
+<td align="left">应当允许媒体代表某一特定阶层或利益集团发言。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">媒体代言</td>
+</tr>
+
+<tr>
+<td align="left">如果国家综合实力许可，那么中国有权为了维护自己的利益而采取任何行动。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">国家唯利</td>
+</tr>
+
+<tr>
+<td align="left">条件允许的话应该武力统一台湾。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">武统台湾</td>
+</tr>
+
+<tr>
+<td align="left">律师即使明知被辩护人的犯罪事实也应当尽力为其进行辩护。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">律师辩护</td>
+</tr>
+
+<tr>
+<td align="left">应该允许中国公民同时具有外国国籍。</td>
+<td align="left">政治</td>
+<td align="right">1</td>
+<td align="left">双重国籍</td>
+</tr>
+
+<tr>
+<td align="left">以美国为首的西方国家不可能真正容许中国崛起成为一流强国。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">西方有敌意</td>
+</tr>
+
+<tr>
+<td align="left">国家应当采取措施培养和支持体育健儿在各种国际比赛场合为国争光。</td>
+<td align="left">政治</td>
+<td align="right">-1</td>
+<td align="left">运动举国体制</td>
+</tr>
+
+<tr>
+<td align="left">&mdash;&mdash;-</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+
+<tr>
+<td align="left">最低工资应由国家规定。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">最低工资</td>
+</tr>
+
+<tr>
+<td align="left">中国改革开放以来的经济发展的成果都被一小群人占有了，大多数人没得到什么好处。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">改革成果分配</td>
+</tr>
+
+<tr>
+<td align="left">在重大工程项目的决策中，个人利益应该为社会利益让路。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">集体利益优先</td>
+</tr>
+
+<tr>
+<td align="left">浪费粮食也是个人的自由。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">个人自由</td>
+</tr>
+
+<tr>
+<td align="left">如果猪肉价格过高，政府应当干预。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">价格干预</td>
+</tr>
+
+<tr>
+<td align="left">应当对国外同类产品征收高额关税来保护国内民族工业。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">关税保护</td>
+</tr>
+
+<tr>
+<td align="left">教育应当尽可能公立。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">教育公立</td>
+</tr>
+
+<tr>
+<td align="left">国有企业的利益属于国家利益。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">国企意义</td>
+</tr>
+
+<tr>
+<td align="left">试图控制房地产价格的行为会破坏经济发展。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">控制房市价格</td>
+</tr>
+
+<tr>
+<td align="left">改善低收入者生活的首要手段是国家给予财政补贴和扶持。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">补贴穷人</td>
+</tr>
+
+<tr>
+<td align="left">有钱人理应获得更好的医疗服务。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">富人优先服务</td>
+</tr>
+
+<tr>
+<td align="left">高收入者应该公开自己的经济来源。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">富人公示财源</td>
+</tr>
+
+<tr>
+<td align="left">靠运作资金赚钱的人对社会的贡献比不上靠劳动赚钱的人。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">劳资要素地位</td>
+</tr>
+
+<tr>
+<td align="left">与其让国有企业亏损破产，不如转卖给资本家。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">国企私有化</td>
+</tr>
+
+<tr>
+<td align="left">那些关系到国家安全、以及其他重要国计民生的领域，必须全部由国有企业掌控。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">命脉国企</td>
+</tr>
+
+<tr>
+<td align="left">资本积累的过程总是伴随着对普通劳动人民利益的伤害。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">资本原罪</td>
+</tr>
+
+<tr>
+<td align="left">私人应当可以拥有和买卖土地。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">地权民有</td>
+</tr>
+
+<tr>
+<td align="left">政府应当采用较高的粮食收购价格以增加农民收入。</td>
+<td align="left">经济</td>
+<td align="right">-1</td>
+<td align="left">农业补贴</td>
+</tr>
+
+<tr>
+<td align="left">在华外国资本应享受和民族资本同样的待遇。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">外资待遇</td>
+</tr>
+
+<tr>
+<td align="left">市场竞争中自然形成的垄断地位是无害的。</td>
+<td align="left">经济</td>
+<td align="right">1</td>
+<td align="left">市场垄断</td>
+</tr>
+
+<tr>
+<td align="left">&mdash;&mdash;-</td>
+<td align="left"></td>
+<td align="right"></td>
+<td align="left"></td>
+</tr>
+
+<tr>
+<td align="left">两个成年人之间自愿的性行为是其自由，无论其婚姻关系为何。</td>
+<td align="left">文化</td>
+<td align="right">1</td>
+<td align="left">性自由</td>
+</tr>
+
+<tr>
+<td align="left">不应公开谈论自己长辈的缺点。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">为尊者讳</td>
+</tr>
+
+<tr>
+<td align="left">现代中国社会需要儒家思想。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">重新尊儒</td>
+</tr>
+
+<tr>
+<td align="left">判断艺术作品的价值的根本标准是看是不是受到人民大众喜爱。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">艺术评判</td>
+</tr>
+
+<tr>
+<td align="left">即使有人口压力，国家和社会也无权干涉个人要不要孩子，要几个孩子。</td>
+<td align="left">文化</td>
+<td align="right">1</td>
+<td align="left">生育自由</td>
+</tr>
+
+<tr>
+<td align="left">周易八卦能够有效的解释很多事情。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">周易八卦</td>
+</tr>
+
+<tr>
+<td align="left">中国传统医学对人体健康的观念比现代主流医学更高明。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">中医药</td>
+</tr>
+
+<tr>
+<td align="left">汉字无需人为推行简化。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">汉字简化</td>
+</tr>
+
+<tr>
+<td align="left">应当将中国传统文化的经典作品作为儿童基础教育读物。</td>
+<td align="left">文化</td>
+<td align="right">-1</td>
+<td align="left">国学启蒙</td>
+</tr>
+
+<tr>
+<td align="left">如果是出于自愿，我会认可我的孩子和同性结成伴侣关系。</td>
+<td align="left">文化</td>
+<td align="right">1</td>
+<td align="left">同性恋</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="人口学代表性">人口学代表性？</h2>
+
+<p>讲真，不怎么样。大多数都是30岁以下的小年轻，大学生和研究生比例特别高，低收入比例近一半。这只能说明一点：参与的主力军是在校大学生。而这个群体只占中国居民的10%都不到。</p>
+
+<pre><code class="language-r">calc &lt;- dcast(data.table(dt), X1 ~ as.numeric(variable), mean, 
+              value.var = &quot;Value&quot;, na.rm = TRUE)
+calc$`文化` &lt;- rowMeans(calc[, 42:51])
+calc$`经济` &lt;- rowMeans(calc[, 22:41])
+calc$`政治` &lt;- rowMeans(calc[, 2:21])
+data &lt;- merge(data.table(data), data.table(calc[, c(1, 52:54)]), by = &quot;X1&quot;)
+</code></pre>
+
+<pre><code class="language-r">data$年龄 &lt;- 2014 - data$出生年份
+data$年龄组 &lt;- cut(data$年龄, c(0, 19.99, 24.99, 29.99, 34.99, 39.99, 44.99, 99))
+age.gender &lt;- dcast(data, 性别 + 年龄组 ~., length, value.var = &quot;X1&quot;)
+age.gender &lt;- age.gender[complete.cases(age.gender),]
+age.gender$比重 &lt;- age.gender$`.`/ sum(age.gender$`.`)
+age.gender$比重[age.gender$性别 == &quot;M&quot;] &lt;- - age.gender$比重[age.gender$性别 == &quot;M&quot;]
+age.gender$性别 &lt;- factor(age.gender$性别, levels=c(&quot;M&quot;, &quot;F&quot;))
+theme_new &lt;- function(){
+    theme(axis.ticks.x = element_line(linetype = 0),
+          axis.ticks.y = element_line(linetype = 0),
+          panel.grid.major.y = element_line(size = 0.2))
+}
+
+ggplot(age.gender, aes(年龄组, 比重, group=性别)) + 
+    geom_bar(aes(fill=性别), stat=&quot;identity&quot;, position=&quot;stack&quot;) +
+    scale_y_continuous(breaks = c(-0.4, -0.3, -0.2, -0.1, 0, 0.1, 0.2),
+                       labels=paste0(c(40, 30, 20, 10, 0, 10, 20), &quot;%&quot;)) +
+    theme_hc() + theme_new() + coord_flip()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot.png" alt="" /></p>
+
+<pre><code class="language-r">educ &lt;- dcast(data, 学历  ~., length, value.var = &quot;X1&quot;)
+educ &lt;- educ[complete.cases(educ),]
+educ$比重 &lt;- educ$. / sum(educ$.)
+educ$学历 &lt;- factor(educ$学历, levels=c(
+    &quot;初中及以下&quot;, &quot;高中&quot;, &quot;大学&quot;, &quot;研究生及以上&quot;))
+educ &lt;- educ[order(educ$学历),]
+ggplot(educ, aes(&quot;&quot;, 比重, fill=学历)) + 
+    geom_bar(stat=&quot;identity&quot;, position=&quot;stack&quot;, width=1, color=&quot;white&quot;) +
+    geom_label(aes(x=1.75, y=1-cumsum(比重)+比重/2, label=scales::percent(比重))) +
+    coord_polar(theta=&quot;y&quot;) + scale_y_continuous(labels=scales::percent) +
+    theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot01.png" alt="" /></p>
+
+<pre><code class="language-r">incm &lt;- dcast(data, 年收入 ~., length, value.var = &quot;X1&quot;)
+incm &lt;- incm[complete.cases(incm),]
+incm$年收入 &lt;- factor(incm$年收入, levels=c(
+    &quot;0-25k&quot;, &quot;25k-50k&quot;, &quot;50k-75k&quot;, &quot;75k-100k&quot;, &quot;100k-150k&quot;, &quot;150k-300k&quot;,
+    &quot;300k+&quot;))
+incm$比重 &lt;- incm$. / sum(incm$.)
+incm &lt;- incm[order(incm$年收入),]
+ggplot(incm, aes(&quot;&quot;, 比重, fill=年收入)) + 
+    geom_bar(stat=&quot;identity&quot;, position=&quot;stack&quot;, width=1, color=&quot;white&quot;) +
+    geom_label(aes(x=1.75, y=1-cumsum(比重)+比重/2, label=scales::percent(比重))) +
+    coord_polar(theta=&quot;y&quot;) + scale_y_continuous(labels=scales::percent) +
+    theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot02.png" alt="" /></p>
+
+<p>可以猜测，这个群体会比普通中国人文化上更偏右一点，但政治和经济立场却未必。</p>
+
+<h2 id="三个维度上的得分分布">三个维度上的得分分布？</h2>
+
+<p>还是比较正态的。政治几乎不偏不倚，经济和文化都轻微偏左。网上其他一些对此数据集的分析认为结果偏左，实际不然。</p>
+
+<pre><code class="language-r">ggplot() + theme_hc() + ggtitle(&quot;政治倾向均分&quot;) +
+    geom_histogram(aes(政治), data = data, bins = 19, fill = hc_pal()(5)[1],
+                   color = &quot;white&quot;) +
+    geom_vline(xintercept = mean(data$`政治`, na.rm = TRUE)) +
+    theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot04.png" alt="" /></p>
+
+<pre><code class="language-r">ggplot() + theme_hc() + ggtitle(&quot;经济倾向均分&quot;) +
+    geom_histogram(aes(经济), data = data, bins = 19, fill = hc_pal()(5)[3],
+                   color = &quot;white&quot;) +
+    geom_vline(xintercept = mean(data$`经济`, na.rm = TRUE)) +
+    theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot05.png" alt="" /></p>
+
+<pre><code class="language-r">ggplot() + theme_hc() + ggtitle(&quot;文化倾向均分&quot;) +
+    geom_histogram(aes(文化), data = data, bins = 19, fill = hc_pal()(5)[4],
+                   color = &quot;white&quot;) +
+    geom_vline(xintercept = mean(data$`文化`, na.rm = TRUE)) +
+    theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot06.png" alt="" /></p>
+
+<p>分解每个问题，会有更细的发现。</p>
+
+<ul>
+<li><p>在经济控制i问题上，平均偏左，在市场问题上，平均偏右。</p></li>
+
+<li><p>在尊儒/生育自由/汉字简化问题上，显著偏左。其余文化问题，普遍右倾。</p></li>
+
+<li><p>在政务治理问题上，普遍左倾；在个人权利问题上，普遍右倾。唯一较偏右的，是针对“运动举国体制”的态度。</p></li>
+</ul>
+
+<p>但同样是国企话题，很多人反对国企私有化，但同时又赞成国企垄断国计民生命脉产业。这种矛盾很有意思。一些口号化的问题，容易激起下意识的回答。毕业后经历逐渐丰富，很多原本遥远的问题变得与切身利益攸关，感受更为真切，往往立场就会转变。</p>
+
+<pre><code class="language-r">summ &lt;- merge(dcast(dt, as.numeric(variable) + Qn ~ ., c(mean, sd),
+                    value.var = &quot;Value&quot;, na.rm=TRUE), 
+              meta, by = &quot;Qn&quot;)
+setorder(summ, variable.x)
+summ &lt;- summ[,c(1, 2, 3, 4, 6)]
+names(summ) &lt;- c(&quot;话题&quot;, &quot;i&quot;, &quot;均值&quot;, &quot;标准差&quot;, &quot;分类&quot;)
+setorder(summ, 分类, -均值)
+summ$话题 &lt;- factor(summ$话题, levels=summ$话题)
+ggplot() + geom_point(aes(话题, 均值, color = 分类), data = summ) + 
+    geom_errorbar(aes(ymin = 均值-标准差, ymax = 均值+标准差, x = 话题), 
+                  data = summ, color = &quot;darkgray&quot;) +
+    ggtitle(&quot;各问题均分及标准差&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot08.png" alt="" /></p>
+
+<h2 id="三个维度的关联">三个维度的关联？</h2>
+
+<p>关联很紧密，政治、文化、经济是正相关的。从下面这个图可以发现，男性的倾向性打分平均而言比女性更极端（偏离零点）。这17万个散点在三维空间里形成一个完美正态的橄榄球。</p>
+
+<pre><code class="language-r">p3d.lm &lt;- with(data, lm(政治 ~ 文化 + 经济))
+p3d &lt;- with(data, scatterplot3d(
+    文化, 经济, 政治, pch='', highlight.3d = FALSE, angle=120, type='h',
+    main = paste(&quot;政治 =&quot;, round(p3d.lm$coefficients[2], 2), &quot;* 文化 +&quot;, 
+                 round(p3d.lm$coefficients[3], 2), &quot;* 经济 +&quot;,
+                 round(p3d.lm$coefficients[1], 2)), color = &quot;gray95&quot;,
+    col.axis=&quot;gray&quot;))
+p3d$points3d(data$文化[data$性别 == &quot;M&quot;], data$经济[data$性别 == &quot;M&quot;],
+             data$政治[data$性别 == &quot;M&quot;], col = rgb(0, 0.75, 1, 0.025), pch = 20)
+p3d$points3d(data$文化[data$性别 == &quot;F&quot;], data$经济[data$性别 == &quot;F&quot;],
+             data$政治[data$性别 == &quot;F&quot;], col = rgb(1, 0.388, 0.278, 0.01), pch = 20)
+p3d$plane3d(p3d.lm)
+legend(p3d$xyz.convert(2,0,3), col=c(&quot;deepskyblue&quot;, &quot;tomato&quot;), pch=19,
+       legend = c(&quot;M&quot;, &quot;F&quot;), border=NULL)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot03.png" alt="" /></p>
+
+<p>对问题得分相关矩阵作层次聚类，大体可以分成四簇。其中，“富人公示财富来源”独立构成一簇。看来大家对此问题的态度比较矛盾。</p>
+
+<pre><code class="language-r">cor = (cor(calc[,2:51]))
+colnames(cor) = qn
+rownames(cor) = qn
+plot(hclust(dist(cor)), sub=&quot;&quot;, xlab=&quot;&quot;, cex=0.6)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot14.png" alt="" /></p>
+
+<h2 id="不同人群的意见">不同人群的意见</h2>
+
+<p>进一步看。把学历、性别、年收入、年龄段四个人口学变量分别拿出来比较。</p>
+
+<ul>
+<li><p>政治上，不同人群的差异不大，都是中偏右。</p></li>
+
+<li><p>经济上，不同人群都偏左。收入越高的，越左倾（神奇）。年龄越大的越左（45岁以上的相反）。学历越低的越左（研究生以上相反）。</p></li>
+
+<li><p>文化上整体仍偏左。学历越高越右，年收入越高越左（神奇），年龄越大越右（神奇，看来选择偏倚不小）。女性明显更左（偏集体/威权/平等）。</p></li>
+</ul>
+
+<pre><code class="language-r">summ &lt;- lapply(c(&quot;性别&quot;, &quot;年龄段&quot;, &quot;年收入&quot;, &quot;学历&quot;), function(var){
+    d = dcast(dt, as.formula(paste(&quot;Class +&quot;, var, &quot;~.&quot;)), 
+                             mean, value.var='Value', na.rm=TRUE)
+    d$Attr = var
+    names(d) = c(&quot;Class&quot;, &quot;Level&quot;, &quot;Mean&quot;, &quot;Attr&quot;)
+    return(d)
+})
+summ &lt;- do.call('rbind', summ)
+summ &lt;- summ[!is.na(summ$Level) &amp; summ$Level != &quot;NULL&quot;,]
+names(summ) &lt;- c(&quot;分类&quot;, &quot;水平&quot;, &quot;均值&quot;, &quot;标签&quot;)
+summ$水平 &lt;- factor(summ$水平, levels=c(
+    &quot;M&quot;, &quot;F&quot;, &quot;(0,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;(30,35]&quot;, &quot;(35,40]&quot;,
+    &quot;(40,45]&quot;, &quot;(45,99]&quot;, &quot;0-25k&quot;, &quot;25k-50k&quot;, &quot;50k-75k&quot;, &quot;75k-100k&quot;, 
+    &quot;100k-150k&quot;, &quot;150k-300k&quot;, &quot;300k+&quot;, &quot;初中及以下&quot;, &quot;高中&quot;, &quot;大学&quot;, 
+    &quot;研究生及以上&quot;))
+cols &lt;- c(scales::hue_pal()(2), brewer.pal(7, &quot;Oranges&quot;), 
+          brewer.pal(7, &quot;Greens&quot;), brewer.pal(4, &quot;Blues&quot;))
+names(cols) &lt;- c(
+    &quot;M&quot;, &quot;F&quot;, &quot;(0,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;(30,35]&quot;, &quot;(35,40]&quot;,
+    &quot;(40,45]&quot;, &quot;(45,99]&quot;, &quot;0-25k&quot;, &quot;25k-50k&quot;, &quot;50k-75k&quot;, &quot;75k-100k&quot;, 
+    &quot;100k-150k&quot;, &quot;150k-300k&quot;, &quot;300k+&quot;, &quot;初中及以下&quot;, &quot;高中&quot;, &quot;大学&quot;, 
+    &quot;研究生及以上&quot;)
+ggplot() + geom_point(aes(标签, 均值, color = 水平), data = summ) + 
+    ggtitle(&quot;分类均分比较&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    facet_grid(.~分类) + scale_color_manual(values=cols) +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot07.png" alt="" /></p>
+
+<p>细分到具体问题，就更神奇了。</p>
+
+<ul>
+<li><p>收入越高，越认同“西方对中国有敌意”、“国家应当进行价格干预”、“周易八卦有用”、“应当为尊者讳”、“武统台湾”、“统一军训”、“领土完整是社会优先利益”，越反对“汉字简化”。</p></li>
+
+<li><p>收入越低，越反对“农业补贴”、“国家制定最低工资”、“国企应掌握命脉”、“可以丑化领袖”。</p></li>
+</ul>
+
+<pre><code class="language-r">summ &lt;- merge(dcast(dt, as.numeric(variable) + Qn + 年收入 ~ ., c(mean, sd),
+                    value.var = &quot;Value&quot;, na.rm=TRUE), 
+              meta, by = &quot;Qn&quot;)
+setorder(summ, variable.x)
+summ &lt;- summ[summ$年收入 %in% c(
+    &quot;0-25k&quot;, &quot;25k-50k&quot;, &quot;50k-75k&quot;, &quot;75k-100k&quot;, &quot;100k-150k&quot;, &quot;150k-300k&quot;,
+    &quot;300k+&quot;), c(1:5, 7)]
+names(summ) &lt;- c(&quot;话题&quot;, &quot;i&quot;, &quot;年收入&quot;, &quot;均值&quot;, &quot;标准差&quot;, &quot;分类&quot;)
+setorder(summ, 分类, -均值)
+summ$话题 &lt;- factor(summ$话题, levels=unique(summ$话题))
+summ$年收入 &lt;- factor(summ$年收入, levels=c(
+    &quot;0-25k&quot;, &quot;25k-50k&quot;, &quot;50k-75k&quot;, &quot;75k-100k&quot;, &quot;100k-150k&quot;, &quot;150k-300k&quot;,
+    &quot;300k+&quot;))
+ggplot() + geom_point(aes(话题, 均值, color = 年收入), data = summ) + 
+    ggtitle(&quot;不同收入组各问题均分&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    geom_vline(xintercept=c(20.5, 30.5), color=&quot;darkgray&quot;) + 
+    scale_color_brewer(type=&quot;seq&quot;, palette = &quot;Blues&quot;) +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot11.png" alt="" /></p>
+
+<ul>
+<li><p>学历越高，越认同：“应当控制房价”、“西方对中国有敌意”、“领土完整是社会优先利益”、“武统台湾”、“自主招生好于统招”、“富人应公示财产来源”，越反对“对外援助”、“汉字简化”。</p></li>
+
+<li><p>学历越低，越反对：“农业补贴”、“劳动比资本高贵”、“丑化领袖”、“允许双重国籍”、“地权人民所有”。</p></li>
+</ul>
+
+<pre><code class="language-r">summ &lt;- merge(dcast(dt, as.numeric(variable) + Qn + 学历 ~ ., c(mean, sd),
+                    value.var = &quot;Value&quot;, na.rm=TRUE), 
+              meta, by = &quot;Qn&quot;)
+setorder(summ, variable.x)
+summ &lt;- summ[summ$学历 %in% c(
+    &quot;初中及以下&quot;, &quot;高中&quot;, &quot;大学&quot;, &quot;研究生及以上&quot;), c(1:5, 7)]
+names(summ) &lt;- c(&quot;话题&quot;, &quot;i&quot;, &quot;学历&quot;, &quot;均值&quot;, &quot;标准差&quot;, &quot;分类&quot;)
+setorder(summ, 分类, -均值)
+summ$话题 &lt;- factor(summ$话题, levels=unique(summ$话题))
+summ$学历 &lt;- factor(summ$学历, levels=c(
+    &quot;初中及以下&quot;, &quot;高中&quot;, &quot;大学&quot;, &quot;研究生及以上&quot;))
+ggplot() + geom_point(aes(话题, 均值, color = 学历), data = summ) + 
+    ggtitle(&quot;不同学历各问题均分&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    geom_vline(xintercept=c(20.5, 30.5), color=&quot;darkgray&quot;) + 
+    scale_color_brewer(type=&quot;seq&quot;, palette = 'Greens') +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot12.png" alt="" /></p>
+
+<ul>
+<li><p>年龄越大，越反对：“国企破产不如私有化”、“自然形成的市场垄断”、“尊儒”、“补贴穷人”、“资本有原罪”、“婚外性自由”、“多党制”、“可以丑化领袖”、“用国学启蒙”，越支持：“子女同性恋”。</p></li>
+
+<li><p>年龄越小，越反对：“国企应控制经济命脉”、“双重国籍”、“浪费粮食也是个人自由”，越支持：“补贴穷人”、“尊儒”、“为尊者讳”、“用国学启蒙”。</p></li>
+</ul>
+
+<pre><code class="language-r">summ &lt;- merge(dcast(dt, as.numeric(variable) + Qn + 年龄段 ~ ., c(mean, sd),
+                    value.var = &quot;Value&quot;, na.rm=TRUE), 
+              meta, by = &quot;Qn&quot;)
+setorder(summ, variable.x)
+summ &lt;- summ[summ$年龄段 %in% c(
+    &quot;(0,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;(30,35]&quot;, &quot;(35,40]&quot;, &quot;(40,45]&quot;, &quot;(45,99]&quot;),
+    c(1:5, 7)]
+names(summ) &lt;- c(&quot;话题&quot;, &quot;i&quot;, &quot;年龄段&quot;, &quot;均值&quot;, &quot;标准差&quot;, &quot;分类&quot;)
+setorder(summ, 分类, -均值)
+summ$话题 &lt;- factor(summ$话题, levels=unique(summ$话题))
+summ$年龄段 &lt;- factor(summ$年龄段, levels=c(
+    &quot;(0,20]&quot;, &quot;(20,25]&quot;, &quot;(25,30]&quot;, &quot;(30,35]&quot;, &quot;(35,40]&quot;, &quot;(40,45]&quot;, &quot;(45,99]&quot;))
+ggplot() + geom_point(aes(话题, 均值, color = 年龄段), data = summ) + 
+    ggtitle(&quot;不同年龄段各问题均分&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    geom_vline(xintercept=c(20.5, 30.5), color=&quot;darkgray&quot;) + 
+    scale_color_brewer(type=&quot;seq&quot;, palette = &quot;Oranges&quot;) +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot10.png" alt="" /></p>
+
+<ul>
+<li><p>多数政治问题上，女性更左（更保守）。</p></li>
+
+<li><p>多数文化问题上，男性更右（自由主义）。</p></li>
+
+<li><p>多数经济问题上，女性偏左。在补贴穷人问题上，男性明显偏右。</p></li>
+</ul>
+
+<pre><code class="language-r">summ &lt;- merge(dcast(dt, as.numeric(variable) + Qn + 性别 ~ ., c(mean, sd),
+                    value.var = &quot;Value&quot;, na.rm=TRUE), 
+              meta, by = &quot;Qn&quot;)
+setorder(summ, variable.x)
+summ &lt;- summ[summ$性别 %in% c(&quot;M&quot;, &quot;F&quot;), c(1:5, 7)]
+names(summ) &lt;- c(&quot;话题&quot;, &quot;i&quot;, &quot;性别&quot;, &quot;均值&quot;, &quot;标准差&quot;, &quot;分类&quot;)
+setorder(summ, 分类, -均值)
+summ$话题 &lt;- factor(summ$话题, levels=unique(summ$话题))
+summ$性别 &lt;- factor(summ$性别, levels=c(&quot;M&quot;, &quot;F&quot;))
+ggplot() + geom_point(aes(话题, 均值, color = 性别), data = summ) + 
+    geom_line(aes(话题, 均值, group = 性别, color = 性别), data = summ, alpha = 0.25) +
+    ggtitle(&quot;男女各问题均分&quot;) + geom_hline(yintercept=0, color = &quot;darkgray&quot;) +
+    geom_vline(xintercept=c(20.5, 30.5), color=&quot;darkgray&quot;) +
+    coord_flip() + theme_hc() + theme_new()
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170305/Rplot09.png" alt="" /></p>
+
+<h2 id="so">&hellip; So?</h2>
+
+<p>我的政治、经济、文化倾向分别是0、0、0.4，十分中庸。2007年至今，我从一个文化自由主义右派慢慢向左靠。在Political compass上，类似的题目，我的经济和文化倾向分别是-5.13和0.67（满分10）。中国的右倾放到美国就成了一个自由主义左派。而中国的保守主义左派和美国的保守主义右派很多方面是互为镜像的。</p>
+
+<p>单从上面这3年前的17万条数据来看，并没有像预想的那样偏，多数人是中间派，符合我们的日常经验，某种意义上也符合官方的期待。</p>
+
+<p>在这个平均受教育水平较高的样本里，</p>
+
+<ul>
+<li><p>政治倾向分歧不大；</p></li>
+
+<li><p>经济上的分歧，体现在高收入者和年长者更追求“平等”；</p></li>
+
+<li><p>文化观念上的分歧较大，年轻人更左。</p></li>
+</ul>
+
+<p>如何理解中国语境下的“左”和“右”？</p>
+
+<p>某种意义上，不同于欧美的左右之分，中国的保守/民族主义/左派倾向于维护现状，自由/普世主义/右派倾向于社会改革。所以现在看到的这些结果，意味着年轻人、女性和高学历者更不倾向于体制变革、更离弃普世主义，也更倾向民族主义和自利主义。所以不难理解为何Trump的上台，会在这些从未受白左多元主义和政治正确路线伤害的中国的年轻人中引起一片叫好。</p>
+
+<p>拿这个样本外推到全体大学生，乃至全体中国人，有相当大的困难。何况，从态度到公共决策还隔着十万八千里。所以单凭这些数据，很难推出更进一步的坚实结论。但是已有的发现足够引起适度的不安了。</p>
+
+<p>回到最初的问题：</p>
+
+<h2 id="如果时局剧变-我们准备好了吗">如果时局剧变，我们准备好了吗？</h2>
+
+<p>军事和经济上或许准备好了七八分。至于社会精神层面准备得如何，就不知道了。</p>
+
+<p>但很大可能，我猜，中国社会会以迅速朝旧传统和民族主义回滚的方式来应对。新世代越发把新自由主义的普世精神当成笑话，目前来看，也并没有兴趣发展出一套独立的普世价值来替代。官方倒是很有这个兴趣，但目前的火候，成不了。</p>
+
+<p>一个碎片化的纷争世界隐然可期了。</p>
+
+<p>[完]</p>
+
+<hr />
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img></p>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">madlogos</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-03-05</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E6%94%BF%E6%B2%BB%E5%9D%90%E6%A0%87/">政治坐标</a>
+          
+          <a href="/tags/%E5%9D%90%E6%A0%87%E7%BD%91/">坐标网</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="defensive-assassin">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">礼法两难的辱母杀人案</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'madlogos-gh';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:madlogos@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/5455754/madlogos?tab=profile" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/madlogos" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/madlogos" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://www.linkedin.com/in/yiying-wang/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://plus.google.com/&#43;%E6%B1%AA%E8%BD%B6%E9%A2%96madlogos" class="iconfont icon-google" title="google"></a>
+      <a href="http://github.com/madlogos" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/madlogos/" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/madlogos/" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.douban.com/people/Jandeaux/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jandeaux.tumblr.com" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.instagram.com/jandeaux/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://madlogos.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">madlogos</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.6"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

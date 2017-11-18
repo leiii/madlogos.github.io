@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rvest on Libido Chateau</title>
+    <link>http://madlogos.github.io/tags/rvest/</link>
+    <description>Recent content in Rvest on Libido Chateau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>cn</language>
+    <copyright>madlogos</copyright>
+    <lastBuildDate>Sun, 16 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://madlogos.github.io/tags/rvest/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat3/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat3/</guid>
+      <description>&lt;h1 id=&#34;甲乙丙类每月发病-死亡数&#34;&gt;甲乙丙类每月发病、死亡数&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(data.table)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看一下甲乙丙类每个月的发病和死亡例数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&amp;quot;发病数&amp;quot;)
+sta &amp;lt;- melt(sta[,names(sta) != &amp;quot;NA&amp;quot;], id=&amp;quot;日期&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+makeTsPlot(sta, &amp;quot;法定传染病每月发病数&amp;quot;, xlab=&amp;quot;年月&amp;quot;, ylab=&amp;quot;例数&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/inc_trend.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&amp;quot;死亡数&amp;quot;)
+sta &amp;lt;- melt(sta[,names(sta) != &amp;quot;NA&amp;quot;], id=&amp;quot;日期&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+makeTsPlot(sta, &amp;quot;法定传染病每月死亡数&amp;quot;, xlab=&amp;quot;年月&amp;quot;, ylab=&amp;quot;例数&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/mot_trend.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;甲类数字很少，看不太出。而不论乙类还是丙类，发病高峰都在春夏季。死亡高峰却在冬季。&lt;/p&gt;
+
+&lt;p&gt;按月算一下均数，看得更清楚。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, format(日期, &amp;quot;%m&amp;quot;) ~ 分类, mean, value.var=&amp;quot;发病数&amp;quot;)
+names(sta)[1] &amp;lt;- &amp;quot;月份&amp;quot;
+sta &amp;lt;- melt(sta[,1:4], id=&amp;quot;月份&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+sta$月份 &amp;lt;- as.integer(sta$月份)
+makeTsPlot(sta, &amp;quot;法定传染病平均月发病数&amp;quot;, unit=1, ylab=&amp;quot;平均例数&amp;quot;, xvar=&amp;quot;月份&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/inc_month.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, format(日期, &amp;quot;%m&amp;quot;) ~ 分类, mean, value.var=&amp;quot;死亡数&amp;quot;)
+names(sta)[1] &amp;lt;- &amp;quot;月份&amp;quot;
+sta &amp;lt;- melt(sta[,1:4], id=&amp;quot;月份&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+sta$月份 &amp;lt;- as.integer(sta$月份)
+makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, ylab=&amp;quot;平均例数&amp;quot;, xvar=&amp;quot;月份&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/mot_month.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat2/</link>
+      <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat2/</guid>
+      <description>&lt;h1 id=&#34;数据提取&#34;&gt;数据提取&lt;/h1&gt;
+
+&lt;p&gt;现在，可以着手把存储在附件里的信息结构化提取出来了。但在这之前，还有一个硬骨头要啃。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;要把图片附件识别成文本。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先考虑OCR。但是Abbyy Finereader似乎没有Ubuntu版本。其他一些主流工具要钱。网上找到几个免费OCR工具，试用了下，转出来一堆乱码亲妈都唔识得。一怒之下，放了个大招：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;手工录入。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/%E6%97%A0%E8%AF%9D%E5%8F%AF%E8%AF%B4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这项工作很不好做，让我不禁怀疑起人生。但只有经过这样的磨练，才能对疾控系统的信息化水平有一个实操层面的认识。倘若遇到这方面的项目机会，&lt;strong&gt;记得要把工程预算乘以3&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;图片方面的坑包括：
+1. 有些图片附件分辨率低到了厚马赛克水准，别说OCR，钛金狗眼也认不出
+2. 有些表格作为OLE对象内嵌到了Word文件里，当我满怀希望点进去才发现，这个内嵌对象竟仍是个图片
+3. 有个别文件特别贴心地把表格割成两张图，插到了正文里&lt;/p&gt;
+
+&lt;p&gt;满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到&lt;a href=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip&#34;&gt;七牛云&lt;/a&gt;。人人都可以免费用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat1/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat1/</guid>
+      <description>&lt;h1 id=&#34;带怀旧色彩的源起&#34;&gt;带怀旧色彩的源起&lt;/h1&gt;
+
+&lt;p&gt;清明节跑去一个休闲浴场&lt;del&gt;鬼混&lt;/del&gt;，在电影厅懒散地看掉了《生化危机6》。场地很豪华（但我就是不透露门牌地址），然而剧情不怎么样——女主光环实在太亮了。倒是病毒-丧尸-疫苗的急性传染病建模设定引起了我的一些职业回忆。&lt;/p&gt;
+
+&lt;p&gt;毕业后，我曾在基层疾控中心干过一年多，主要做疫苗接种规划和传染病控制。除了定期不定期地出外勤下现场，就是统计数字、写报告、汇编材料。这些数字沿着行政金字塔的梯级层层上卷，最终汇入国家卫生部疾控局官方报表的大海中。&lt;/p&gt;
+
+&lt;p&gt;说是大海，视觉上其实就是类似这样的一张表格：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_report.png&#34; alt=&#34;法定传染病统计表&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一晃很多年过去了。籍着这个由头，我又登上了卫生部（现在叫卫计委了，早晚改回卫生部）的官网，那感觉就像——拜会一个久寓故居，新近敲了墙、刷了房门的老派的朋友。那些月报还原封不动，化石一样静静地躺在信息动态里。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/nhfpc_infectdis_news.png&#34; alt=&#34;传染病控制动态&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_reporttxt.png&#34; alt=&#34;法定传染病月报&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这种格式报告，行文和结构都很固定，特别适合用机器人来自动生成。比如最新这期，正文就包括了发病、死亡合计总数，以及甲乙丙类各自的发病、死亡数。明细数据放在附表里。掐指一数，从2004年到现在，卫计委也积攒了140多份月报，不少了。何不爬下来看看？&lt;/p&gt;
+
+&lt;p&gt;所以，尽管当时身还在浴场，但心在砖场了，已经！&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

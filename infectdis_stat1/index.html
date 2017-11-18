@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据 - Libido Chateau</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="madlogos" /><meta name="description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。" />
+<meta name="keywords" content="法定传染病, 疫情报告, 爬虫" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.30.2" />
+
+
+<link rel="canonical" href="http://madlogos.github.io/infectdis_stat1/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<link href="/dist/even.min.css?v=2.6.6" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据" />
+<meta property="og:description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://madlogos.github.io/infectdis_stat1/" />
+
+
+
+<meta property="article:published_time" content="2017-04-07T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-04-07T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据">
+<meta itemprop="description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。">
+
+
+<meta itemprop="datePublished" content="2017-04-07T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-07T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="4063">
+
+
+
+<meta itemprop="keywords" content="传染病,疫情报告,rvest," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据"/>
+<meta name="twitter:description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Libido Chateau</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Libido Chateau</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-07 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE/"> 数据 </a>
+            
+          </div>
+        <span class="more-meta"> 约 4063 字 </span>
+        <span class="more-meta"> 预计阅读 9 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#带怀旧色彩的源起">带怀旧色彩的源起</a></li>
+<li><a href="#搬砖设想">搬砖设想</a></li>
+<li><a href="#爬目录">爬目录</a>
+<ul>
+<li><a href="#rvest"><code>rvest</code></a></li>
+</ul></li>
+<li><a href="#爬网页">爬网页</a></li>
+<li><a href="#解析发病和死亡总数">解析发病和死亡总数</a></li>
+<li><a href="#抽取各明细病种数据">抽取各明细病种数据</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h1 id="带怀旧色彩的源起">带怀旧色彩的源起</h1>
+
+<p>清明节跑去一个休闲浴场<del>鬼混</del>，在电影厅懒散地看掉了《生化危机6》。场地很豪华（但我就是不透露门牌地址），然而剧情不怎么样——女主光环实在太亮了。倒是病毒-丧尸-疫苗的急性传染病建模设定引起了我的一些职业回忆。</p>
+
+<p>毕业后，我曾在基层疾控中心干过一年多，主要做疫苗接种规划和传染病控制。除了定期不定期地出外勤下现场，就是统计数字、写报告、汇编材料。这些数字沿着行政金字塔的梯级层层上卷，最终汇入国家卫生部疾控局官方报表的大海中。</p>
+
+<p>说是大海，视觉上其实就是类似这样的一张表格：</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_report.png" alt="法定传染病统计表" /></p>
+
+<p>一晃很多年过去了。籍着这个由头，我又登上了卫生部（现在叫卫计委了，早晚改回卫生部）的官网，那感觉就像——拜会一个久寓故居，新近敲了墙、刷了房门的老派的朋友。那些月报还原封不动，化石一样静静地躺在信息动态里。</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/nhfpc_infectdis_news.png" alt="传染病控制动态" /></p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_reporttxt.png" alt="法定传染病月报" /></p>
+
+<p>这种格式报告，行文和结构都很固定，特别适合用机器人来自动生成。比如最新这期，正文就包括了发病、死亡合计总数，以及甲乙丙类各自的发病、死亡数。明细数据放在附表里。掐指一数，从2004年到现在，卫计委也积攒了140多份月报，不少了。何不爬下来看看？</p>
+
+<p>所以，尽管当时身还在浴场，但心在砖场了，已经！</p>
+
+<p></p>
+
+<h1 id="搬砖设想">搬砖设想</h1>
+
+<p>搬砖虽然是个贱活儿，但也要讲技巧。好在从技术角度，爬这些页面是再简单不过的事。只需要两步就完了：</p>
+
+<ol>
+<li>把所有月报页的链接抓到</li>
+<li>顺着这些链接把所有页面源码都爬下来</li>
+</ol>
+
+<p>更好的消息是所有页面都是静态的。所以只要用<code>rvest</code>就够了，整页爬下来，所有信息就包含在html里面（事实上并不是）。</p>
+
+<p>爬到所有月报页后，解析内容又是两步走：</p>
+
+<ol>
+<li>把正文里的发病/死亡总数抽出来，跑个时序图看看周期性</li>
+<li>把附表里的内容抽出来，分病种跑些分析</li>
+</ol>
+
+<p>Easy as a pie！等我一盏茶的功夫，我去去就来。（结果茶馊了都没能回来）</p>
+
+<h1 id="爬目录">爬目录</h1>
+
+<p>“传染病预防控制”这个分类的URL是很有规律的。第一页是<a href="http://www.nhfpc.gov.cn/jkj/s2907/new_list.shtml，第二页就是http://www.nhfpc.gov.cn/jkj/s2907/new_list_2.shtml。也就是说23个目录页拼一下就出来了：">http://www.nhfpc.gov.cn/jkj/s2907/new_list.shtml，第二页就是http://www.nhfpc.gov.cn/jkj/s2907/new_list_2.shtml。也就是说23个目录页拼一下就出来了：</a></p>
+
+<pre><code class="language-r">urls &lt;- paste0(
+    &quot;http://www.nhfpc.gov.cn/jkj/s2907/new_list&quot;, 
+    c(&quot;&quot;, paste0(&quot;_&quot;, 2:23)), &quot;.shtml&quot;)
+</code></pre>
+
+<h2 id="rvest"><code>rvest</code></h2>
+
+<p>有了URL，就可以爬源码了。当然可以把网页当文本，直接<code>readLines</code>，然后拿<code>XML</code>包写解析规则。但我们学R图什么？还不就是<strong>免费+有很多包方便偷懒</strong>？对于静态网页，当然毫不犹豫<code>rvest</code>。</p>
+
+<p><code>rvest</code>的核心函数是<code>read_html</code>、<code>html_nodes</code>、<code>html_text</code>和<code>html_table</code>。</p>
+
+<ul>
+<li><code>read_html</code>很好理解，把页面读进来。这个页面会被封装为一个<code>xml_nodes</code>对象。</li>
+<li><code>html_nodes</code>则负责从<code>xml_nodes</code>对象中提取某个节点的内容，封装成<code>xml_nodeset</code>对象。</li>
+<li>进一步，如果要把里面的内容都当做文本提出来，用<code>html_text</code>。</li>
+<li>有表格（<table>&hellip;</table>）的话，用<code>html_table</code>，直接输出梦寐以求的data.frame。</li>
+</ul>
+
+<p>唯一费解的概念也就是“节点”。但只要对html和xml略有了解，就很容易理解。一个html文件的典型结构是</p>
+
+<pre><code class="language-html">&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;...&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;...&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>从缩进结构可以看出，<code>html</code>是根节点，下一级是两个元素子节点<code>head</code>和<code>body</code>，<code>head</code>的子节点是<code>title</code>，<code>body</code>的子节点是<code>h1</code>，它们还可以有文本、属性或注释子节点。以此类推。</p>
+
+<p>怎么看页面节点结构呢？用Chrome访问目录页，F12查看文档结构，或者右键“查看页面源代码”。</p>
+
+<p>每一篇信息动态都在一个列表节点<li>里，最终都被包进一个无序列表父节点<ul>里。这个无序列表元素的类型是“zxxx_list”（果然还是万能的拼音首字母命名法，“资讯信息”）。所以拿到这个节点后，提取目录信息就很简单了：<a>节点内有标题和链接，<span ml>节点内有发布日期。</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/sourcecode_dir.png" alt="网页源码" /></p>
+
+<pre><code class="language-r">library(rvest)
+# 构造一个提取单个目录页信息的函数
+getTOC &lt;- function(url){
+  ## Args
+  ##   url: 单个网页/网址
+
+    # 读取网页，构成xml_nodes
+    html &lt;- read_html(url)
+    # 从html对象提取ul.zxxx_list节点，只要第一个元素
+    cast &lt;- html_nodes(html, &quot;ul.zxxx_list&quot;)[[1]]
+    # 从cast中提取所有&lt;a&gt;节点信息
+    lists &lt;- html_nodes(cast, &quot;a&quot;)
+    # 从cast中提取所有&lt;ml&gt;节点信息
+    dop &lt;- html_nodes(cast, &quot;span.ml&quot;)
+    # 最后得到一个3列数据框，包括链接、标题和发布日期
+    return(data.frame(
+        href=html_attr(lists, &quot;href&quot;),
+        title=str_trim(html_text(lists)),
+        dop=html_text(dop),
+        stringsAsFactors=FALSE))
+}
+# 遍历urls，循环运行getTOC
+toc &lt;- lapply(urls, getTOC)
+library(dplyr)
+# 将23个数据框列表合并起来
+toc &lt;- do.call(&quot;bind_rows&quot;, toc)
+</code></pre>
+
+<p>当然，这些动态不都是疫情报告。所以还要利用正则表达式过滤一下，并把链接格式补完。</p>
+
+<ul>
+<li>翻了几页，所有月度疫情公报都有“xx月全国法定”或“xx月份全国法定”的字样。</li>
+<li>所有链接都是相对路径，形如../../xxx，需要替换为完整路径。</li>
+</ul>
+
+<pre><code class="language-r">library(stringr)
+# 过滤出月报标题
+toc &lt;- toc[str_detect(toc$title, &quot;月[份]*全国法定&quot;),]
+# 补完链接路径
+toc$href &lt;- str_replace(
+    toc$href, &quot;^.+/jkj(.+$)&quot;, &quot;http://www.nhfpc.gov.cn/jkj\\1&quot;)
+</code></pre>
+
+<p>除了链接，我还想知道每份月报讲的是何年何月，将来解析了数据，直接可以对上日期。这时候标题就派上用场了，因为里面直接包含有年月信息。但这里就有一个坑：不是所有标题都完整。最早的一些月报是不含年份的，得结合发布日期来补全。</p>
+
+<pre><code class="language-r"># 哪些月报标题里没有“年”字？
+idx.noyr &lt;- which(! str_detect(toc$title, &quot;\\d+年&quot;))
+# 生成date列，初始均为NA
+toc$date &lt;- NA
+# 没有“年”字的月报，就用发布日期的年份来替代
+toc$date[idx.noyr] &lt;- paste(
+    str_replace(toc$dop[idx.noyr], &quot;(^\\d+).+&quot;, &quot;\\1&quot;),
+    str_replace(toc$title[idx.noyr], &quot;.+(\\d+)月.+&quot;, &quot;\\1&quot;), &quot;1&quot;,
+    sep=&quot;-&quot;)
+# 其他月报，就直接提取标题里的年月信息
+toc$date[-idx.noyr] &lt;- str_replace(
+    toc$title[-idx.noyr], &quot;\\D*(\\d+)年(\\d+)月.+&quot;, &quot;\\1-\\2-1&quot;)
+# 默认都是当月1日。date列转为日期型
+toc$date &lt;- as.Date(toc$date)
+</code></pre>
+
+<p><code>toc</code>数据集长这样：</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/toc_tbl.png" alt="toc表格" /></p>
+
+<p>万里长征踏出了第一步。</p>
+
+<h1 id="爬网页">爬网页</h1>
+
+<p>这一步就比较简单了，干脆就先把网页代码先弄下来。在这里就不多考虑反爬虫问题了（因为试下来卫计委官网好像没有反爬虫机制，再说才爬它一百多个页面，有啥好反的）。电脑虽然配置不济，好歹有4个核。为了加点速，充分利用CPU（R默认只用单核）算力，不妨拿<code>doParallel</code>包做点并行计算处理。</p>
+
+<pre><code class="language-r"># 构造一个读取网页代码的函数
+getWebPage &lt;- function(url){
+	## Arg
+	##    url: 网页网址
+	html &lt;- read_lines(url)
+	return(paste(html, collapse=&quot;\n&quot;))
+}
+# 并行计算
+library(doParallel)
+registerDoParallel(cores=parallel::detectCores())
+pages &lt;- foreach(i=seq_along(toc$href), .combine=c) %dopar% 
+	invisible(getWebPage(toc$href[i]))
+names(pages) &lt;- as.character(toc$date)
+</code></pre>
+
+<p>pages是一个149个文本元素构成的大向量，用日期作为向量命名。</p>
+
+<pre><code class="language-r">str(pages)
+</code></pre>
+
+<pre><code class="language-r"> Named chr [1:149] &quot;  &lt;!DOCTYPE html PUBLIC \&quot;-//W3C//DTD XHTML 1.0 Transitional//EN\&quot; \&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\&quot;&gt;&quot;| __truncated__ ...
+ - attr(*, &quot;names&quot;)= chr [1:149] &quot;2017-02-01&quot; &quot;2017-01-01&quot; &quot;2016-12-01&quot; &quot;2016-11-01&quot; ...
+</code></pre>
+
+<h1 id="解析发病和死亡总数">解析发病和死亡总数</h1>
+
+<p>第二个大坑正在缓缓靠近：不是所有月报都有发病和死亡总数。</p>
+
+<ul>
+<li>2005年以前，压根不报告丙类传染病</li>
+<li>2010年以前，不汇报发病和死亡总数，且甲乙类合并计数，丙类另报</li>
+<li>甲类汇总的文本多样化很强，一般鼠疫和霍乱还分开来报，正则写起来会死。</li>
+</ul>
+
+<p>所以最后决定：</p>
+
+<ul>
+<li>抽得到总数的，直接用总数</li>
+<li>没有报告总数的，会向后抽到甲乙类合计，或甲类，或乙类。无论哪种情况，乙类+丙类基本等于总数</li>
+</ul>
+
+<p>好机（偷）智（懒）！</p>
+
+<pre><code class="language-r"># 构造函数，从正文直接提取发病和死亡总数
+getKeyNums &lt;- function(page){
+    ## Arg
+    ##   page: 单个网页
+
+    page &lt;- read_html(page)
+    txt.node &lt;- html_nodes(page, &quot;div.con&quot;)
+    txt &lt;- html_text(txt.node)  # 获得月报正文
+    ## 发病总数
+    inc.tot &lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?(发病|报告)\\D+(\\d{6,})[例人].+&quot;, dotall=TRUE
+            ), &quot;\\2&quot;))
+    ## 死亡总数
+    mot.tot&lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?(发病|报告).+?死亡\\D*?(\\d+)[例人].+&quot;, dotall=TRUE
+            ), &quot;\\2&quot;))
+    ## 乙类发病总数
+    inc.b &lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?乙类.+?(\\d+)[例人].+&quot;, dotall=TRUE
+            ), &quot;\\1&quot;))
+    ## 乙类死亡总数
+    mot.b &lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?乙类.+?死亡\\D*?(\\d+)[例人].+&quot;, dotall=TRUE), 
+        &quot;\\1&quot;))
+    ## 丙类发病总数
+    inc.c &lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?丙类.+?(\\d+)[例人].+&quot;, dotall=TRUE
+            ), &quot;\\1&quot;))
+    ## 丙类死亡总数
+    mot.c &lt;- as.integer(str_replace(
+        txt, regex(
+            &quot;.+?丙类.+?死亡\\D*?(\\d+)[例人].+&quot;, dotall=TRUE
+            ), &quot;\\1&quot;))
+    ## 如发病总数=乙类发病数，则未提取到，用乙类+丙类替代
+    if (identical(inc.tot, inc.b)) inc.tot &lt;- inc.tot + inc.c
+    if (identical(mot.tot, mot.b)) mot.tot &lt;- mot.tot + mot.c
+    ## 返回发病总数和死亡总数
+    return(c(inc.tot, mot.tot))
+}
+# 遍历pages运行getKeyNums，转置后转换为2列的数据框
+genl.stat &lt;- as.data.frame(t(sapply(pages, getKeyNums)))
+names(genl.stat) &lt;- c(&quot;Incidence&quot;, &quot;Mortality&quot;)
+# 将row.names衍生为新变量Date，转为日期型
+genl.stat$Date &lt;- as.Date(row.names(genl.stat))
+# 有重复月报！去掉重复记录。取2005年以后的月报
+genl.stat &lt;- genl.stat[
+     ! duplicated(genl.stat$Date) &amp; genl.stat$Date &gt; &quot;2004-12-01&quot;,]
+genl.stat &lt;- genl.stat[order(genl.stat$Date),]  # 按日期排序
+# 2009/4的月报无论如何不适配，只能手动改
+genl.stat[&quot;2009-04-01&quot;, 1:2] &lt;- c(338281, 576)
+</code></pre>
+
+<p>历尽艰苦，终于得到了这个该死的数据集。把历月发病和死亡数做个时序图。</p>
+
+<pre><code class="language-r">genl.stat &lt;- melt(genl.stat, id=&quot;Date&quot;)
+library(ggplot2)
+library(ggthemes)
+ggplot(genl.stat) + geom_line(aes(Date, value, color=variable)) + theme_hc() +
+    scale_color_hc() + scale_x_date(date_breaks=&quot;1 year&quot;, date_labels=&quot;%Y&quot;) +
+    facet_grid(variable~., scales=&quot;free&quot;) + 
+    theme(axis.ticks=element_line(linetype=0)) +
+    labs(title=&quot;Incidence And Mortality of Notifiable Infectious Diseases&quot;,
+        subtitle=&quot;2005/1-2017/2&quot;, caption=&quot;source: NHFPC&quot;)
+</code></pre>
+
+<p>年周期性还是很显著的。</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/inc_mot_infectdis.png" alt="发病/死亡月度统计" /></p>
+
+<h1 id="抽取各明细病种数据">抽取各明细病种数据</h1>
+
+<p>接下来进行明细分病种数据的爬取。</p>
+
+<p>理论上，把表格抽取出来就完了嘛。但是尝试了一下发现竟然有问题。随机看了一下，发现自己被坑惨了。附表有三类：</p>
+
+<ul>
+<li>网页表格，这种最好利用</li>
+<li>附件，如doc、xls</li>
+<li>图片（！），如png，jpg</li>
+</ul>
+
+<p>竟然还有直接传个截图当公报的，怎么不去爆炸？</p>
+
+<p>本来打算<code>html_table</code>跑一遍就愉快地合并数据框了，却不料跑进了一个马里亚纳深坑里。只能改变策略，先把这些附件都下载下来。</p>
+
+<pre><code class="language-r"># 构造函数，下载附表
+getWebTbl &lt;- function(url, tbl.name){
+    ## Arg
+    ##    url: 网页
+    ##    tbl.name: 表格名称，用日期命名
+
+    # 如附表文件已存在，跳出
+    if (any(file.exists(
+        paste0(&quot;~/infectdis/&quot;, tbl.name, &quot;.&quot;, 
+               c(&quot;xls&quot;, &quot;csv&quot;, &quot;doc&quot;, &quot;gif&quot;, &quot;jpg&quot;, &quot;png&quot;))))){
+        return(invisible())
+    }
+	# 否则就把页面源码读下来
+    html &lt;- read_html(url)
+    # 尝试抽取网页表格
+    cast &lt;- html_nodes(html, &quot;table&quot;)
+    # 尝试抽取附件表格
+    cast.attach &lt;- html_nodes(html, &quot;div.con a&quot;)
+    regex.attach &lt;- &quot;([Xx][Ll][Ss][Xx]*|[Dd][Oo][Cc][Xx]*)&quot;
+    # 尝试抽取附件图片
+    cast.img &lt;- html_nodes(html, &quot;div.con img&quot;)
+    regex.img &lt;- &quot;([Gg][Ii][Ff]|[Pp][Nn][Gg]|[Jj][Pp][Gg])&quot;
+    if (length(cast)&gt;0){  # 读到网页表格
+        out &lt;- html_table(cast, fill=TRUE)[[1]]
+        if (! file.exists(paste0(&quot;~/infectdis/&quot;, tbl.name, &quot;.csv&quot;))){
+            write_csv(out, paste0(&quot;~/infectdis/&quot;, tbl.name, &quot;.csv&quot;))
+        }
+    } else if (any(str_detect(
+        cast.attach, paste0(&quot;\\.&quot;, regex.attach, &quot;\&quot;&quot;)))){  
+        # 读到附件表格
+        idx.attach &lt;- which(str_detect(
+            cast.attach, paste0(&quot;\\.&quot;, regex.attach, &quot;\&quot;&quot;)))[1]
+        doc.link &lt;- str_replace(
+            cast.attach[idx.attach], 
+            paste0(&quot;.+href=\&quot;(.+?\\.)&quot;, regex.attach, &quot;\&quot;.+&quot;), &quot;\\1\\2&quot;)
+        file.type &lt;- tolower(str_replace(
+            doc.link, paste0(&quot;.+\\.&quot;, regex.attach, &quot;$&quot;), &quot;\\1&quot;))
+        # 附件路径补完
+        if (str_detect(doc.link, &quot;^/&quot;))
+            doc.link &lt;- paste0(
+                &quot;http://www.nhfpc.gov.cn&quot;, doc.link)
+        # 另一种类型的相对路径
+        if (str_detect(doc.link, &quot;^[^h/]&quot;))
+            doc.link &lt;- paste0(
+                str_replace(url, &quot;^(.+)\\.shtml$&quot;, &quot;\\1&quot;),
+                str_replace(doc.link, &quot;^[^/]+(/.+$)&quot;, &quot;\\1&quot;))
+        # 重命名并存储
+        if (! file.exists(paste0(
+            &quot;~/infectdis/&quot;, tbl.name, &quot;.&quot;, file.type))){
+            doc.file &lt;- download.file(
+                doc.link, destfile=paste0(
+                    &quot;~/infectdis/&quot;, tbl.name, &quot;.&quot;, file.type))
+        }
+    } else if (any(str_detect(cast.img, paste0(
+        &quot;\\.&quot;, regex.img, &quot;\&quot;&quot;)))){
+        # 读到附件图片
+        idx.img &lt;- which(str_detect(
+            cast.img, paste0(&quot;\\.&quot;, regex.img, &quot;\&quot;&quot;)))[1]
+        doc.link &lt;- str_replace(
+            cast.img[idx.img], 
+            paste0(&quot;.+img.+src=\&quot;(.+?\\.)&quot;, regex.img, &quot;\&quot;.+&quot;), &quot;\\1\\2&quot;)
+        file.type &lt;- tolower(str_replace(
+            doc.link, paste0(&quot;.+\\.&quot;, regex.img, &quot;$&quot;), &quot;\\1&quot;))
+        # 附件路径补完        
+        if (str_detect(doc.link, &quot;^/&quot;))
+            doc.link &lt;- paste0(
+                &quot;http://www.nhfpc.gov.cn&quot;, doc.link)
+        # 另一种类型的相对路径
+        if (str_detect(doc.link, &quot;^[^h/]&quot;))
+            doc.link &lt;- paste0(
+                str_replace(url, &quot;^(.+)\\.shtml$&quot;, &quot;\\1&quot;),
+                str_replace(doc.link, &quot;^[^/]+(/.+$)&quot;, &quot;\\1&quot;))
+        # 重命名并存储
+        if (! file.exists(paste0(
+            &quot;~/infectdis/&quot;, tbl.name, &quot;.&quot;, file.type))){
+            doc.file &lt;- download.file(
+                doc.link, destfile=paste0(
+                    &quot;~/infectdis/&quot;, tbl.name, &quot;.&quot;, file.type))
+        }
+    }
+}
+# 再次动用并行计算
+registerDoParallel(cores=parallel::detectCores())
+foreach(i=seq_along(toc$href)) %dopar% 
+    invisible(getWebTbl(toc$href[i], as.character(toc$date[i])))
+</code></pre>
+
+<p>看到这些文件齐齐整整码在硬盘里，心下暂时宽慰了一点。</p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170404/downfiles.png" alt="附件下载" /></p>
+
+<p>然而让我们回头看看疫情月报附表们可恨的多样性吧。</p>
+
+<pre><code class="language-r">table(str_replace(
+    list.files(&quot;~/infectdis&quot;), &quot;.+\\.(.+$)&quot;, &quot;\\1&quot;))
+</code></pre>
+
+<pre><code class="language-r">csv doc gif jpg png xls 
+ 67  51  21   4   1   2
+</code></pre>
+
+<p>140多篇动态报道，只有67篇用了网页表格附件，有53篇是MS office文档，还有26篇直接贴图了事。</p>
+
+<p>真是一叶落而知天下秋。卫生系统的数据化水准，跟金融系统比起来真是天上地下，一个站着，一个躺着。</p>
+
+<p>[待续]</p>
+
+<hr />
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img></p>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">madlogos</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-04-07</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E4%BC%A0%E6%9F%93%E7%97%85/">传染病</a>
+          
+          <a href="/tags/%E7%96%AB%E6%83%85%E6%8A%A5%E5%91%8A/">疫情报告</a>
+          
+          <a href="/tags/rvest/">rvest</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="infectdis_stat2">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="defensive-assassin">
+            <span class="next-text nav-default">礼法两难的辱母杀人案</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'madlogos-gh';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:madlogos@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/5455754/madlogos?tab=profile" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/madlogos" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/madlogos" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://www.linkedin.com/in/yiying-wang/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://plus.google.com/&#43;%E6%B1%AA%E8%BD%B6%E9%A2%96madlogos" class="iconfont icon-google" title="google"></a>
+      <a href="http://github.com/madlogos" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/madlogos/" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/madlogos/" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.douban.com/people/Jandeaux/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jandeaux.tumblr.com" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.instagram.com/jandeaux/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://madlogos.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">madlogos</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.6"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

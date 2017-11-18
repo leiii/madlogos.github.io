@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>可视化 on Libido Chateau</title>
+    <link>http://madlogos.github.io/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <description>Recent content in 可视化 on Libido Chateau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>cn</language>
+    <copyright>madlogos</copyright>
+    <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://madlogos.github.io/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>【动态图版】北宋、明清进士空间可视化分析</title>
+      <link>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</link>
+      <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;如果浏览器提示本文加载了不安全的脚本，请点允许。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;今次主题比较简单。上个话题留了点冷饭，看起来还没馊，咱敲个鸡蛋炒个蛋炒饭。&lt;/p&gt;
+
+&lt;p&gt;炒个什么蛋炒饭呢？——动态图(dynamic charts)。这也是应留言要求额外发的番外。基本和分析关系不大，纯粹是可视化范畴。&lt;/p&gt;
+
+&lt;h1 id=&#34;动态图&#34;&gt;动态图&lt;/h1&gt;
+
+&lt;p&gt;通常我们看到的都是静态图，最常见的是.jpg、.png这类位图，逼格高一点的会用到.svg矢量图。但它们都是死图，所有图形元素都不会动。某些情况下，我们不仅要把统计结果映射到特定的视觉通道，还希望表现其历时性，或者允许用户自己进行挖掘。这就需要让图形部件动起来。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一种方法是做成动画(animation)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果足够醒目。它的基本思路就是拿出一维来映射时间，基于时间点对数据切片、统计、制图，最后把静态图们合成一个动画。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;还有一种方法是交互图(interactive charts)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。&lt;/p&gt;
+
+&lt;p&gt;如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。&lt;/p&gt;
+
+&lt;h1 id=&#34;动画&#34;&gt;动画&lt;/h1&gt;
+
+&lt;p&gt;还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;用cut函数把连续变量切分成分段因子；&lt;/li&gt;
+&lt;li&gt;用sprintf格式化因子标签，否则会自动套用前开后闭科学计数法区间样式，表示年代比较怪；&lt;/li&gt;
+&lt;li&gt;各朝的分期不见得都对，我就随便分了下：
+
+&lt;ul&gt;
+&lt;li&gt;北宋(960-1127)：以1021、1085分期，大体对应真宗/仁宗、神宗/哲宗；&lt;/li&gt;
+&lt;li&gt;明朝(1668-1644)：以1434、1572分期，大体对应宣宗(宣德)/英宗、穆宗(隆庆)/神宗(万历)；&lt;/li&gt;
+&lt;li&gt;清朝(1644-1911)：以1735、1850分期，大体对应世宗(雍正)/高宗(乾隆)、宣宗(道光)/文宗(咸丰)。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(animation)
+nsong.js$period &amp;lt;- cut(
+    nsong.js$EntryYear, c(960, 1021, 1085, 1127), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+ming.js$period &amp;lt;- cut(
+    ming.js$EntryYear, c(1368, 1434, 1572, 1644), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+qing.js$period &amp;lt;- cut(
+    qing.js$EntryYear, c(1644, 1735, 1850, 1911), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;各自切片统计，再做成.gif动画。这里设置动画间隔为2秒，每一帧大小都是640×480像素。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;oopt &amp;lt;- ani.options(interval=2, ani.width=640, ani.height=480)
+saveGIF({
+    for (i in levels(nsong.js$period)){
+        print(p.song + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
+        data=nsong.js[nsong.js$period==i,], geom=&amp;quot;polygon&amp;quot;, alpha=0.5) +
+        scale_fill_gradient(low=&amp;quot;cyan&amp;quot;, high=&amp;quot;darkblue&amp;quot;)+
+        ggtitle(paste0(&amp;quot;北宋进士来源地 (&amp;quot;, i, &amp;quot;)&amp;quot;)))
+    }
+}, &amp;quot;song.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

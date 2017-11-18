@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据 - Libido Chateau</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="madlogos" /><meta name="description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。" />
+<meta name="keywords" content="法定传染病, 疫情报告, 爬虫" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.30.2" />
+
+
+<link rel="canonical" href="http://madlogos.github.io/infectdis_stat2/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<link href="/dist/even.min.css?v=2.6.6" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据" />
+<meta property="og:description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://madlogos.github.io/infectdis_stat2/" />
+
+
+
+<meta property="article:published_time" content="2017-04-15T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-04-15T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据">
+<meta itemprop="description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。">
+
+
+<meta itemprop="datePublished" content="2017-04-15T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-15T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3943">
+
+
+
+<meta itemprop="keywords" content="传染病,疫情报告,rvest," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据"/>
+<meta name="twitter:description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Libido Chateau</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Libido Chateau</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-15 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E6%95%B0%E6%8D%AE/"> 数据 </a>
+            
+          </div>
+        <span class="more-meta"> 约 3943 字 </span>
+        <span class="more-meta"> 预计阅读 8 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#数据提取">数据提取</a>
+<ul>
+<li><a href="#docxtractr"><code>docxtractr</code></a></li>
+<li><a href="#提取工具函数">提取工具函数</a></li>
+</ul></li>
+<li><a href="#数据清理">数据清理</a>
+<ul>
+<li><a href="#值规范化">值规范化</a></li>
+<li><a href="#归并同类">归并同类</a></li>
+</ul></li>
+<li><a href="#通用作图函数">通用作图函数</a></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <h1 id="数据提取">数据提取</h1>
+
+<p>现在，可以着手把存储在附件里的信息结构化提取出来了。但在这之前，还有一个硬骨头要啃。</p>
+
+<p><strong>要把图片附件识别成文本。</strong></p>
+
+<p>首先考虑OCR。但是Abbyy Finereader似乎没有Ubuntu版本。其他一些主流工具要钱。网上找到几个免费OCR工具，试用了下，转出来一堆乱码亲妈都唔识得。一怒之下，放了个大招：</p>
+
+<p><strong>手工录入。</strong></p>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/%E6%97%A0%E8%AF%9D%E5%8F%AF%E8%AF%B4.jpg" alt="" /></p>
+
+<p>这项工作很不好做，让我不禁怀疑起人生。但只有经过这样的磨练，才能对疾控系统的信息化水平有一个实操层面的认识。倘若遇到这方面的项目机会，<strong>记得要把工程预算乘以3</strong>。</p>
+
+<p>图片方面的坑包括：
+1. 有些图片附件分辨率低到了厚马赛克水准，别说OCR，钛金狗眼也认不出
+2. 有些表格作为OLE对象内嵌到了Word文件里，当我满怀希望点进去才发现，这个内嵌对象竟仍是个图片
+3. 有个别文件特别贴心地把表格割成两张图，插到了正文里</p>
+
+<p>满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。</p>
+
+<blockquote>
+<p>有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到<a href="http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip">七牛云</a>。人人都可以免费用。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="docxtractr"><code>docxtractr</code></h2>
+
+<p>docx和xlsx本质上是一堆xml文件打包到zip里。所以2007以后的MS Office文件都更好处理，解包后按xml语法抽节点信息就是。不过人上有人，懒外有懒。我是不会用XML包做通用解的，敲那么多代码手指不会痛吗？</p>
+
+<p><strong>除非人命关天，否则莫造新轮。</strong></p>
+
+<p>我们可用<code>docxtractr</code>处理docx，<code>readxl</code>处理xlsx，<code>readr</code>处理csv。<code>docxtractr</code>有个特别贴心的函数<code>docx_extract_tbl</code>，直接把word正文里的表格提取成data.frame，就跟<code>html_table</code>一样。</p>
+
+<h2 id="提取工具函数">提取工具函数</h2>
+
+<p>通过前面的苦力活，现在只剩下三种文件形态：csv、xlsx、docx。写一个通用方法来分类提取。</p>
+
+<pre><code class="language-r">library(docxtractr)
+library(readxl)
+library(readr)
+readMsoTbl &lt;- function(mso.file, header=TRUE) {
+    file.type &lt;- tolower(str_replace(
+        mso.file, &quot;.+\\.([^\\.]+)$&quot;, &quot;\\1&quot;))
+    if (file.type == &quot;csv&quot;){
+        invisible(read_csv(mso.file, col_names=header))
+    }else if (file.type == &quot;docx&quot;){
+        docx &lt;- invisible(read_docx(mso.file))
+        docx_extract_tbl(docx, 1, header=header)
+    }else if (file.type == &quot;xlsx&quot;){
+        invisible(read_excel(mso.file, col_names=header))
+    }else{
+        NULL
+    }
+}
+</code></pre>
+
+<p>然后用<code>lapply</code>跑个隐式循环，就把所有表格都以data.frame的形式提出来了，存为一个逼格李斯特(big list)。</p>
+
+<pre><code class="language-r">data &lt;- lapply(list.files(&quot;~/infectdis&quot;, full.names=TRUE), 
+               invisible(readMsoTbl))
+</code></pre>
+
+<h1 id="数据清理">数据清理</h1>
+
+<p>这样得到的数据虽然结构化了，但仍有很多问题。</p>
+
+<ol>
+<li>变量名都是X1, X2, &hellip;， 需要转成数据原本的表头</li>
+<li>存在空行和空列</li>
+<li>数值列含有缺失值和数值文本混合值</li>
+<li>病名多样，比如“甲肝”和“甲型肝炎”本质上是一回事</li>
+</ol>
+
+<p>可以分几步走：重新定义表头，然后舍弃/纠正不规范数值，最后归并同类病名。</p>
+
+<h2 id="值规范化">值规范化</h2>
+
+<p>构造两个工作函数，然后lapply一轮就能把数值规范化：</p>
+
+<ul>
+<li><code>redefCol</code>用来规范每张表格的表头。如当前用的是X1, X2, &hellip;，就用首行替代。最后把变量名中的空格、星号都去掉</li>
+<li><code>cleanTbl</code>用来去掉空列、空行，去掉“病名”列中的空格、星号、括号等，把发病数、死亡数两列的非数字字符都去掉</li>
+</ul>
+
+<blockquote>
+<p>由于后面要用到并行计算，所以工作函数内要么显式引用加载包<code>stringr</code>等，要么在函数前声明其所在命名空间，如<code>stringr::str_detect()</code>。</p>
+</blockquote>
+
+<pre><code class="language-r"># 重定义首行
+redefCol &lt;- function(df){
+    ## Arg
+    ##     df: data.frame
+    if (all(str_detect(colnames(df), &quot;[Xx]\\d&quot;))){
+        colnames(df) &lt;- df[1,]
+        df &lt;- df[2:nrow(df),]
+    }
+    colnames(df) &lt;- str_replace_all(
+        colnames(df), &quot;\\s|\\*&quot;, &quot;&quot;)
+    return(df)
+}
+
+# 数据整形
+cleanTbl &lt;- function(df){
+    ## Args
+    ##    df: data.frame
+    ##    dop: date of publication
+    
+    # 去掉空列、空行
+    is.colallNA &lt;- sapply(df, function(vec){
+        all(is.na(vec)) | all(nchar(vec)==0)})
+    is.rowallNA &lt;- apply(df, 1, function(vec){
+        all(is.na(vec)) | all(nchar(vec)==0)})
+    o &lt;- df[!is.rowallNA, !is.colallNA]
+    # 去掉首列空格，名称规范化
+    o[[1]] &lt;- stringr::str_replace_all(
+        o[[1]], &quot;[\\s＊\\*（）]&quot;, &quot;&quot;)
+    # 确保发病和死亡都是整数
+    invisible(lapply(2:3, function(i){
+        o[[i]] &lt;&lt;- as.numeric(stringr::str_replace(
+            o[[i]], &quot;\\D&quot;, &quot;&quot;))
+        o[[i]][is.na(o[[i]])] &lt;&lt;- 0
+    }))
+    return(as.data.frame(o))
+}
+</code></pre>
+
+<p><code>cleanTbl</code>函数内部用了好几个apply家族函数，可想而知肯定很慢。所以遍历data列表时，可以用一下并行计算<code>parallel</code>。</p>
+
+<p>先要创建一个集群，利用<code>makeCluster</code>。这里声明构造4个集群，因为<code>detectCores()</code>会告诉系统，这台电脑有4核。少声明几个也无所谓。</p>
+
+<pre><code class="language-r">library(parallel)
+cl &lt;- makeCluster(getOption(&quot;cl.cores&quot;, detectCores()))
+</code></pre>
+
+<p>创建集群，就是为了用<code>parLapply</code>，这其实就是<code>lapply</code>的并行版本。原来是<code>snow</code>包里的。并行调用<code>cleanTbl</code>后，清干净的列表存为dat。尺寸上明显小了很多。</p>
+
+<pre><code class="language-r">dat &lt;- parLapply(cl, dat, invisible(cleanTbl))
+</code></pre>
+
+<p>dat用日期命名，然后再用一次lapply隐式循环，遍历dat的同时为每张表新增一列DOP。这里要用超赋值符&lt;&lt;-。</p>
+
+<pre><code class="language-r">names(dat) &lt;- str_replace(
+    list.files(&quot;~/infectdis&quot;), &quot;^(.+)\\..+$&quot;, &quot;\\1&quot;)
+invisible(lapply(1:length(dat), function(i){
+    dat[[i]]$DOP &lt;&lt;- as.Date(names(dat)[i])}))
+</code></pre>
+
+<p>清理完毕！最后调用<code>dplyr</code>的<code>bind_rows</code>，把这些列表中包裹的数据框提出来合并成一个大数据框。这个框就是后续分析的基础了。</p>
+
+<pre><code class="language-r">library(dplyr)
+dat &lt;- do.call(&quot;bind_rows&quot;, dat)
+</code></pre>
+
+<h2 id="归并同类">归并同类</h2>
+
+<p>首先，定义一个正则转化字典，然后遍历一遍，就把同类病名都归并了。</p>
+
+<pre><code class="language-r">dict &lt;- data.frame(
+    pattern=c(
+        &quot;^.*甲乙丙类.*$&quot;, &quot;甲乙类传染病小计&quot;, 
+        &quot;丙类传染病合计&quot;, &quot;([甲乙丙丁戊])肝&quot;, &quot;^未分型$|未分型肝炎&quot;, 
+        &quot;其他&quot;, &quot;人感染H7N9禽流感&quot;, &quot;布病&quot;, &quot;钩体病&quot;, &quot;^.*出血热.*$&quot;, 
+        &quot;^.*斑疹伤寒.*$&quot;, &quot;伤寒\\+副伤寒&quot;), 
+    replace=c(
+        &quot;合计&quot;, &quot;甲乙类传染病合计&quot;, &quot;丙类传染病小计&quot;, &quot;\\1型肝炎&quot;,
+        &quot;肝炎未分型&quot;, &quot;其它&quot;, &quot;人感染高致病性禽流感&quot;, &quot;布鲁氏菌病&quot;, 
+        &quot;钩端螺旋体病&quot;, &quot;流行性出血热&quot;, &quot;流行性和地方性斑疹伤寒&quot;,
+        &quot;伤寒和副伤寒&quot;)
+)
+# 按行遍历dict，将dat$病名中符合'pattern'的，替换为'replace'
+apply(dict, 1, function(vec) {
+    invisible(
+        dat$病名 &lt;&lt;- str_replace(dat$病名, vec[1], vec[2]))
+})
+</code></pre>
+
+<p>再然后，创建一个变量Class，标记甲、乙、丙三个分类。</p>
+
+<pre><code class="language-r">dat$Class &lt;- NA
+dat$Class[dat$病名 %in% c(&quot;霍乱&quot;, &quot;鼠疫&quot;)] &lt;- &quot;甲类&quot;
+dat$Class[dat$病名 %in% c(
+    &quot;病毒性肝炎&quot;, &quot;细菌性和阿米巴性痢疾&quot;, &quot;伤寒和副伤寒&quot;, &quot;艾滋病&quot;,
+    &quot;淋病&quot;, &quot;梅毒&quot;, &quot;脊髓灰质炎&quot;, &quot;麻疹&quot;, &quot;百日咳&quot;, &quot;白喉&quot;, 
+    &quot;流行性脑脊髓膜炎&quot;, &quot;猩红热&quot;, &quot;流行性出血热&quot;, &quot;狂犬病&quot;, 
+    &quot;钩端螺旋体病&quot;, &quot;布鲁氏菌病&quot;, &quot;炭疽&quot;, &quot;流行性乙型脑炎&quot;,
+    &quot;疟疾&quot;, &quot;登革热&quot;, &quot;新生儿破伤风&quot;, &quot;肺结核&quot;, &quot;传染性非典型肺炎&quot;,
+    &quot;人感染高致病性禽流感&quot;, &quot;血吸虫病&quot;, &quot;甲型H1N1流感&quot;)] &lt;- &quot;乙类&quot;
+dat$Class[dat$病名 %in% c(
+    &quot;流行性感冒&quot;, &quot;流行性腮腺炎&quot;, &quot;风疹&quot;, &quot;急性出血性结膜炎&quot;,
+     &quot;麻风病&quot;, &quot;包虫病&quot;, &quot;丝虫病&quot;, &quot;其它感染性腹泻病&quot;, &quot;手足口病&quot;,
+    &quot;流行性和地方性斑疹伤寒&quot;, &quot;黑热病&quot;)] &lt;- &quot;丙类&quot;
+names(dat) &lt;- c(&quot;病名&quot;, &quot;发病数&quot;, &quot;死亡数&quot;, &quot;日期&quot;, &quot;分类&quot;)
+dat$分类 &lt;- factor(dat$分类, levels=c(&quot;丙类&quot;, &quot;乙类&quot;, &quot;甲类&quot;))
+</code></pre>
+
+<h1 id="通用作图函数">通用作图函数</h1>
+
+<p>接下来我计划做一系列面积图，简单看看疫情的时间分布有什么有趣之处。但每次整形一遍，再写一堆ggplot命令是很烦人的。我盘算了下，大约要跑十几张图，如果写个通用作图函数增加代码复用性，整体来说还是合算的。</p>
+
+<p><strong>作为码农，不光要坚定地偷懒，还要偷得值。</strong></p>
+
+<p>简单说来，这个函数可以接过一个初步分析结果数据框，根据指定的xvar、yvar、gvar来设置<code>geom_area()</code>的<code>aes</code>参数，再套用一下HighChart的主题。这样每次做图，只需要写一行代码就完事了。</p>
+
+<p>下面的代码是本次分析可视化的最核心部分。</p>
+
+<pre><code class="language-r">library(ggplot2)
+library(ggthemes)
+makeTsPlot &lt;- function(
+    df, title, unit=&quot;4 months&quot;, xlab=xvar, ylab=yvar,
+    xvar=&quot;日期&quot;, yvar=&quot;value&quot;, gvar=&quot;分类&quot;, 
+    legend.position=c(0.6, 1.05)
+){
+    ## Arg:
+    ##    df: data.frame, source data
+    ##    title: plot title
+    ##    unit: a num or date_breaks
+    ##    xlab, ylab: x-axis y-axis caption
+    ##    xvar, yvar, gvar: var name of x, y, group
+    ##    legend.position: a value that ggplot2::theme() accepts
+    
+    if (inherits(df[,xvar], c(&quot;POSIXt&quot;, &quot;Date&quot;))){
+        breaks &lt;- seq(min(df[,xvar]), max(df[,xvar]), unit)
+        labels &lt;- format(breaks, &quot;%m\n%y&quot;)
+        min.mon &lt;- sort(format(breaks,&quot;%m&quot;))[1]
+        labels[!str_detect(labels, paste0(&quot;^&quot;, min.mon))] &lt;- format(
+            breaks[!str_detect(labels, paste0(&quot;^&quot;, min.mon))], &quot;%m&quot;)
+        labels &lt;- str_replace(labels, &quot;^0&quot;, &quot;&quot;)
+    }else if (is.numeric(df[,xvar])){
+        breaks &lt;- labels &lt;- 
+            seq(min(df[,xvar]), max(df[,xvar]), unit)
+    }else{
+        breaks &lt;- labels &lt;- unique(df[,xvar])
+    }
+    pal &lt;- ggthemes_data$hc$palettes$default[c(1,3,2,4:10)]
+    if (length(pal) &lt; length(unique(df[,gvar]))){
+        pal &lt;- rep(pal, ceiling(
+            length(unique(df[,gvar])) / length(pal)))
+    }
+    pal &lt;- pal[seq_len(length(unique(df[,gvar])))]
+    p &lt;- ggplot(df, aes(eval(parse(text=xvar)), 
+                   eval(parse(text=yvar)), 
+                   color=eval(parse(text=gvar)), 
+                   fill=eval(parse(text=gvar)))) +
+        geom_area(alpha=0.25, position=&quot;stack&quot;) + 
+        theme_hc() + 
+        scale_fill_manual(
+            guide=guide_legend(title=gvar), values=pal) +
+        scale_color_manual(
+            guide=guide_legend(title=gvar), values=pal) +
+        theme(axis.ticks=element_line(linetype=0),
+              legend.position=legend.position,
+              legend.direction=&quot;horizontal&quot;) +
+        xlab(xlab) + ylab(ylab) 
+    if (inherits(df[,xvar], c(&quot;POSIXt&quot;, &quot;Date&quot;))) {
+        p &lt;- p + scale_x_date(breaks=breaks, labels=labels) +
+            labs(title=title, subtitle=paste(
+                format(min(df[,xvar]), &quot;%Y-%m&quot;),
+                format(max(df[,xvar]), &quot;%Y-%m&quot;), sep=&quot;~&quot;))
+    }else if (is.numeric(df[,xvar])){
+        p &lt;- p + scale_x_continuous(breaks=breaks, labels=labels) +
+            labs(title=title, subtitle=paste(
+                min(df[,xvar]), max(df[,xvar]), sep=&quot;~&quot;))
+    }else{
+        p &lt;- p + scale_x_discrete(breaks=breaks, labels=labels) +
+            labs(title=title, subtitle=&quot;&quot;)
+    }
+    p
+}
+</code></pre>
+
+<p>利用这个函数，只要来个数据框，就能出图。此外也不失灵活性，部分美学效果可以自定义调整。</p>
+
+<p>[待续]</p>
+
+<hr />
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img></p>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">madlogos</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-04-15</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E4%BC%A0%E6%9F%93%E7%97%85/">传染病</a>
+          
+          <a href="/tags/%E7%96%AB%E6%83%85%E6%8A%A5%E5%91%8A/">疫情报告</a>
+          
+          <a href="/tags/rvest/">rvest</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="infectdis_stat3">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+          <a class="next" href="infectdis_stat1">
+            <span class="next-text nav-default">一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'madlogos-gh';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:madlogos@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/5455754/madlogos?tab=profile" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/madlogos" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/madlogos" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://www.linkedin.com/in/yiying-wang/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://plus.google.com/&#43;%E6%B1%AA%E8%BD%B6%E9%A2%96madlogos" class="iconfont icon-google" title="google"></a>
+      <a href="http://github.com/madlogos" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/madlogos/" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/madlogos/" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.douban.com/people/Jandeaux/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jandeaux.tumblr.com" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.instagram.com/jandeaux/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://madlogos.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">madlogos</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.6"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>【动态图版】北宋、明清进士空间可视化分析 - Libido Chateau</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="madlogos" /><meta name="description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。" />
+<meta name="keywords" content="“进士”, “北宋”, “明清”, “空间”, “地理”, “GIS”, “CBDB”" />
+
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.30.2" />
+
+
+<link rel="canonical" href="http://madlogos.github.io/song_ming_qing_jinshi_interactive/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" href="/favicon.ico" />
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<script src="https://cdn.jsdelivr.net/npm/eruda@1.2.6/eruda.min.js" integrity="sha256-Jmz4bc3kp+rRrXX2tGadNBKFLwtzMapr8kHABxSAAP8=" crossorigin="anonymous"></script>
+<script>eruda.init();</script>
+
+
+<link href="/dist/even.min.css?v=2.6.6" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+<meta property="og:title" content="【动态图版】北宋、明清进士空间可视化分析" />
+<meta property="og:description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://madlogos.github.io/song_ming_qing_jinshi_interactive/" />
+
+
+
+<meta property="article:published_time" content="2017-04-30T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-04-30T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="【动态图版】北宋、明清进士空间可视化分析">
+<meta itemprop="description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。">
+
+
+<meta itemprop="datePublished" content="2017-04-30T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-30T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="3463">
+
+
+
+<meta itemprop="keywords" content="进士,地理分析,交互图," />
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="【动态图版】北宋、明清进士空间可视化分析"/>
+<meta name="twitter:description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Libido Chateau</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">首页</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">归档</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">标签</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">分类</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">关于</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Libido Chateau</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">首页</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">归档</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">标签</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">分类</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">关于</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">【动态图版】北宋、明清进士空间可视化分析</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-30 </span>
+        <div class="post-category">
+            
+              <a href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/"> 可视化 </a>
+            
+          </div>
+        <span class="more-meta"> 约 3463 字 </span>
+        <span class="more-meta"> 预计阅读 7 分钟 </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#动态图">动态图</a></li>
+<li><a href="#动画">动画</a></li>
+<li><a href="#交互图">交互图</a>
+<ul>
+<li><a href="#个体散点图">个体散点图</a></li>
+<li><a href="#古今地名一致性">古今地名一致性</a></li>
+<li><a href="#进士数排名">进士数排名</a>
+<ul>
+<li><a href="#先是市级排名">先是市级排名</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      <blockquote>
+<p>如果浏览器提示本文加载了不安全的脚本，请点允许。</p>
+</blockquote>
+
+<p>今次主题比较简单。上个话题留了点冷饭，看起来还没馊，咱敲个鸡蛋炒个蛋炒饭。</p>
+
+<p>炒个什么蛋炒饭呢？——动态图(dynamic charts)。这也是应留言要求额外发的番外。基本和分析关系不大，纯粹是可视化范畴。</p>
+
+<h1 id="动态图">动态图</h1>
+
+<p>通常我们看到的都是静态图，最常见的是.jpg、.png这类位图，逼格高一点的会用到.svg矢量图。但它们都是死图，所有图形元素都不会动。某些情况下，我们不仅要把统计结果映射到特定的视觉通道，还希望表现其历时性，或者允许用户自己进行挖掘。这就需要让图形部件动起来。</p>
+
+<ul>
+<li>一种方法是做成动画(animation)。</li>
+</ul>
+
+<p>R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果足够醒目。它的基本思路就是拿出一维来映射时间，基于时间点对数据切片、统计、制图，最后把静态图们合成一个动画。</p>
+
+<ul>
+<li>还有一种方法是交互图(interactive charts)。</li>
+</ul>
+
+<p>把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。</p>
+
+<p>如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。</p>
+
+<h1 id="动画">动画</h1>
+
+<p>还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。</p>
+
+<ul>
+<li>用cut函数把连续变量切分成分段因子；</li>
+<li>用sprintf格式化因子标签，否则会自动套用前开后闭科学计数法区间样式，表示年代比较怪；</li>
+<li>各朝的分期不见得都对，我就随便分了下：
+
+<ul>
+<li>北宋(960-1127)：以1021、1085分期，大体对应真宗/仁宗、神宗/哲宗；</li>
+<li>明朝(1668-1644)：以1434、1572分期，大体对应宣宗(宣德)/英宗、穆宗(隆庆)/神宗(万历)；</li>
+<li>清朝(1644-1911)：以1735、1850分期，大体对应世宗(雍正)/高宗(乾隆)、宣宗(道光)/文宗(咸丰)。</li>
+</ul></li>
+</ul>
+
+<pre><code class="language-r">library(animation)
+nsong.js$period &lt;- cut(
+    nsong.js$EntryYear, c(960, 1021, 1085, 1127), include.lowest=TRUE,
+    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
+ming.js$period &lt;- cut(
+    ming.js$EntryYear, c(1368, 1434, 1572, 1644), include.lowest=TRUE,
+    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
+qing.js$period &lt;- cut(
+    qing.js$EntryYear, c(1644, 1735, 1850, 1911), include.lowest=TRUE,
+    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
+</code></pre>
+
+<p>各自切片统计，再做成.gif动画。这里设置动画间隔为2秒，每一帧大小都是640×480像素。</p>
+
+<pre><code class="language-r">oopt &lt;- ani.options(interval=2, ani.width=640, ani.height=480)
+saveGIF({
+    for (i in levels(nsong.js$period)){
+        print(p.song + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
+        data=nsong.js[nsong.js$period==i,], geom=&quot;polygon&quot;, alpha=0.5) +
+        scale_fill_gradient(low=&quot;cyan&quot;, high=&quot;darkblue&quot;)+
+        ggtitle(paste0(&quot;北宋进士来源地 (&quot;, i, &quot;)&quot;)))
+    }
+}, &quot;song.gif&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif" alt="" /></p>
+
+<p></p>
+
+<p>很明显，前期京畿还很有优势，仁宗开始江南大盛，到神宗以后就是闽人大盛。热力分布持续东南移。</p>
+
+<pre><code class="language-r">saveGIF({
+    for (i in levels(ming.js$period)){
+        print(p.ming + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
+        data=ming.js[ming.js$period==i,], geom=&quot;polygon&quot;, alpha=0.5) +
+        scale_fill_gradient(low=&quot;cyan&quot;, high=&quot;darkblue&quot;)+
+        ggtitle(paste0(&quot;明朝进士来源地 (&quot;, i, &quot;)&quot;)))
+    }
+}, &quot;ming.gif&quot;)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170430/ming.gif" alt="" /></p>
+
+<p>明和北宋热力分布是反向变动的，神宗以后进士来源地更弥散了。赣闽次第没落，而京畿有了起色。</p>
+
+<pre><code class="language-r">saveGIF({
+    for (i in levels(qing.js$period)){
+        print(p.qing + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
+        data=qing.js[qing.js$period==i,], geom=&quot;polygon&quot;, alpha=0.5) +
+        scale_fill_gradient(low=&quot;cyan&quot;, high=&quot;darkblue&quot;)+
+        ggtitle(paste0(&quot;清朝进士来源地 (&quot;, i, &quot;)&quot;)))
+    }
+}, &quot;qing.gif&quot;)
+ani.options(oopt)
+</code></pre>
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170430/qing.gif" alt="" /></p>
+
+<p>清和明类似，中前期江南独大，鸦片战争以后分布逐渐弥散。</p>
+
+<p>和静态图相比，引入历时维度后，信息量明显就更大了。</p>
+
+<h1 id="交互图">交互图</h1>
+
+<h2 id="个体散点图">个体散点图</h2>
+
+<p>在哈佛人文地理平台上，进士数据集本身就以散点和热力图形式展示。这有一个问题：同一个来源地的坐标是完全一样的，所以这些个体在空间上都叠在一起，无法区分。在用leaflet再现散点分布之前，我们用随机数把他们打散开。</p>
+
+<pre><code class="language-r">nsong.js$long &lt;- nsong.js$x_coord + rnorm(nrow(nsong.js))/100
+nsong.js$lat &lt;- nsong.js$y_coord + rnorm(nrow(nsong.js))/100
+ming.js$long &lt;- ming.js$x_coord + rnorm(nrow(ming.js))/100
+ming.js$lat &lt;- ming.js$y_coord + rnorm(nrow(ming.js))/100
+qing.js$long &lt;- qing.js$x_coord + rnorm(nrow(qing.js))/100
+qing.js$lat &lt;- qing.js$y_coord + rnorm(nrow(qing.js))/100
+</code></pre>
+
+<p>这样一来，低级缩放时这些点还是叠在一起的，只要持续放大，就能散开。这当然很不精确，但是我感觉能忍。</p>
+
+<p>构造一个工作函数<code>make_leaflet</code>，把参数传进去，就能画个leaflet交互图出来。leaflet的语法很简单，就是个leaflet js库的wrapper(咋翻译？包裹函数？)，参数列表几乎都是从API文档继承来的。基本的使用顺序是初始化-&gt;添加地图图层-&gt;添加主题图层-&gt;添加交互控件。我没多玩花活，加了个label和popup。</p>
+
+<p>leaflet是基于svg矢量图的，源代码里就包含很多矢量代码。加上这里数据点多，文件尺寸就都很大。</p>
+
+<pre><code class="language-r">library(leaflet)
+make_leaflet &lt;- function(refMap, dyn, bgColor=&quot;red&quot;, dataset, cutyears){
+    dataset$period &lt;- cut(
+        dataset$EntryYear, cutyears, include.lowest=TRUE,
+        labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
+                     sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
+    dataset &lt;- dataset[order(dataset$period),]
+    g &lt;- leaflet() %&gt;% addProviderTiles(providers$OpenStreetMap)
+    for (i in unique(refMap$id)){
+        g &lt;- g %&gt;% 
+            addPolygons(~long, ~lat, data=refMap[refMap$id==i,], 
+		        label=dyn, labelOptions=labelOptions(textsize=&quot;20px&quot;),
+		        weight=1, fillColor=bgColor, color=bgColor)
+    }
+    pal &lt;- colorFactor(
+        viridis::plasma(2*nlevels(dataset$period)), 
+        levels=levels(dataset$period), ordered=TRUE)
+    g &lt;- g %&gt;% addCircleMarkers(
+        ~long, ~lat, data=dataset, radius=2, 
+        label=paste(dataset$NameChn, dataset$Name),
+		popup=paste(dataset$EntryYear, &quot;&lt;br&gt;&quot;, dataset$Prov, 
+		            dataset$AddrChn, dataset$AddrName, sep=&quot; &quot;),
+		color=~pal(period), group=~period)
+    g %&gt;% addLayersControl(
+        overlayGroups=rev(levels(dataset$period)),
+        options=layersControlOptions(
+            collapse=FALSE)
+        )
+}
+</code></pre>
+
+<pre><code class="language-r">make_leaflet(nsong.bou, &quot;北宋&quot;, &quot;red&quot;, nsong.js, c(960, 1021, 1085, 1127))
+</code></pre>
+
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html" width="100%" height="500"></iframe>
+
+<p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/song.html">点开查看源文件</a></p>
+
+<pre><code class="language-r">make_leaflet(ming.bou, &quot;明朝&quot;, &quot;red&quot;, ming.js, c(1368, 1434, 1572, 1644))
+</code></pre>
+
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html" width="100%" height="500"></iframe>
+
+<p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/ming.html">点开查看源文件</a></p>
+
+<pre><code class="language-r">make_leaflet(qing.bou, &quot;清朝&quot;, &quot;black&quot;, qing.js, c(1644, 1735, 1850, 1911))
+</code></pre>
+
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html" width="100%" height="500"></iframe>
+
+<p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/qing.html">点开查看源文件</a></p>
+
+<h2 id="古今地名一致性">古今地名一致性</h2>
+
+<p>前次分析，直接把所有县级地名拿出来跑频数，第一名是莆田。这当然很不精准——地名一直会变嘛。像南京这种历史上频繁改名的地方，就会吃很大亏。最好统一起来。找地名的历史沿革数据库不是很容易，干脆统一到今名如何？（请都说“好”）</p>
+
+<p>统一到今名有三个好处：</p>
+
+<ol>
+<li>能按照今天的区划统计哪个省市出了更多进士（其实谁稀罕这个）；</li>
+<li>便于我操作（-口_口-：仄寺坠重要的）；</li>
+<li>能引出一个知识点：sp::over()。</li>
+</ol>
+
+<p>既然我们有每个省/市级空间多边形数据，又有每个进士的位置坐标，恰好又都是同一套大地坐标系测量值，历史沿革问题不就转化成了一个纯粹的GIS转换问题吗？只要用算法评价每个点落在哪个多边形内，它自然就属于这个行政区划。</p>
+
+<p>这个算法有现成的，就是sp包的over函数。</p>
+
+<p>构造一个<code>which_polygon</code>函数，把一个点轮流放进大陆和台湾的多边形数据集里，看它到底落在哪个多边形，输出这个多边形的元数据。注意：数据都得是sp包的工作类型，比如SpatialPoints、SpatialPolygons之类。</p>
+
+<pre><code class="language-r">which_polygon &lt;- function(point, cn.cities, tw.cities){
+    library(sp)
+    out &lt;- over(SpatialPoints(
+        matrix(point, nrow=1), 
+        proj4string = cn.cities@proj4string), cn.cities)
+    if (is.na(out$ID_0))
+        out &lt;- over(SpatialPoints(
+            matrix(point, nrow=1), 
+            proj4string = tw.cities@proj4string), tw.cities)
+    return(out)
+}
+</code></pre>
+
+<p>每个进士个体都丢进去算太耗时，我们先统计下频数。</p>
+
+<pre><code class="language-r">library(data.table)
+nsong.js.stat &lt;- dcast(nsong.js, x_coord+y_coord~., length)
+ming.js.stat &lt;- dcast(ming.js, x_coord+y_coord~., length)
+qing.js.stat &lt;- dcast(qing.js, x_coord+y_coord~., length)
+</code></pre>
+
+<p>再次动用并行计算parallel。因为要按行遍历矩阵，所以要用<code>apply</code>的并行版本<code>parApply</code>。获得结果是个list，需要再do.call调用bind_rows，合并成一个数据框。当然还有种办法是直接改写which_polygon，把进士位置整理成SpatialPointsDataFrame，一次性丢进去，效率上可能更高。</p>
+
+<pre><code class="language-r">library(parallel)
+cl &lt;- makeCluster(getOption(&quot;cl.cores&quot;, 2))
+nsong.js.belong &lt;- parApply(cl, nsong.js.stat[,c(&quot;x_coord&quot;, &quot;y_coord&quot;)], 
+                            1, which_polygon, cn.cities, tw.cities)
+ming.js.belong &lt;- parApply(cl, ming.js.stat[,c(&quot;x_coord&quot;, &quot;y_coord&quot;)], 
+                           1, which_polygon, cn.cities, tw.cities)
+qing.js.belong &lt;- parApply(cl, qing.js.stat[,c(&quot;x_coord&quot;, &quot;y_coord&quot;)], 
+                           1, which_polygon, cn.cities, tw.cities)
+stopCluster(cl)
+library(dplyr)
+nsong.js.belong &lt;- do.call('bind_rows', nsong.js.belong)
+ming.js.belong &lt;- do.call('bind_rows', ming.js.belong)
+qing.js.belong &lt;- do.call('bind_rows', qing.js.belong)
+nsong.js.belong$num &lt;- nsong.js.stat$`.`
+ming.js.belong$num &lt;- ming.js.stat$`.`
+qing.js.belong$num &lt;- qing.js.stat$`.`
+</code></pre>
+
+<h2 id="进士数排名">进士数排名</h2>
+
+<p>把三个朝代的数据集做一下深加工，合并到一起（DYNASTY列标识朝代属性）。</p>
+
+<pre><code class="language-r">library(data.table)
+nsong.js.belong &lt;- dcast(nsong.js.belong, NAME_1+NAME_2+NL_NAME_2~., sum, value.var=&quot;num&quot;)
+nsong.js.belong$DYNASTY &lt;- &quot;北宋&quot;
+ming.js.belong &lt;- dcast(ming.js.belong, NAME_1+NAME_2+NL_NAME_2~., sum, value.var=&quot;num&quot;)
+ming.js.belong$DYNASTY &lt;- &quot;明朝&quot;
+qing.js.belong &lt;- dcast(qing.js.belong, NAME_1+NAME_2+NL_NAME_2~., sum, value.var=&quot;num&quot;)
+qing.js.belong$DYNASTY &lt;- &quot;清朝&quot;
+library(dplyr)
+js.belong &lt;- do.call(&quot;bind_rows&quot;, list(nsong.js.belong, ming.js.belong, qing.js.belong))
+</code></pre>
+
+<p>再清洗一下数据，把英文地名里的无关符号删掉（“内江”出现了两种写法），再把0都转为NA（可视化时不要涂色）。</p>
+
+<pre><code class="language-r">js.belong$NAME_2 &lt;- stringr::str_replace(js.belong$NAME_2, &quot;^([^]]+)\\]+$&quot;, &quot;\\1&quot;)
+js.belong$.[js.belong$.==0] &lt;- NA
+</code></pre>
+
+<p>排名来了。</p>
+
+<h3 id="先是市级排名">先是市级排名</h3>
+
+<pre><code class="language-r">js.order &lt;- dcast(js.belong, NAME_1+NAME_2+NL_NAME_2~DYNASTY, sum, 
+                  value.var=&quot;.&quot;, margins=&quot;DYNASTY&quot;)
+knitr::kable(js.order[order(js.order$`(all)`, decreasing=TRUE),])
+</code></pre>
+
+<p>地名归集后，第一名是苏州，然后是福州，第三才是莆田，第四是杭州。前四名实际难分伯仲。</p>
+
+<table>
+<thead>
+<tr>
+<th align="right">序号</th>
+<th>NAME_1</th>
+<th>NAME_2</th>
+<th>NL_NAME_2</th>
+<th align="right">北宋</th>
+<th align="right">明朝</th>
+<th align="right">清朝</th>
+<th align="right">(all)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">1</td>
+<td>Jiangsu</td>
+<td>Suzhou</td>
+<td>苏州市</td>
+<td align="right">157</td>
+<td align="right">60</td>
+<td align="right">179</td>
+<td align="right">396</td>
+</tr>
+
+<tr>
+<td align="right">2</td>
+<td>Fujian</td>
+<td>Fuzhou</td>
+<td>福州市</td>
+<td align="right">273</td>
+<td align="right">36</td>
+<td align="right">83</td>
+<td align="right">392</td>
+</tr>
+
+<tr>
+<td align="right">3</td>
+<td>Fujian</td>
+<td>Putian</td>
+<td>莆田市</td>
+<td align="right">264</td>
+<td align="right">109</td>
+<td align="right">8</td>
+<td align="right">381</td>
+</tr>
+
+<tr>
+<td align="right">4</td>
+<td>Zhejiang</td>
+<td>Hangzhou</td>
+<td>杭州市</td>
+<td align="right">115</td>
+<td align="right">38</td>
+<td align="right">221</td>
+<td align="right">374</td>
+</tr>
+
+<tr>
+<td align="right">5</td>
+<td>Fujian</td>
+<td>Nanping</td>
+<td>南平市</td>
+<td align="right">224</td>
+<td align="right">15</td>
+<td align="right">7</td>
+<td align="right">246</td>
+</tr>
+
+<tr>
+<td align="right">6</td>
+<td>Jiangxi</td>
+<td>Ji’an</td>
+<td>吉安市</td>
+<td align="right">128</td>
+<td align="right">97</td>
+<td align="right">11</td>
+<td align="right">236</td>
+</tr>
+
+<tr>
+<td align="right">7</td>
+<td>Zhejiang</td>
+<td>Ningbo</td>
+<td>宁波市</td>
+<td align="right">94</td>
+<td align="right">97</td>
+<td align="right">39</td>
+<td align="right">230</td>
+</tr>
+
+<tr>
+<td align="right">8</td>
+<td>Jiangsu</td>
+<td>Changzhou</td>
+<td>常州市</td>
+<td align="right">97</td>
+<td align="right">20</td>
+<td align="right">97</td>
+<td align="right">214</td>
+</tr>
+
+<tr>
+<td align="right">9</td>
+<td>Zhejiang</td>
+<td>Jiaxing</td>
+<td>嘉兴市</td>
+<td align="right">19</td>
+<td align="right">68</td>
+<td align="right">117</td>
+<td align="right">204</td>
+</tr>
+
+<tr>
+<td align="right">10</td>
+<td>Jiangxi</td>
+<td>Fuzhou</td>
+<td>抚州市</td>
+<td align="right">120</td>
+<td align="right">27</td>
+<td align="right">52</td>
+<td align="right">199</td>
+</tr>
+
+<tr>
+<td align="right">11</td>
+<td>Zhejiang</td>
+<td>Huzhou</td>
+<td>湖州市</td>
+<td align="right">86</td>
+<td align="right">17</td>
+<td align="right">78</td>
+<td align="right">181</td>
+</tr>
+
+<tr>
+<td align="right">12</td>
+<td>Zhejiang</td>
+<td>Shaoxing</td>
+<td>绍兴市</td>
+<td align="right">75</td>
+<td align="right">48</td>
+<td align="right">51</td>
+<td align="right">174</td>
+</tr>
+
+<tr>
+<td align="right">13</td>
+<td>Fujian</td>
+<td>Quanzhou</td>
+<td>泉州市</td>
+<td align="right">110</td>
+<td align="right">28</td>
+<td align="right">31</td>
+<td align="right">169</td>
+</tr>
+
+<tr>
+<td align="right">14</td>
+<td>Jiangsu</td>
+<td>Wuxi</td>
+<td>无锡市</td>
+<td align="right">73</td>
+<td align="right">34</td>
+<td align="right">55</td>
+<td align="right">162</td>
+</tr>
+
+<tr>
+<td align="right">15</td>
+<td>Jiangxi</td>
+<td>Shangrao</td>
+<td>上饶市</td>
+<td align="right">93</td>
+<td align="right">26</td>
+<td align="right">28</td>
+<td align="right">147</td>
+</tr>
+</tbody>
+</table>
+
+<p>给张图，同样是基于leaflet的。注意：<strong>文件非常很大，极费流量</strong>。</p>
+
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html" width="100%" height="500"></iframe>
+
+<p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html">点开查看源文件</a></p>
+
+<p>然后是省级排名。</p>
+
+<pre><code class="language-r">js.order.prov &lt;- dcast(js.belong, NAME_1~DYNASTY, sum, value.var=&quot;.&quot;, margins=&quot;DYNASTY&quot;)
+knitr::kable(js.order.prov[order(js.order.prov$`(all)`, decreasing=TRUE),])
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th align="right">序号</th>
+<th>NAME_1</th>
+<th align="right">北宋</th>
+<th align="right">明朝</th>
+<th align="right">清朝</th>
+<th align="right">(all)</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td align="right">1</td>
+<td>Zhejiang</td>
+<td align="right">636</td>
+<td align="right">337</td>
+<td align="right">530</td>
+<td align="right">1503</td>
+</tr>
+
+<tr>
+<td align="right">2</td>
+<td>Fujian</td>
+<td align="right">950</td>
+<td align="right">202</td>
+<td align="right">147</td>
+<td align="right">1299</td>
+</tr>
+
+<tr>
+<td align="right">3</td>
+<td>Jiangsu</td>
+<td align="right">476</td>
+<td align="right">179</td>
+<td align="right">536</td>
+<td align="right">1191</td>
+</tr>
+
+<tr>
+<td align="right">4</td>
+<td>Jiangxi</td>
+<td align="right">559</td>
+<td align="right">233</td>
+<td align="right">232</td>
+<td align="right">1024</td>
+</tr>
+
+<tr>
+<td align="right">5</td>
+<td>Henan</td>
+<td align="right">276</td>
+<td align="right">97</td>
+<td align="right">185</td>
+<td align="right">558</td>
+</tr>
+
+<tr>
+<td align="right">6</td>
+<td>Shandong</td>
+<td align="right">99</td>
+<td align="right">88</td>
+<td align="right">311</td>
+<td align="right">498</td>
+</tr>
+
+<tr>
+<td align="right">7</td>
+<td>Anhui</td>
+<td align="right">142</td>
+<td align="right">68</td>
+<td align="right">197</td>
+<td align="right">407</td>
+</tr>
+
+<tr>
+<td align="right">8</td>
+<td>Sichuan</td>
+<td align="right">269</td>
+<td align="right">30</td>
+<td align="right">65</td>
+<td align="right">364</td>
+</tr>
+
+<tr>
+<td align="right">9</td>
+<td>Hebei</td>
+<td align="right">27</td>
+<td align="right">86</td>
+<td align="right">200</td>
+<td align="right">313</td>
+</tr>
+
+<tr>
+<td align="right">10</td>
+<td>Hunan</td>
+<td align="right">79</td>
+<td align="right">27</td>
+<td align="right">152</td>
+<td align="right">258</td>
+</tr>
+
+<tr>
+<td align="right">11</td>
+<td>Hubei</td>
+<td align="right">31</td>
+<td align="right">52</td>
+<td align="right">133</td>
+<td align="right">216</td>
+</tr>
+
+<tr>
+<td align="right">12</td>
+<td>Shanxi</td>
+<td align="right">24</td>
+<td align="right">63</td>
+<td align="right">125</td>
+<td align="right">212</td>
+</tr>
+
+<tr>
+<td align="right">13</td>
+<td>Guangdong</td>
+<td align="right">40</td>
+<td align="right">54</td>
+<td align="right">105</td>
+<td align="right">199</td>
+</tr>
+
+<tr>
+<td align="right">14</td>
+<td>Shaanxi</td>
+<td align="right">18</td>
+<td align="right">49</td>
+<td align="right">89</td>
+<td align="right">156</td>
+</tr>
+
+<tr>
+<td align="right">15</td>
+<td>Shanghai</td>
+<td align="right">26</td>
+<td align="right">47</td>
+<td align="right">68</td>
+<td align="right">141</td>
+</tr>
+
+<tr>
+<td align="right">16</td>
+<td>Beijing</td>
+<td align="right">2</td>
+<td align="right">12</td>
+<td align="right">115</td>
+<td align="right">129</td>
+</tr>
+
+<tr>
+<td align="right">17</td>
+<td>Yunnan</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">69</td>
+<td align="right">70</td>
+</tr>
+
+<tr>
+<td align="right">18</td>
+<td>Guangxi</td>
+<td align="right">2</td>
+<td align="right">10</td>
+<td align="right">56</td>
+<td align="right">68</td>
+</tr>
+
+<tr>
+<td align="right">19</td>
+<td>Tianjin</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">61</td>
+<td align="right">63</td>
+</tr>
+
+<tr>
+<td align="right">20</td>
+<td>Guizhou</td>
+<td align="right">0</td>
+<td align="right">4</td>
+<td align="right">51</td>
+<td align="right">55</td>
+</tr>
+
+<tr>
+<td align="right">21</td>
+<td>Chongqing</td>
+<td align="right">8</td>
+<td align="right">7</td>
+<td align="right">24</td>
+<td align="right">39</td>
+</tr>
+
+<tr>
+<td align="right">22</td>
+<td>Gansu</td>
+<td align="right">6</td>
+<td align="right">6</td>
+<td align="right">19</td>
+<td align="right">31</td>
+</tr>
+
+<tr>
+<td align="right">23</td>
+<td>Hainan</td>
+<td align="right">0</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">12</td>
+</tr>
+
+<tr>
+<td align="right">24</td>
+<td>Liaoning</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">12</td>
+<td align="right">12</td>
+</tr>
+
+<tr>
+<td align="right">25</td>
+<td>Jilin</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">8</td>
+<td align="right">8</td>
+</tr>
+
+<tr>
+<td align="right">26</td>
+<td>Ningxia Hui</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">7</td>
+<td align="right">7</td>
+</tr>
+
+<tr>
+<td align="right">27</td>
+<td>Taiwan</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">2</td>
+<td align="right">2</td>
+</tr>
+</tbody>
+</table>
+
+<p>同样给张图。这次是基于ECharts2的。由于这个包是我写的，所以我要额外安利一下<a href="http://madlogos.github.io/recharts。">http://madlogos.github.io/recharts。</a></p>
+
+<pre><code class="language-r">library(recharts)
+dict &lt;- geoNameMap[geoNameMap$FKEY==31, c(&quot;EN&quot;, &quot;CN&quot;)]
+js.order.prov &lt;- merge(js.order.prov, dict, by.x=&quot;NAME_1&quot;, by.y=&quot;EN&quot;, all.x=TRUE)
+js.order.ec &lt;- melt(js.order.prov[,c(2:4,6)], id=&quot;CN&quot;)
+js.order.ec$value[js.order.ec$value==0] &lt;- NA
+echartR(js.order.ec, CN, value, t=variable, type=&quot;map_china&quot;, subtype=&quot;average&quot;) %&gt;%
+    setDataRange(splitNumber=0, color=c('darkblue','cyan')) %&gt;%
+    setTitle(&quot;各省进士数&quot;, pos=11) %&gt;% 
+    setTimeline(autoPlay=TRUE) %&gt;% setLegend(FALSE)
+</code></pre>
+
+<iframe src="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html" width="640" height="500"></iframe>
+
+<p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/prov.html">点开查看源文件</a></p>
+
+<p>图动起来了。感觉棒呆。</p>
+
+<p>自己试着去和它们交互吧。</p>
+
+<p>[完]</p>
+
+<hr />
+
+<p><img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img></p>
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">madlogos</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">2017-04-30</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">许可协议</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">赞赏支持</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/wechat.png">
+        <span>微信打赏</span>
+      </label>
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/layouts/reward/alipay.png">
+        <span>支付宝打赏</span>
+      </label>
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/%E8%BF%9B%E5%A3%AB/">进士</a>
+          
+          <a href="/tags/%E5%9C%B0%E7%90%86%E5%88%86%E6%9E%90/">地理分析</a>
+          
+          <a href="/tags/%E4%BA%A4%E4%BA%92%E5%9B%BE/">交互图</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+          <a class="next" href="song_ming_qing_jinshi">
+            <span class="next-text nav-default">北宋、明清进士空间分析</span>
+            <span class="prev-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    (function() {
+        
+        
+        if (window.location.hostname === 'localhost') return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        var disqus_shortname = 'madlogos-gh';
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com/" class="dsq-brlink" target="_blank">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  
+      </div>  
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:madlogos@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://stackoverflow.com/users/5455754/madlogos?tab=profile" class="iconfont icon-stack-overflow" title="stack-overflow"></a>
+      <a href="https://twitter.com/madlogos" class="iconfont icon-twitter" title="twitter"></a>
+      <a href="https://www.facebook.com/madlogos" class="iconfont icon-facebook" title="facebook"></a>
+      <a href="http://www.linkedin.com/in/yiying-wang/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://plus.google.com/&#43;%E6%B1%AA%E8%BD%B6%E9%A2%96madlogos" class="iconfont icon-google" title="google"></a>
+      <a href="http://github.com/madlogos" class="iconfont icon-github" title="github"></a>
+      <a href="https://weibo.com/madlogos/" class="iconfont icon-weibo" title="weibo"></a>
+      <a href="https://www.zhihu.com/people/madlogos/" class="iconfont icon-zhihu" title="zhihu"></a>
+      <a href="https://www.douban.com/people/Jandeaux/" class="iconfont icon-douban" title="douban"></a>
+      <a href="https://jandeaux.tumblr.com" class="iconfont icon-tumblr" title="tumblr"></a>
+      <a href="https://www.instagram.com/jandeaux/" class="iconfont icon-instagram" title="instagram"></a>
+  <a href="http://madlogos.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy; 
+    2017
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">madlogos</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script>
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+<script type="text/javascript" src="/dist/even.min.js?v=2.6.6"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script async src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+
+
+
+</body>
+</html>

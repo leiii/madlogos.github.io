@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Libido Chateau</title>
+    <link>http://madlogos.github.io/</link>
+    <description>Recent content on Libido Chateau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>cn</language>
+    <copyright>madlogos</copyright>
+    <lastBuildDate>Sun, 30 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://madlogos.github.io/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>【动态图版】北宋、明清进士空间可视化分析</title>
+      <link>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</link>
+      <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;如果浏览器提示本文加载了不安全的脚本，请点允许。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;今次主题比较简单。上个话题留了点冷饭，看起来还没馊，咱敲个鸡蛋炒个蛋炒饭。&lt;/p&gt;
+
+&lt;p&gt;炒个什么蛋炒饭呢？——动态图(dynamic charts)。这也是应留言要求额外发的番外。基本和分析关系不大，纯粹是可视化范畴。&lt;/p&gt;
+
+&lt;h1 id=&#34;动态图&#34;&gt;动态图&lt;/h1&gt;
+
+&lt;p&gt;通常我们看到的都是静态图，最常见的是.jpg、.png这类位图，逼格高一点的会用到.svg矢量图。但它们都是死图，所有图形元素都不会动。某些情况下，我们不仅要把统计结果映射到特定的视觉通道，还希望表现其历时性，或者允许用户自己进行挖掘。这就需要让图形部件动起来。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;一种方法是做成动画(animation)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果足够醒目。它的基本思路就是拿出一维来映射时间，基于时间点对数据切片、统计、制图，最后把静态图们合成一个动画。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;还有一种方法是交互图(interactive charts)。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。&lt;/p&gt;
+
+&lt;p&gt;如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。&lt;/p&gt;
+
+&lt;h1 id=&#34;动画&#34;&gt;动画&lt;/h1&gt;
+
+&lt;p&gt;还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;用cut函数把连续变量切分成分段因子；&lt;/li&gt;
+&lt;li&gt;用sprintf格式化因子标签，否则会自动套用前开后闭科学计数法区间样式，表示年代比较怪；&lt;/li&gt;
+&lt;li&gt;各朝的分期不见得都对，我就随便分了下：
+
+&lt;ul&gt;
+&lt;li&gt;北宋(960-1127)：以1021、1085分期，大体对应真宗/仁宗、神宗/哲宗；&lt;/li&gt;
+&lt;li&gt;明朝(1668-1644)：以1434、1572分期，大体对应宣宗(宣德)/英宗、穆宗(隆庆)/神宗(万历)；&lt;/li&gt;
+&lt;li&gt;清朝(1644-1911)：以1735、1850分期，大体对应世宗(雍正)/高宗(乾隆)、宣宗(道光)/文宗(咸丰)。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(animation)
+nsong.js$period &amp;lt;- cut(
+    nsong.js$EntryYear, c(960, 1021, 1085, 1127), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+ming.js$period &amp;lt;- cut(
+    ming.js$EntryYear, c(1368, 1434, 1572, 1644), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+qing.js$period &amp;lt;- cut(
+    qing.js$EntryYear, c(1644, 1735, 1850, 1911), include.lowest=TRUE,
+    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
+                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;各自切片统计，再做成.gif动画。这里设置动画间隔为2秒，每一帧大小都是640×480像素。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;oopt &amp;lt;- ani.options(interval=2, ani.width=640, ani.height=480)
+saveGIF({
+    for (i in levels(nsong.js$period)){
+        print(p.song + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
+        data=nsong.js[nsong.js$period==i,], geom=&amp;quot;polygon&amp;quot;, alpha=0.5) +
+        scale_fill_gradient(low=&amp;quot;cyan&amp;quot;, high=&amp;quot;darkblue&amp;quot;)+
+        ggtitle(paste0(&amp;quot;北宋进士来源地 (&amp;quot;, i, &amp;quot;)&amp;quot;)))
+    }
+}, &amp;quot;song.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>北宋、明清进士空间分析</title>
+      <link>http://madlogos.github.io/song_ming_qing_jinshi/</link>
+      <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/song_ming_qing_jinshi/</guid>
+      <description>&lt;h1 id=&#34;哈佛人文地理可视化平台&#34;&gt;哈佛人文地理可视化平台&lt;/h1&gt;
+
+&lt;p&gt;周末找在线GIS素材，误打误撞进到了worldmap.harvard.edu——一座名副其实的学术宝库。它是哈佛大学搞的一个&lt;strong&gt;开源&lt;/strong&gt;地理可视化平台，社会、经济、历史学科的学者可以自己创建、上传数据集，方便地做多图层地理可视化。这个设计充满学术理想，也为有志于成为世界一流名校的大学树立了一座看得见摸得着的价值标杆：&lt;strong&gt;卓越、开放、自治、共享&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;中国地图worldmap.harvard.edu/chinamap是其中一个子站，已经上线多个数据层，包括社会/人口、经济、交通、能源、环境/气候、公共卫生，甚至历史地图。比如下面的视图，就是细化到县级的人口密度热力图，默认叠加在OpenStreetMap底图上，效果非常棒。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170423/wmap_harvard.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;让我特别感兴趣的是历史地图部分。上面赫然列着北宋、明、清的进士散点图和热力图。当把它们和当今人口密度热力图叠加显示，我们会惊讶地发现过去一千年来盛产进士的地方，几乎严丝合缝地对应着今天中国人口最稠密的地区。进士分布只能指示那个时代的财富分布。但把千年以来的进士之乡叠加起来（如同叠加起无数个财富变迁的历史断面），就能看到这些财富分布的残影。而古今之间的这种辉映，说明今天的人们依然在从宋以降的这种“地气”大格局中受惠。&lt;/p&gt;
+
+&lt;p&gt;右键这三个进士数据层，选择“Share Layer”，就能看到一个分享页面。除了视图本身，还有参考数据集的链接，可以导出多种格式。我们导一个Excel出来。Excel的名称是CBDB_exams_NSong_WGS84_kto.xls。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170423/cbdb_data.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这就十分厉害了：
+1. CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；
+2. WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。&lt;/p&gt;
+
+&lt;h1 id=&#34;进士最大来源地&#34;&gt;进士最大来源地？&lt;/h1&gt;
+
+&lt;p&gt;先把北宋、明、清三个进士数据集都载入R。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(readr)
+nsong.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_NSong_WGS84_kto.csv&amp;quot;)
+ming.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Ming_WGS84_MbJ.csv&amp;quot;)
+qing.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Qing_WGS84_GWU.csv&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;简单看一下哪个地方来的进士最多。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat3/</link>
+      <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat3/</guid>
+      <description>&lt;h1 id=&#34;甲乙丙类每月发病-死亡数&#34;&gt;甲乙丙类每月发病、死亡数&lt;/h1&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(data.table)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;看一下甲乙丙类每个月的发病和死亡例数。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&amp;quot;发病数&amp;quot;)
+sta &amp;lt;- melt(sta[,names(sta) != &amp;quot;NA&amp;quot;], id=&amp;quot;日期&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+makeTsPlot(sta, &amp;quot;法定传染病每月发病数&amp;quot;, xlab=&amp;quot;年月&amp;quot;, ylab=&amp;quot;例数&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/inc_trend.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, 日期 ~ 分类, sum, value.var=&amp;quot;死亡数&amp;quot;)
+sta &amp;lt;- melt(sta[,names(sta) != &amp;quot;NA&amp;quot;], id=&amp;quot;日期&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+makeTsPlot(sta, &amp;quot;法定传染病每月死亡数&amp;quot;, xlab=&amp;quot;年月&amp;quot;, ylab=&amp;quot;例数&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/mot_trend.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;甲类数字很少，看不太出。而不论乙类还是丙类，发病高峰都在春夏季。死亡高峰却在冬季。&lt;/p&gt;
+
+&lt;p&gt;按月算一下均数，看得更清楚。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, format(日期, &amp;quot;%m&amp;quot;) ~ 分类, mean, value.var=&amp;quot;发病数&amp;quot;)
+names(sta)[1] &amp;lt;- &amp;quot;月份&amp;quot;
+sta &amp;lt;- melt(sta[,1:4], id=&amp;quot;月份&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+sta$月份 &amp;lt;- as.integer(sta$月份)
+makeTsPlot(sta, &amp;quot;法定传染病平均月发病数&amp;quot;, unit=1, ylab=&amp;quot;平均例数&amp;quot;, xvar=&amp;quot;月份&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/inc_month.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sta &amp;lt;- dcast(dat, format(日期, &amp;quot;%m&amp;quot;) ~ 分类, mean, value.var=&amp;quot;死亡数&amp;quot;)
+names(sta)[1] &amp;lt;- &amp;quot;月份&amp;quot;
+sta &amp;lt;- melt(sta[,1:4], id=&amp;quot;月份&amp;quot;, variable.name=&amp;quot;分类&amp;quot;)
+sta$月份 &amp;lt;- as.integer(sta$月份)
+makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, ylab=&amp;quot;平均例数&amp;quot;, xvar=&amp;quot;月份&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/mot_month.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat2/</link>
+      <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat2/</guid>
+      <description>&lt;h1 id=&#34;数据提取&#34;&gt;数据提取&lt;/h1&gt;
+
+&lt;p&gt;现在，可以着手把存储在附件里的信息结构化提取出来了。但在这之前，还有一个硬骨头要啃。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;要把图片附件识别成文本。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;首先考虑OCR。但是Abbyy Finereader似乎没有Ubuntu版本。其他一些主流工具要钱。网上找到几个免费OCR工具，试用了下，转出来一堆乱码亲妈都唔识得。一怒之下，放了个大招：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;手工录入。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/%E6%97%A0%E8%AF%9D%E5%8F%AF%E8%AF%B4.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这项工作很不好做，让我不禁怀疑起人生。但只有经过这样的磨练，才能对疾控系统的信息化水平有一个实操层面的认识。倘若遇到这方面的项目机会，&lt;strong&gt;记得要把工程预算乘以3&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;图片方面的坑包括：
+1. 有些图片附件分辨率低到了厚马赛克水准，别说OCR，钛金狗眼也认不出
+2. 有些表格作为OLE对象内嵌到了Word文件里，当我满怀希望点进去才发现，这个内嵌对象竟仍是个图片
+3. 有个别文件特别贴心地把表格割成两张图，插到了正文里&lt;/p&gt;
+
+&lt;p&gt;满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到&lt;a href=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip&#34;&gt;七牛云&lt;/a&gt;。人人都可以免费用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</title>
+      <link>http://madlogos.github.io/infectdis_stat1/</link>
+      <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/infectdis_stat1/</guid>
+      <description>&lt;h1 id=&#34;带怀旧色彩的源起&#34;&gt;带怀旧色彩的源起&lt;/h1&gt;
+
+&lt;p&gt;清明节跑去一个休闲浴场&lt;del&gt;鬼混&lt;/del&gt;，在电影厅懒散地看掉了《生化危机6》。场地很豪华（但我就是不透露门牌地址），然而剧情不怎么样——女主光环实在太亮了。倒是病毒-丧尸-疫苗的急性传染病建模设定引起了我的一些职业回忆。&lt;/p&gt;
+
+&lt;p&gt;毕业后，我曾在基层疾控中心干过一年多，主要做疫苗接种规划和传染病控制。除了定期不定期地出外勤下现场，就是统计数字、写报告、汇编材料。这些数字沿着行政金字塔的梯级层层上卷，最终汇入国家卫生部疾控局官方报表的大海中。&lt;/p&gt;
+
+&lt;p&gt;说是大海，视觉上其实就是类似这样的一张表格：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_report.png&#34; alt=&#34;法定传染病统计表&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;一晃很多年过去了。籍着这个由头，我又登上了卫生部（现在叫卫计委了，早晚改回卫生部）的官网，那感觉就像——拜会一个久寓故居，新近敲了墙、刷了房门的老派的朋友。那些月报还原封不动，化石一样静静地躺在信息动态里。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/nhfpc_infectdis_news.png&#34; alt=&#34;传染病控制动态&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170404/example_infectdis_reporttxt.png&#34; alt=&#34;法定传染病月报&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这种格式报告，行文和结构都很固定，特别适合用机器人来自动生成。比如最新这期，正文就包括了发病、死亡合计总数，以及甲乙丙类各自的发病、死亡数。明细数据放在附表里。掐指一数，从2004年到现在，卫计委也积攒了140多份月报，不少了。何不爬下来看看？&lt;/p&gt;
+
+&lt;p&gt;所以，尽管当时身还在浴场，但心在砖场了，已经！&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>礼法两难的辱母杀人案</title>
+      <link>http://madlogos.github.io/defensive-assassin/</link>
+      <pubDate>Sat, 25 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/defensive-assassin/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170325/yuan_da_gong_mao.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;炸锅&#34;&gt;炸锅&lt;/h1&gt;
+
+&lt;p&gt;平静无奇的周末，出了一则摇撼人心的&lt;a href=&#34;http://www.infzm.com/content/123659&#34;&gt;新闻&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;新闻不大。简单说来就一句话：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;一对母子被催债黑帮拘禁、侮辱，儿子愤而刀刺讨债者致一死多伤。法院一审判以无期徒刑。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;就这？“杀人者死，伤人者刑”的原则，两千年来大家都认。摘要看起来没毛病啊，摇撼啥呢？&lt;/p&gt;
+
+&lt;p&gt;把折叠的关键词徐徐展开，细节立体而狰狞。女企业家向当地某富豪借了135万高利贷，偿还184万现金+70万房产后还是不够（月息10%）。于是债主找了11个黑社会去讨债。怎么讨的呢？先到厂里骚扰，堵门、埋灶，按送葬的标准来闹。次日，黑社会将母子俩拘禁在办公室：辱骂、掌掴、摁马桶、鞋子熏，带头人还当着其中儿子的面&lt;strong&gt;脱下裤子侮辱其母&lt;/strong&gt;。施暴不断升级的同时，债务人做了什么？当然是良民的自救SOP：第一日拨打110和市长热线，第二日电话报警。但热线没解决问题，警察只来刷了个脸，告诫黑社会“&lt;strong&gt;要账可以，不许动手打人&lt;/strong&gt;”，便启动警车要走（事后称去进一步了解情况）。女企业家的儿子当即失控，拿起水果刀&lt;strong&gt;刺死、刺伤该团伙多人&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;该事件被冠以“辱母杀人案”，在社交媒体上快速发酵。这个热词目前在百度、微博、微信都还搜不到（或者已经被屏蔽），但以之前并不出名的事发地“冠县”为题搜索，热词趋势如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>朝左还是朝右？来看一份17万行的小样本数据</title>
+      <link>http://madlogos.github.io/political-compass/</link>
+      <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/political-compass/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170305/left_right_wing_us.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;回味2016&#34;&gt;回味2016&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170305/2015113154244635.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;2017年已经热火朝天地过掉两个月。现在回过头去评价2016年，显得反射弧特别长。但我仍禁不住要多回头看两眼，因为直到现在，我还不能完全理解它。&lt;/p&gt;
+
+&lt;p&gt;表面看，鹄年一声炮响，送来了英国脱欧和Trump，以及无数脍炙人口的自媒体段子。华尔街全球化秩序的崩裂，给国际政治投下两个巨大的阴影。这源自30年前苏东剧变和中国改开，全球化捡到两个巨大的劳动力要素价值洼地，于是轰鸣运转、财源滚滚。而今红利渐渐吃尽，而劳动生产率其实并没有什么革命性增长，资本回报率一天不如一天，旧模式不免穷途末路。而它带来的副产物（贫富分化、难民危机、恐怖主义、债务危机）却开始反噬全球化主导经济体自身。所以在可以预计的未来，崩裂还将加速，阴影也将进一步扩大。&lt;/p&gt;
+
+&lt;p&gt;但崩裂成什么模样，并不好说。布雷顿森林体系崩裂，其实并没有闹出什么大浪来。但凡尔赛体系的崩裂，就直接导致了第二次世界大战。西晋帝国体系的崩溃，带来了长达五百年的大分裂。如果把回望尺度放大一点，2016年可能只是历史进程的左右摇摆周期中的一小部分。19世纪后期西方自由主义大发展，对内损害了平等，对外制造了殖民，结果殖民地红利吃尽后，在20世纪催生了两次世界大战，以及追求平等的共运和反殖民运动。然而平等主义在吃完战后红利就逐渐陷入了极权和经济乏力，于是新自由主义回潮。这波回潮绵延至今（构成了我们这代人迄今人生经历的主体），如今同样碰到了瓶颈，于是向平等转向的声音又高涨起来。每一次左右摇摆，几乎都伴随着战争、动乱和政经格局的洗牌。&lt;/p&gt;
+
+&lt;p&gt;每一次摇摆，大输家都是那些共识建设较差的社会。如果社会共识不能应付新的形势，或在形势变化面前发生断裂，都会增加内生动乱的风险。而赢家，则是把自身共识引领到世界的那个社会。&lt;/p&gt;
+
+&lt;p&gt;问题来了，&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
