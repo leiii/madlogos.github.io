@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="madlogos" /><meta name="description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。" />
+<meta name="author" content="迷幻主义搬砖号子" /><meta name="description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。" />
 <meta name="keywords" content="法定传染病, 疫情报告, 爬虫" />
 
 
@@ -28,7 +28,7 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://madlogos.github.io/infectdis_stat2/" />
+<link rel="canonical" href="http://madlogos.github.io/post/infectdis_stat2/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -48,7 +48,7 @@
 <meta property="og:title" content="一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据" />
 <meta property="og:description" content="用rvest爬取到卫计委法定传染病疫情月报的（坑爹）附件，通过构造工作函数，并行遍历，完成提取-&gt;清理-&gt;合并，获得一个真正可用的数据合集。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://madlogos.github.io/infectdis_stat2/" />
+<meta property="og:url" content="http://madlogos.github.io/post/infectdis_stat2/" />
 
 
 
@@ -59,6 +59,16 @@
 
 
 
+
+
+  
+  
+    <meta property="og:see_also" content="http://madlogos.github.io/post/infectdis_stat3/" />
+  
+    
+  
+    <meta property="og:see_also" content="http://madlogos.github.io/post/infectdis_stat1/" />
+  
 
 
 
@@ -205,11 +215,11 @@
 
 <p>满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。</p>
 
+<p></p>
+
 <blockquote>
 <p>有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到<a href="http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip">七牛云</a>。人人都可以免费用。</p>
 </blockquote>
-
-<p></p>
 
 <h2 id="docxtractr"><code>docxtractr</code></h2>
 
@@ -470,13 +480,16 @@ makeTsPlot &lt;- function(
 <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">madlogos</span>
+    <span class="item-content">迷幻主义搬砖号子</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">2017-04-15</span>
   </p>
-  
+  <p class="copyright-item">
+      <span class="item-title">原始文档</span>
+      <span class="item-content"><a class="link-to-markdown" href="http://madlogos.github.io/post/infectdis_stat2/index.md" target="_blank">查看本文 Markdown 版本 »</a></span>
+    </p>
   <p class="copyright-item">
     <span class="item-title">许可协议</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
@@ -492,12 +505,12 @@ makeTsPlot &lt;- function(
     
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/wechat.png">
+        <img class="image" src="/static/img/reward/wechat.png">
         <span>微信打赏</span>
       </label>
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/alipay.png">
+        <img class="image" src="/static/img/reward/alipay.png">
         <span>支付宝打赏</span>
       </label>
   </div>
@@ -517,13 +530,13 @@ makeTsPlot &lt;- function(
       
       <nav class="post-nav">
         
-          <a class="prev" href="infectdis_stat3">
+          <a class="prev" href="/post/infectdis_stat3/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
-          <a class="next" href="infectdis_stat1">
+          <a class="next" href="/post/infectdis_stat1/">
             <span class="next-text nav-default">一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>

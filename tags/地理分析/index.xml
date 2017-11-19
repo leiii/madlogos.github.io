@@ -14,10 +14,10 @@
     
     <item>
       <title>【动态图版】北宋、明清进士空间可视化分析</title>
-      <link>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</link>
+      <link>http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/</link>
       <pubDate>Sun, 30 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/song_ming_qing_jinshi_interactive/</guid>
+      <guid>http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;如果浏览器提示本文加载了不安全的脚本，请点允许。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -44,61 +44,15 @@
 
 &lt;p&gt;如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。&lt;/p&gt;
 
-&lt;h1 id=&#34;动画&#34;&gt;动画&lt;/h1&gt;
-
-&lt;p&gt;还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;用cut函数把连续变量切分成分段因子；&lt;/li&gt;
-&lt;li&gt;用sprintf格式化因子标签，否则会自动套用前开后闭科学计数法区间样式，表示年代比较怪；&lt;/li&gt;
-&lt;li&gt;各朝的分期不见得都对，我就随便分了下：
-
-&lt;ul&gt;
-&lt;li&gt;北宋(960-1127)：以1021、1085分期，大体对应真宗/仁宗、神宗/哲宗；&lt;/li&gt;
-&lt;li&gt;明朝(1668-1644)：以1434、1572分期，大体对应宣宗(宣德)/英宗、穆宗(隆庆)/神宗(万历)；&lt;/li&gt;
-&lt;li&gt;清朝(1644-1911)：以1735、1850分期，大体对应世宗(雍正)/高宗(乾隆)、宣宗(道光)/文宗(咸丰)。&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(animation)
-nsong.js$period &amp;lt;- cut(
-    nsong.js$EntryYear, c(960, 1021, 1085, 1127), include.lowest=TRUE,
-    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
-ming.js$period &amp;lt;- cut(
-    ming.js$EntryYear, c(1368, 1434, 1572, 1644), include.lowest=TRUE,
-    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
-qing.js$period &amp;lt;- cut(
-    qing.js$EntryYear, c(1644, 1735, 1850, 1911), include.lowest=TRUE,
-    labels=paste(sprintf(&amp;quot;%4d&amp;quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&amp;quot;%4d&amp;quot;, cutyears[2:length(cutyears)]), sep=&amp;quot;-&amp;quot;))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;各自切片统计，再做成.gif动画。这里设置动画间隔为2秒，每一帧大小都是640×480像素。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;oopt &amp;lt;- ani.options(interval=2, ani.width=640, ani.height=480)
-saveGIF({
-    for (i in levels(nsong.js$period)){
-        print(p.song + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
-        data=nsong.js[nsong.js$period==i,], geom=&amp;quot;polygon&amp;quot;, alpha=0.5) +
-        scale_fill_gradient(low=&amp;quot;cyan&amp;quot;, high=&amp;quot;darkblue&amp;quot;)+
-        ggtitle(paste0(&amp;quot;北宋进士来源地 (&amp;quot;, i, &amp;quot;)&amp;quot;)))
-    }
-}, &amp;quot;song.gif&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>北宋、明清进士空间分析</title>
-      <link>http://madlogos.github.io/song_ming_qing_jinshi/</link>
+      <link>http://madlogos.github.io/post/song_ming_qing_jinshi/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/song_ming_qing_jinshi/</guid>
+      <guid>http://madlogos.github.io/post/song_ming_qing_jinshi/</guid>
       <description>&lt;h1 id=&#34;哈佛人文地理可视化平台&#34;&gt;哈佛人文地理可视化平台&lt;/h1&gt;
 
 &lt;p&gt;周末找在线GIS素材，误打误撞进到了worldmap.harvard.edu——一座名副其实的学术宝库。它是哈佛大学搞的一个&lt;strong&gt;开源&lt;/strong&gt;地理可视化平台，社会、经济、历史学科的学者可以自己创建、上传数据集，方便地做多图层地理可视化。这个设计充满学术理想，也为有志于成为世界一流名校的大学树立了一座看得见摸得着的价值标杆：&lt;strong&gt;卓越、开放、自治、共享&lt;/strong&gt;。&lt;/p&gt;
@@ -113,21 +67,12 @@ saveGIF({
 
 &lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170423/cbdb_data.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这就十分厉害了：
-1. CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；
-2. WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。&lt;/p&gt;
+&lt;p&gt;这就十分厉害了：&lt;/p&gt;
 
-&lt;h1 id=&#34;进士最大来源地&#34;&gt;进士最大来源地？&lt;/h1&gt;
-
-&lt;p&gt;先把北宋、明、清三个进士数据集都载入R。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(readr)
-nsong.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_NSong_WGS84_kto.csv&amp;quot;)
-ming.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Ming_WGS84_MbJ.csv&amp;quot;)
-qing.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Qing_WGS84_GWU.csv&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;简单看一下哪个地方来的进士最多。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；&lt;/li&gt;
+&lt;li&gt;WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>

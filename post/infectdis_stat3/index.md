@@ -245,4 +245,3 @@ makeTsPlot(dat.flu, "流感每月发病数", xlab="年月", ylab="例数", gvar=
 ----
 
 <img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img>
-

@@ -13,8 +13,11 @@
 ![](http://ohghnje4x.bkt.clouddn.com/image/170423/cbdb_data.png)
 
 这就十分厉害了：
+
 1. CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；
 2. WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。
+
+<!--more-->
 
 # 进士最大来源地？
 
@@ -28,8 +31,6 @@ qing.js <- read_csv("下载/CBDB_exams_Qing_WGS84_GWU.csv")
 ```
 
 简单看一下哪个地方来的进士最多。
-
-<!--more-->
 
 ## 北宋
 
@@ -514,4 +515,3 @@ for (famName in c(
 ----
 
 <img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img>
-

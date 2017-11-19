@@ -18,6 +18,8 @@ R有个名包，叫animation，可以用它压制.gif，用在社交媒体效果
 
 如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。
 
+<!--more-->
+
 # 动画
 
 还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。
@@ -60,8 +62,6 @@ saveGIF({
 ```
 
 ![](http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif)
-
-<!--more-->
 
 很明显，前期京畿还很有优势，仁宗开始江南大盛，到神宗以后就是闽人大盛。热力分布持续东南移。
 
@@ -295,7 +295,7 @@ knitr::kable(js.order[order(js.order$`(all)`, decreasing=TRUE),])
 
 [点开查看源文件](http://ohghnje4x.bkt.clouddn.com/html/170430/city.html)
 
-然后是省级排名。
+### 然后是省级排名
 
 ```r
 js.order.prov <- dcast(js.belong, NAME_1~DYNASTY, sum, value.var=".", margins="DYNASTY")
@@ -359,4 +359,3 @@ echartR(js.order.ec, CN, value, t=variable, type="map_china", subtype="average")
 ----
 
 <img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img>
-

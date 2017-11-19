@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="madlogos" /><meta name="description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。" />
+<meta name="author" content="迷幻主义搬砖号子" /><meta name="description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。" />
 <meta name="keywords" content="“进士”, “北宋”, “明清”, “空间”, “地理”, “GIS”, “CBDB”" />
 
 
@@ -28,7 +28,7 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://madlogos.github.io/song_ming_qing_jinshi_interactive/" />
+<link rel="canonical" href="http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -48,7 +48,7 @@
 <meta property="og:title" content="【动态图版】北宋、明清进士空间可视化分析" />
 <meta property="og:description" content="利用animiation、ECharts2和leaflet将进士地理信息动态可视化到地图上。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://madlogos.github.io/song_ming_qing_jinshi_interactive/" />
+<meta property="og:url" content="http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/" />
 
 
 
@@ -59,6 +59,14 @@
 
 
 
+
+
+  
+  
+    
+  
+    <meta property="og:see_also" content="http://madlogos.github.io/post/song_ming_qing_jinshi/" />
+  
 
 
 
@@ -72,7 +80,7 @@
 
 <meta itemprop="datePublished" content="2017-04-30T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2017-04-30T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="3463">
+<meta itemprop="wordCount" content="3462">
 
 
 
@@ -154,7 +162,7 @@
               <a href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/"> 可视化 </a>
             
           </div>
-        <span class="more-meta"> 约 3463 字 </span>
+        <span class="more-meta"> 约 3462 字 </span>
         <span class="more-meta"> 预计阅读 7 分钟 </span>
       </div>
     </header>
@@ -175,6 +183,7 @@
 <li><a href="#进士数排名">进士数排名</a>
 <ul>
 <li><a href="#先是市级排名">先是市级排名</a></li>
+<li><a href="#然后是省级排名">然后是省级排名</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -209,6 +218,8 @@
 <p>把统计数据绑定到JavaScript控件上，定义好交互方法，用户即可在网页上通过控件操作来调整视觉呈现（切片、缩放、改变类型等）。RStudio发过一个工具框架包htmlwidgets，可以很方便地把已有的JavaScript可视化库移植到R。我们今天就要用到其中的两个：ECharts2和leaflet。</p>
 
 <p>如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。</p>
+
+<p></p>
 
 <h1 id="动画">动画</h1>
 
@@ -255,8 +266,6 @@ saveGIF({
 </code></pre>
 
 <p><img src="http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif" alt="" /></p>
-
-<p></p>
 
 <p>很明显，前期京畿还很有优势，仁宗开始江南大盛，到神宗以后就是闽人大盛。热力分布持续东南移。</p>
 
@@ -642,7 +651,7 @@ knitr::kable(js.order[order(js.order$`(all)`, decreasing=TRUE),])
 
 <p><a href="http://ohghnje4x.bkt.clouddn.com/html/170430/city.html">点开查看源文件</a></p>
 
-<p>然后是省级排名。</p>
+<h3 id="然后是省级排名">然后是省级排名</h3>
 
 <pre><code class="language-r">js.order.prov &lt;- dcast(js.belong, NAME_1~DYNASTY, sum, value.var=&quot;.&quot;, margins=&quot;DYNASTY&quot;)
 knitr::kable(js.order.prov[order(js.order.prov$`(all)`, decreasing=TRUE),])
@@ -939,13 +948,16 @@ echartR(js.order.ec, CN, value, t=variable, type=&quot;map_china&quot;, subtype=
 <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">madlogos</span>
+    <span class="item-content">迷幻主义搬砖号子</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">2017-04-30</span>
   </p>
-  
+  <p class="copyright-item">
+      <span class="item-title">原始文档</span>
+      <span class="item-content"><a class="link-to-markdown" href="http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/index.md" target="_blank">查看本文 Markdown 版本 »</a></span>
+    </p>
   <p class="copyright-item">
     <span class="item-title">许可协议</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
@@ -961,12 +973,12 @@ echartR(js.order.ec, CN, value, t=variable, type=&quot;map_china&quot;, subtype=
     
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/wechat.png">
+        <img class="image" src="/static/img/reward/wechat.png">
         <span>微信打赏</span>
       </label>
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/alipay.png">
+        <img class="image" src="/static/img/reward/alipay.png">
         <span>支付宝打赏</span>
       </label>
   </div>
@@ -987,7 +999,7 @@ echartR(js.order.ec, CN, value, t=variable, type=&quot;map_china&quot;, subtype=
       <nav class="post-nav">
         
         
-          <a class="next" href="song_ming_qing_jinshi">
+          <a class="next" href="/post/song_ming_qing_jinshi/">
             <span class="next-text nav-default">北宋、明清进士空间分析</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>

@@ -14,10 +14,10 @@
     
     <item>
       <title>北宋、明清进士空间分析</title>
-      <link>http://madlogos.github.io/song_ming_qing_jinshi/</link>
+      <link>http://madlogos.github.io/post/song_ming_qing_jinshi/</link>
       <pubDate>Sun, 23 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/song_ming_qing_jinshi/</guid>
+      <guid>http://madlogos.github.io/post/song_ming_qing_jinshi/</guid>
       <description>&lt;h1 id=&#34;哈佛人文地理可视化平台&#34;&gt;哈佛人文地理可视化平台&lt;/h1&gt;
 
 &lt;p&gt;周末找在线GIS素材，误打误撞进到了worldmap.harvard.edu——一座名副其实的学术宝库。它是哈佛大学搞的一个&lt;strong&gt;开源&lt;/strong&gt;地理可视化平台，社会、经济、历史学科的学者可以自己创建、上传数据集，方便地做多图层地理可视化。这个设计充满学术理想，也为有志于成为世界一流名校的大学树立了一座看得见摸得着的价值标杆：&lt;strong&gt;卓越、开放、自治、共享&lt;/strong&gt;。&lt;/p&gt;
@@ -32,31 +32,22 @@
 
 &lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170423/cbdb_data.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;这就十分厉害了：
-1. CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；
-2. WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。&lt;/p&gt;
+&lt;p&gt;这就十分厉害了：&lt;/p&gt;
 
-&lt;h1 id=&#34;进士最大来源地&#34;&gt;进士最大来源地？&lt;/h1&gt;
-
-&lt;p&gt;先把北宋、明、清三个进士数据集都载入R。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(readr)
-nsong.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_NSong_WGS84_kto.csv&amp;quot;)
-ming.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Ming_WGS84_MbJ.csv&amp;quot;)
-qing.js &amp;lt;- read_csv(&amp;quot;下载/CBDB_exams_Qing_WGS84_GWU.csv&amp;quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;简单看一下哪个地方来的进士最多。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；&lt;/li&gt;
+&lt;li&gt;WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat3/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat3/</link>
       <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat3/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat3/</guid>
       <description>&lt;h1 id=&#34;甲乙丙类每月发病-死亡数&#34;&gt;甲乙丙类每月发病、死亡数&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(data.table)
@@ -105,10 +96,10 @@ makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, y
     
     <item>
       <title>一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat2/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat2/</link>
       <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat2/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat2/</guid>
       <description>&lt;h1 id=&#34;数据提取&#34;&gt;数据提取&lt;/h1&gt;
 
 &lt;p&gt;现在，可以着手把存储在附件里的信息结构化提取出来了。但在这之前，还有一个硬骨头要啃。&lt;/p&gt;
@@ -130,19 +121,15 @@ makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, y
 
 &lt;p&gt;满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到&lt;a href=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip&#34;&gt;七牛云&lt;/a&gt;。人人都可以免费用。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat1/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat1/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat1/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat1/</guid>
       <description>&lt;h1 id=&#34;带怀旧色彩的源起&#34;&gt;带怀旧色彩的源起&lt;/h1&gt;
 
 &lt;p&gt;清明节跑去一个休闲浴场&lt;del&gt;鬼混&lt;/del&gt;，在电影厅懒散地看掉了《生化危机6》。场地很豪华（但我就是不透露门牌地址），然而剧情不怎么样——女主光环实在太亮了。倒是病毒-丧尸-疫苗的急性传染病建模设定引起了我的一些职业回忆。&lt;/p&gt;
@@ -168,10 +155,10 @@ makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, y
     
     <item>
       <title>朝左还是朝右？来看一份17万行的小样本数据</title>
-      <link>http://madlogos.github.io/political-compass/</link>
+      <link>http://madlogos.github.io/post/political-compass/</link>
       <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/political-compass/</guid>
+      <guid>http://madlogos.github.io/post/political-compass/</guid>
       <description>&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/image/170305/left_right_wing_us.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
 &lt;h1 id=&#34;回味2016&#34;&gt;回味2016&lt;/h1&gt;

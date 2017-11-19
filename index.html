@@ -140,7 +140,7 @@
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="song_ming_qing_jinshi_interactive">【动态图版】北宋、明清进士空间可视化分析</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/song_ming_qing_jinshi_interactive/">【动态图版】北宋、明清进士空间可视化分析</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-04-30 </span>
       <div class="post-category">
@@ -148,7 +148,7 @@
             <a href="/categories/%E5%8F%AF%E8%A7%86%E5%8C%96/"> 可视化 </a>
           
         </div>
-      <span class="more-meta"> 约 3463 字 </span>
+      <span class="more-meta"> 约 3462 字 </span>
       <span class="more-meta"> 预计阅读 7 分钟 </span>
     </div>
   </header>
@@ -181,56 +181,10 @@
 
 <p>如果再进一步，就是数据交互面板了。R有shiny及其系列衍生品，比如flexboard。想象一下作战室交互图仪表盘面板，几行命令就做出来了。简直酷炫。但是这需要部署在shiny服务器上。</p>
 
-<h1 id="动画">动画</h1>
-
-<p>还是用前次的数据集，再画一下各朝的进士地理热图。但这次变个花样，我们先把北宋、明、清都按前、中、后分一下期。</p>
-
-<ul>
-<li>用cut函数把连续变量切分成分段因子；</li>
-<li>用sprintf格式化因子标签，否则会自动套用前开后闭科学计数法区间样式，表示年代比较怪；</li>
-<li>各朝的分期不见得都对，我就随便分了下：
-
-<ul>
-<li>北宋(960-1127)：以1021、1085分期，大体对应真宗/仁宗、神宗/哲宗；</li>
-<li>明朝(1668-1644)：以1434、1572分期，大体对应宣宗(宣德)/英宗、穆宗(隆庆)/神宗(万历)；</li>
-<li>清朝(1644-1911)：以1735、1850分期，大体对应世宗(雍正)/高宗(乾隆)、宣宗(道光)/文宗(咸丰)。</li>
-</ul></li>
-</ul>
-
-<pre><code class="language-r">library(animation)
-nsong.js$period &lt;- cut(
-    nsong.js$EntryYear, c(960, 1021, 1085, 1127), include.lowest=TRUE,
-    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
-ming.js$period &lt;- cut(
-    ming.js$EntryYear, c(1368, 1434, 1572, 1644), include.lowest=TRUE,
-    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
-qing.js$period &lt;- cut(
-    qing.js$EntryYear, c(1644, 1735, 1850, 1911), include.lowest=TRUE,
-    labels=paste(sprintf(&quot;%4d&quot;, cutyears[1:(length(cutyears)-1)]),
-                 sprintf(&quot;%4d&quot;, cutyears[2:length(cutyears)]), sep=&quot;-&quot;))
-</code></pre>
-
-<p>各自切片统计，再做成.gif动画。这里设置动画间隔为2秒，每一帧大小都是640×480像素。</p>
-
-<pre><code class="language-r">oopt &lt;- ani.options(interval=2, ani.width=640, ani.height=480)
-saveGIF({
-    for (i in levels(nsong.js$period)){
-        print(p.song + stat_density_2d(aes(x_coord, y_coord, fill=..level..), 
-        data=nsong.js[nsong.js$period==i,], geom=&quot;polygon&quot;, alpha=0.5) +
-        scale_fill_gradient(low=&quot;cyan&quot;, high=&quot;darkblue&quot;)+
-        ggtitle(paste0(&quot;北宋进士来源地 (&quot;, i, &quot;)&quot;)))
-    }
-}, &quot;song.gif&quot;)
-</code></pre>
-
-<p><img src="http://ohghnje4x.bkt.clouddn.com/image/170430/song.gif" alt="" /></p>
-
 <p></p>
     </div>
     <div class="read-more">
-      <a href="song_ming_qing_jinshi_interactive" class="read-more-link">阅读更多</a>
+      <a href="/post/song_ming_qing_jinshi_interactive/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -238,7 +192,7 @@ saveGIF({
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="song_ming_qing_jinshi">北宋、明清进士空间分析</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/song_ming_qing_jinshi/">北宋、明清进士空间分析</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-04-23 </span>
       <div class="post-category">
@@ -246,7 +200,7 @@ saveGIF({
             <a href="/categories/%E6%95%B0%E6%8D%AE/"> 数据 </a>
           
         </div>
-      <span class="more-meta"> 约 5502 字 </span>
+      <span class="more-meta"> 约 5500 字 </span>
       <span class="more-meta"> 预计阅读 11 分钟 </span>
     </div>
   </header>
@@ -267,26 +221,17 @@ saveGIF({
 
 <p><img src="http://ohghnje4x.bkt.clouddn.com/image/170423/cbdb_data.png" alt="" /></p>
 
-<p>这就十分厉害了：
-1. CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；
-2. WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。</p>
+<p>这就十分厉害了：</p>
 
-<h1 id="进士最大来源地">进士最大来源地？</h1>
-
-<p>先把北宋、明、清三个进士数据集都载入R。</p>
-
-<pre><code class="language-r">library(readr)
-nsong.js &lt;- read_csv(&quot;下载/CBDB_exams_NSong_WGS84_kto.csv&quot;)
-ming.js &lt;- read_csv(&quot;下载/CBDB_exams_Ming_WGS84_MbJ.csv&quot;)
-qing.js &lt;- read_csv(&quot;下载/CBDB_exams_Qing_WGS84_GWU.csv&quot;)
-</code></pre>
-
-<p>简单看一下哪个地方来的进士最多。</p>
+<ol>
+<li>CBDB，是大名鼎鼎的哈佛中国历代人物传记数据库(China Biographical Database)。这个图层的基础，来自CBDB，可靠性就有保障了。这个数据库内容非常丰富，后面还会用到；</li>
+<li>WGS84，说明坐标系用的是WGS-84坐标系，所以只要利用基于WGS-84的GIS工具，就不需要针对GCJ-02或BD-09做逆偏置了。</li>
+</ol>
 
 <p></p>
     </div>
     <div class="read-more">
-      <a href="song_ming_qing_jinshi" class="read-more-link">阅读更多</a>
+      <a href="/post/song_ming_qing_jinshi/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -294,7 +239,7 @@ qing.js &lt;- read_csv(&quot;下载/CBDB_exams_Qing_WGS84_GWU.csv&quot;)
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="infectdis_stat3">一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/infectdis_stat3/">一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-04-16 </span>
       <div class="post-category">
@@ -355,7 +300,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
 <p></p>
     </div>
     <div class="read-more">
-      <a href="infectdis_stat3" class="read-more-link">阅读更多</a>
+      <a href="/post/infectdis_stat3/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -363,7 +308,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="infectdis_stat2">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/infectdis_stat2/">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-04-15 </span>
       <div class="post-category">
@@ -399,14 +344,10 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
 
 <p>满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。</p>
 
-<blockquote>
-<p>有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到<a href="http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip">七牛云</a>。人人都可以免费用。</p>
-</blockquote>
-
 <p></p>
     </div>
     <div class="read-more">
-      <a href="infectdis_stat2" class="read-more-link">阅读更多</a>
+      <a href="/post/infectdis_stat2/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -414,7 +355,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="infectdis_stat1">一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/infectdis_stat1/">一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-04-07 </span>
       <div class="post-category">
@@ -452,7 +393,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
 <p></p>
     </div>
     <div class="read-more">
-      <a href="infectdis_stat1" class="read-more-link">阅读更多</a>
+      <a href="/post/infectdis_stat1/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -460,7 +401,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="defensive-assassin">礼法两难的辱母杀人案</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/defensive-assassin/">礼法两难的辱母杀人案</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-03-25 </span>
       <div class="post-category">
@@ -496,7 +437,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
 <p></p>
     </div>
     <div class="read-more">
-      <a href="defensive-assassin" class="read-more-link">阅读更多</a>
+      <a href="/post/defensive-assassin/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>
@@ -504,7 +445,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
     
       <article class="post">
   <header class="post-header">
-    <h1 class="post-title"><a class="post-link" href="political-compass">朝左还是朝右？来看一份17万行的小样本数据</a></h1>
+    <h1 class="post-title"><a class="post-link" href="/post/political-compass/">朝左还是朝右？来看一份17万行的小样本数据</a></h1>
     <div class="post-meta">
       <span class="post-time"> 2017-03-05 </span>
       <div class="post-category">
@@ -538,7 +479,7 @@ makeTsPlot(sta, &quot;法定传染病平均月死亡数&quot;, unit=1, ylab=&quo
 <p></p>
     </div>
     <div class="read-more">
-      <a href="political-compass" class="read-more-link">阅读更多</a>
+      <a href="/post/political-compass/" class="read-more-link">阅读更多</a>
     </div>
   </div>
 </article>

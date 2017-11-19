@@ -507,4 +507,3 @@ ggplot() + geom_point(aes(话题, 均值, color = 性别), data = summ) +
 ---
 
 <img src="http://ohghnje4x.bkt.clouddn.com/QRcode.jpg" width="50%">扫码关注我的的我的公众号</img>
-

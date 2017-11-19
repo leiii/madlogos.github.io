@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
 
-<meta name="author" content="madlogos" /><meta name="description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。" />
+<meta name="author" content="迷幻主义搬砖号子" /><meta name="description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。" />
 <meta name="keywords" content="法定传染病, 疫情报告, 爬虫" />
 
 
@@ -28,7 +28,7 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://madlogos.github.io/infectdis_stat1/" />
+<link rel="canonical" href="http://madlogos.github.io/post/infectdis_stat1/" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -48,7 +48,7 @@
 <meta property="og:title" content="一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据" />
 <meta property="og:description" content="卫计委每月发布全国法定传染病疫情公告，包含甲乙丙三类传染病的发病和死亡统计。本打算趁清明假期（什么鬼），用rvest包写个简单的脚本，爬下来分析玩。不料遇到许多莫名其妙的坑。最后，好好一个【爬虫工程】变成了【批处理下载】，十分胸闷。拜托卫计委要继续提高自己的姿势水平。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="http://madlogos.github.io/infectdis_stat1/" />
+<meta property="og:url" content="http://madlogos.github.io/post/infectdis_stat1/" />
 
 
 
@@ -59,6 +59,16 @@
 
 
 
+
+
+  
+  
+    <meta property="og:see_also" content="http://madlogos.github.io/post/infectdis_stat3/" />
+  
+    <meta property="og:see_also" content="http://madlogos.github.io/post/infectdis_stat2/" />
+  
+    
+  
 
 
 
@@ -587,13 +597,16 @@ foreach(i=seq_along(toc$href)) %dopar%
 <div class="post-copyright">
   <p class="copyright-item">
     <span class="item-title">文章作者</span>
-    <span class="item-content">madlogos</span>
+    <span class="item-content">迷幻主义搬砖号子</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">上次更新</span>
     <span class="item-content">2017-04-07</span>
   </p>
-  
+  <p class="copyright-item">
+      <span class="item-title">原始文档</span>
+      <span class="item-content"><a class="link-to-markdown" href="http://madlogos.github.io/post/infectdis_stat1/index.md" target="_blank">查看本文 Markdown 版本 »</a></span>
+    </p>
   <p class="copyright-item">
     <span class="item-title">许可协议</span>
     <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
@@ -609,12 +622,12 @@ foreach(i=seq_along(toc$href)) %dopar%
     
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/wechat.png">
+        <img class="image" src="/static/img/reward/wechat.png">
         <span>微信打赏</span>
       </label>
     
       <label class="qr-code-image" for="reward">
-        <img class="image" src="/layouts/reward/alipay.png">
+        <img class="image" src="/static/img/reward/alipay.png">
         <span>支付宝打赏</span>
       </label>
   </div>
@@ -634,13 +647,13 @@ foreach(i=seq_along(toc$href)) %dopar%
       
       <nav class="post-nav">
         
-          <a class="prev" href="infectdis_stat2">
+          <a class="prev" href="/post/infectdis_stat2/">
             <i class="iconfont icon-left"></i>
             <span class="prev-text nav-default">一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</span>
             <span class="prev-text nav-mobile">上一篇</span>
           </a>
         
-          <a class="next" href="defensive-assassin">
+          <a class="next" href="/post/defensive-assassin/">
             <span class="next-text nav-default">礼法两难的辱母杀人案</span>
             <span class="prev-text nav-mobile">下一篇</span>
             <i class="iconfont icon-right"></i>

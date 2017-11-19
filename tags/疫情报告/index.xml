@@ -14,10 +14,10 @@
     
     <item>
       <title>一次不太成功的搬砖（下）：rvest爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat3/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat3/</link>
       <pubDate>Sun, 16 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat3/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat3/</guid>
       <description>&lt;h1 id=&#34;甲乙丙类每月发病-死亡数&#34;&gt;甲乙丙类每月发病、死亡数&lt;/h1&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(data.table)
@@ -66,10 +66,10 @@ makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, y
     
     <item>
       <title>一次不太成功的搬砖（中）：rvest爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat2/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat2/</link>
       <pubDate>Sat, 15 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat2/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat2/</guid>
       <description>&lt;h1 id=&#34;数据提取&#34;&gt;数据提取&lt;/h1&gt;
 
 &lt;p&gt;现在，可以着手把存储在附件里的信息结构化提取出来了。但在这之前，还有一个硬骨头要啃。&lt;/p&gt;
@@ -91,19 +91,15 @@ makeTsPlot(sta, &amp;quot;法定传染病平均月死亡数&amp;quot;, unit=1, y
 
 &lt;p&gt;满脸辛酸地处理完了这些杂碎，把doc和xls存作docx和xlsx，接下来总算能把它们当成正常的xml来处理了。&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;有读者留言提到，这些数据其实都可以从公共卫生信息网申请到。没错。但是作为数据公开党，我对这种公共数据管制甚至收费牟利的做法非常不屑。这根本不符合如今的时代精神。本文提到的这些结构化数据文档，都已打包存到&lt;a href=&#34;http://ohghnje4x.bkt.clouddn.com/image/170415/infect_dis_stat.zip&#34;&gt;七牛云&lt;/a&gt;。人人都可以免费用。&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>
       <title>一次不太成功的搬砖（上）：爬取法定传染病疫情月报数据</title>
-      <link>http://madlogos.github.io/infectdis_stat1/</link>
+      <link>http://madlogos.github.io/post/infectdis_stat1/</link>
       <pubDate>Fri, 07 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://madlogos.github.io/infectdis_stat1/</guid>
+      <guid>http://madlogos.github.io/post/infectdis_stat1/</guid>
       <description>&lt;h1 id=&#34;带怀旧色彩的源起&#34;&gt;带怀旧色彩的源起&lt;/h1&gt;
 
 &lt;p&gt;清明节跑去一个休闲浴场&lt;del&gt;鬼混&lt;/del&gt;，在电影厅懒散地看掉了《生化危机6》。场地很豪华（但我就是不透露门牌地址），然而剧情不怎么样——女主光环实在太亮了。倒是病毒-丧尸-疫苗的急性传染病建模设定引起了我的一些职业回忆。&lt;/p&gt;
