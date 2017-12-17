@@ -3,6 +3,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://madlogos.github.io/post/imacros_zyb_cnaps_scrapy/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>http://madlogos.github.io/post/song_ming_qing_jinshi_interactive/</loc>
     <lastmod>2017-04-30T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -58,15 +65,29 @@
   </url>
   
   <url>
+    <loc>http://madlogos.github.io/tags/cnaps/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://madlogos.github.io/tags/imacros/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://madlogos.github.io/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://madlogos.github.io/post/</loc>
-    <lastmod>2017-04-30T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -86,7 +107,7 @@
   
   <url>
     <loc>http://madlogos.github.io/tags/</loc>
-    <lastmod>2017-04-16T00:00:00+00:00</lastmod>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
@@ -127,14 +148,21 @@
   </url>
   
   <url>
-    <loc>http://madlogos.github.io/tags/%E6%94%BF%E6%B2%BB%E5%9D%90%E6%A0%87/</loc>
-    <lastmod>2017-03-05T00:00:00+00:00</lastmod>
+    <loc>http://madlogos.github.io/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>http://madlogos.github.io/series/%E6%94%BF%E6%B2%BB%E5%9D%90%E6%A0%87/</loc>
+    <lastmod>2017-03-05T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://madlogos.github.io/tags/%E6%94%BF%E6%B2%BB%E5%9D%90%E6%A0%87/</loc>
     <lastmod>2017-03-05T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
@@ -169,6 +197,13 @@
   </url>
   
   <url>
+    <loc>http://madlogos.github.io/tags/%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>http://madlogos.github.io/tags/%E7%96%AB%E6%83%85%E6%8A%A5%E5%91%8A/</loc>
     <lastmod>2017-04-16T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
@@ -178,6 +213,20 @@
   <url>
     <loc>http://madlogos.github.io/tags/%E7%A4%BC%E6%B3%95/</loc>
     <lastmod>2017-03-25T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://madlogos.github.io/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://madlogos.github.io/series/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%88%AC%E5%8F%96/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0</priority>
   </url>

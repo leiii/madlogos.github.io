@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cnaps on Libido Chateau</title>
+    <link>http://madlogos.github.io/tags/cnaps/</link>
+    <description>Recent content in Cnaps on Libido Chateau</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>cn</language>
+    <copyright>madlogos</copyright>
+    <lastBuildDate>Tue, 28 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://madlogos.github.io/tags/cnaps/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>iMacros脚本运行了三天，爬取了40万行现代化支付行号数据</title>
+      <link>http://madlogos.github.io/post/imacros_zyb_cnaps_scrapy/</link>
+      <pubDate>Tue, 28 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>http://madlogos.github.io/post/imacros_zyb_cnaps_scrapy/</guid>
+      <description>&lt;h2 id=&#34;离题万里的开场&#34;&gt;离题万里的开场&lt;/h2&gt;
+
+&lt;p&gt;码农界有个著名的“三次法则 (rule of three)”：&lt;strong&gt;如果一段代码重复出现了三次，就要考虑抽出来写一个子程序，以便复用&lt;/strong&gt;。这是条宝贵的法则，可以衍生出更多的强迫症版本，随随便便就能举出很多喜闻乐见的例子，比如：&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;一个词在同一句话里出现三次就不能忍，必须换近义词；&lt;/li&gt;
+&lt;li&gt;一件事手动做三次就不能忍，必须写程序自动化；&lt;/li&gt;
+&lt;li&gt;一顿饭重复吃三口就不能忍，必须开发一个喂饭机；&lt;/li&gt;
+&lt;li&gt;同一处空气重复呼吸三口就不能忍，必须装一台呼吸机&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;……&lt;/p&gt;
+
+&lt;p&gt;发人深省，对不对？这些正是当今最严肃而真实的信仰，有着最为坚定的践行者。&lt;del&gt;在古代&lt;/del&gt;2015年全球最大的雄性交友平台GitHub上出了个网红毛子码农、脚本狂魔&lt;a href=&#34;https://github.com/NARKOZ/hacker-scripts&#34;&gt;Narkoz&lt;/a&gt;，他的人生原则是：&lt;strong&gt;如果一件事要耗费自己90秒以上，那就写个脚本&lt;/strong&gt;。这些奇葩的脚本包括：如加班到21点以后就自动给老婆发马屁短信、收到蠢货DBA的任何求助邮件后自动恢复数据库的最近备份、让咖啡机等待17秒然后煮杯咖啡并等待24秒再灌入杯子（正好是作者起身走到咖啡机前的耗时）……&lt;/p&gt;
+
+&lt;p&gt;从时间效益的经济学评价来讲，这个准则烂透了。这好比为了节约每天通勤的公交车钱，去买了一辆跑车。但跑车本身还是很拉风的。若能竖立起极客死宅的品牌形象，还是可能会产生某些&lt;strong&gt;潜在的&lt;/strong&gt;溢价——比如说，会有更多的人请你修电脑。&lt;/p&gt;
+
+&lt;p&gt;判断一个人是否天生适合当码农，很重要的一点就是看他/她有没有这种懒癌强迫症。而这种强迫症的形上学本质是：&lt;strong&gt;对自由王国的无尽向往&lt;/strong&gt;。——重复劳动太蠢了，它侮辱人类的尊严，阻碍我们证法悟道，必须消灭。这就是自动化的诞生。&lt;/p&gt;
+
+&lt;p&gt;所以——尽管技术上跌跌撞撞，也并不妨碍我隔三差五搞个三脚猫爬虫出来。这回的主题又跳跃了：爬取现代化支付行号。&lt;/p&gt;
+
+&lt;h2 id=&#34;这就带来了第一个问题&#34;&gt;这就带来了第一个问题&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ohghnje4x.bkt.clouddn.com/meme/yilianmengbi.jpg&#34; alt=&#34;蛤？这是啥？&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
